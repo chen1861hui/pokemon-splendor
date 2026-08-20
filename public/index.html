@@ -1,0 +1,276 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#13221b">
+    <title>Pokémon Splendor</title>
+    <link rel="icon" type="image/png" href="/assets/balls/poke-ball.png">
+    <link rel="stylesheet" href="/styles.css">
+  </head>
+  <body>
+    <div class="page-shell">
+      <header class="site-header">
+        <a class="brand" href="/" aria-label="Pokémon Splendor home">
+          <span class="brand-mark" aria-hidden="true"><i></i></span>
+          <span>Pokémon <strong>Splendor</strong></span>
+        </a>
+        <div class="header-actions">
+          <div id="roomBadge" class="room-badge hidden"></div>
+          <label class="background-nav-control" for="backgroundSelect">
+            <span aria-hidden="true">🗺</span>
+            <select id="backgroundSelect" aria-label="Personal game background"></select>
+          </label>
+          <button id="pokedexButton" class="rules-button pokedex-button" type="button" aria-haspopup="dialog" aria-controls="pokedexDialog">
+            <span aria-hidden="true">✓</span> <b data-i18n="pokedex">Pokédex</b> <small id="pokedexProgress">0/0</small>
+          </button>
+          <button id="languageButton" class="language-button" type="button" aria-label="Switch language">中文</button>
+          <button id="rulesButton" class="rules-button" type="button" aria-haspopup="dialog" aria-controls="rulesDialog">
+            <span aria-hidden="true">?</span> <b data-i18n="gameRules">Game rules</b>
+          </button>
+        </div>
+      </header>
+
+      <main>
+        <section id="welcomeView" class="welcome-view">
+          <div class="hero-copy">
+            <p class="eyebrow" data-i18n="heroEyebrow">A private trainer challenge</p>
+            <h1><span data-i18n="heroTitle">Catch. Collect.</span><br><em data-i18n="heroTitleAccent">Become Champion.</em></h1>
+            <p class="hero-description" data-i18n="heroDescription">Catch Pokémon, collect Poké Balls, and race your friends to 18 victory points. No accounts or installation required.</p>
+            <div class="feature-row" aria-label="Game features">
+              <span data-i18n="playersFeature">2–4 players</span>
+              <span data-i18n="privateRooms">Private rooms</span>
+              <span data-i18n="liveTurns">Live turns</span>
+            </div>
+            <img class="hero-pokemon" data-pokemon-sprite src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/25.gif" data-fallback-src="/assets/pokemon/25.png" alt="Pikachu" aria-hidden="true">
+          </div>
+
+          <div class="entry-card">
+            <div class="tab-list" role="tablist">
+              <button class="tab active" data-tab="create" role="tab" data-i18n="createRoom">Create room</button>
+              <button class="tab" data-tab="join" role="tab" data-i18n="joinRoom">Join room</button>
+            </div>
+            <form id="roomForm">
+              <label for="playerName" data-i18n="trainerName">Trainer name</label>
+              <input id="playerName" name="playerName" maxlength="24" autocomplete="nickname" placeholder="e.g. Red" data-i18n-placeholder="trainerPlaceholder" required>
+              <div id="roomCodeField" class="field hidden">
+                <label for="roomCode" data-i18n="roomCode">Room code</label>
+                <input id="roomCode" name="roomCode" maxlength="6" autocomplete="off" placeholder="A1B2C3">
+              </div>
+              <button id="roomSubmit" class="primary-button" type="submit" data-i18n="createPrivateRoom">Create private room</button>
+              <p id="formError" class="form-message" role="alert"></p>
+            </form>
+          </div>
+        </section>
+
+        <section id="lobbyView" class="lobby-view hidden">
+          <div class="lobby-card">
+            <div class="lobby-pokemon" aria-hidden="true">
+              <img data-pokemon-sprite src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/1.gif" data-fallback-src="/assets/pokemon/1.png" alt="">
+              <img data-pokemon-sprite src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/4.gif" data-fallback-src="/assets/pokemon/4.png" alt="">
+              <img data-pokemon-sprite src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/7.gif" data-fallback-src="/assets/pokemon/7.png" alt="">
+            </div>
+            <p class="eyebrow" data-i18n="trainerLobby">Trainer lobby</p>
+            <h1 data-i18n="gatherTeam">Gather your team</h1>
+            <p data-i18n="shareRoom">Share this private room code with up to three friends.</p>
+            <button id="copyInvite" class="room-code-button" type="button">
+              <span id="largeRoomCode"></span>
+              <small data-i18n="copyInvite">Click to copy invite link</small>
+            </button>
+            <div id="lobbyPlayers" class="lobby-players"></div>
+            <section class="lobby-option-section">
+              <div class="lobby-option-heading">
+                <div>
+                  <p class="eyebrow" data-i18n="trainerCard">Trainer card</p>
+                  <h2 data-i18n="chooseTrainerCard">Choose character</h2>
+                </div>
+                <small data-i18n="onePerTrainer">One card per trainer</small>
+              </div>
+              <div id="trainerChoices" class="trainer-choices"></div>
+            </section>
+            <section class="lobby-timer-section" aria-labelledby="timerOptionTitle">
+              <div>
+                <p class="eyebrow" data-i18n="turnTimer">Turn timer</p>
+                <h2 id="timerOptionTitle" data-i18n="timerOption">Optional turn limit</h2>
+              </div>
+              <label class="timer-toggle">
+                <input id="timerEnabled" type="checkbox">
+                <span data-i18n="enableTimer">Enable timer</span>
+              </label>
+              <label class="timer-seconds-field">
+                <input id="timerSeconds" type="number" min="15" max="600" step="15" value="60" inputmode="numeric">
+                <span data-i18n="secondsPerTurn">seconds per turn</span>
+              </label>
+              <small id="timerHint"></small>
+            </section>
+            <section class="lobby-mystery-section" aria-labelledby="silhouetteOptionTitle">
+              <div>
+                <p class="eyebrow" data-i18n="mysteryMode">Mystery mode</p>
+                <h2 id="silhouetteOptionTitle" data-i18n="silhouetteOption">Silhouettes until caught</h2>
+              </div>
+              <label class="timer-toggle">
+                <input id="silhouetteEnabled" type="checkbox">
+                <span data-i18n="enableSilhouettes">Enable silhouettes</span>
+              </label>
+              <small id="silhouetteHint" data-i18n="silhouetteHelp">Market and reserved Pokémon artwork stays hidden until the Pokémon is caught.</small>
+            </section>
+            <button id="startGame" class="primary-button" type="button" data-i18n="startGame">Start game</button>
+            <p id="lobbyHint" class="lobby-hint"></p>
+          </div>
+        </section>
+
+        <section id="gameView" class="game-view hidden">
+          <div id="gameDecision" class="game-decision hidden">
+            <p id="gameDecisionText"></p>
+            <div>
+              <button id="restartGame" class="primary-button" type="button" data-i18n="restartGame">Play again</button>
+            </div>
+          </div>
+
+          <div class="game-layout">
+            <aside class="bank-panel panel">
+              <div class="bank-game-status">
+                <div class="bank-status-copy">
+                  <p id="turnLabel" class="eyebrow"></p>
+                  <h1 id="statusMessage">Choose your action</h1>
+                </div>
+                <div class="game-status-tools">
+                  <div id="turnTimer" class="turn-timer hidden" role="timer" aria-live="off"></div>
+                  <div class="score-target"><strong>18</strong><span data-i18n="pointsToWin">points to win</span></div>
+                </div>
+              </div>
+              <div class="panel-heading">
+                <div>
+                  <p class="eyebrow" data-i18n="ballSupply">Poké Ball supply</p>
+                  <h2 data-i18n="chooseBalls">Choose Poké Balls</h2>
+                </div>
+                <button id="clearSelection" class="text-button" type="button" data-i18n="clear">Clear</button>
+              </div>
+              <div id="tokenBank" class="token-bank"></div>
+              <div class="token-actions">
+                <button id="takeThree" class="secondary-button" type="button" data-i18n="takeThree">Take 3 different</button>
+                <button id="takePair" class="secondary-button" type="button" data-i18n="takePair">Take pair</button>
+                <button id="endTurn" class="secondary-button hidden" type="button" data-i18n="skipEvolution">Skip evolution</button>
+              </div>
+              <p class="helper-text" data-i18n="ballHelp">Select three different Poké Balls, or one type to take a pair when four remain. Master Balls cannot be taken directly.</p>
+            </aside>
+
+            <div class="market-panel panel">
+              <div class="panel-heading">
+                <div>
+                  <p class="eyebrow" data-i18n="wildEncounter">Wild encounter</p>
+                  <h2 data-i18n="pokemonMarket">Pokémon market</h2>
+                </div>
+                <div class="market-heading-actions">
+                  <span id="marketHint" class="turn-chip"></span>
+                </div>
+              </div>
+              <div id="market" class="market"></div>
+            </div>
+          </div>
+
+          <section class="trainers-section panel">
+            <div class="panel-heading">
+              <div>
+                  <p class="eyebrow" data-i18n="leagueTable">League table</p>
+                  <h2 data-i18n="trainers">Trainers</h2>
+              </div>
+            </div>
+            <div id="players" class="players-grid"></div>
+          </section>
+        </section>
+      </main>
+    </div>
+
+    <div id="gameAnimation" class="game-animation hidden" role="status" aria-live="polite"></div>
+
+    <dialog id="rulesDialog" class="rules-dialog" aria-labelledby="rulesTitle">
+      <div class="rules-dialog-header">
+        <div>
+          <p class="eyebrow" data-i18n="trainerHandbook">Trainer handbook</p>
+          <h2 id="rulesTitle" data-i18n="howToPlay">How to play</h2>
+        </div>
+        <button id="closeRules" class="dialog-close" type="button" aria-label="Close game rules">×</button>
+      </div>
+
+      <div class="rules-content">
+        <section class="rule-intro">
+          <img data-pokemon-sprite src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/25.gif" data-fallback-src="/assets/pokemon/25.png" alt="" aria-hidden="true">
+          <div>
+            <strong data-i18n="ruleIntroTitle">Become the Pokémon Champion</strong>
+            <p data-i18n="ruleIntroText">Collect Poké Balls, catch Pokémon, evolve your team, and finish with the most victory points.</p>
+          </div>
+        </section>
+
+        <section class="rule-section">
+          <span class="rule-number">1</span>
+          <div>
+            <h3 data-i18n="ruleSetupTitle">Set up the supply</h3>
+            <p data-i18n="ruleSetupText">Use 4 of each standard Poké Ball for 2 trainers, 5 for 3 trainers, or all 7 for 4 trainers. Always use all 5 Master Balls.</p>
+            <p data-i18n="ruleSetupCards">Shuffle 35 Stage 1, 30 Stage 2, 15 Stage 3, 5 Rare, and 5 Legendary/Mythical cards. Reveal four from each Stage deck and one from each special deck.</p>
+          </div>
+        </section>
+
+        <section class="rule-section">
+          <span class="rule-number">2</span>
+          <div>
+            <h3 data-i18n="ruleActionTitle">Choose one action</h3>
+            <ul>
+              <li data-i18n="ruleActionOne">Take 3 different standard Poké Balls. If fewer types are available, take up to the available number.</li>
+              <li data-i18n="ruleActionTwo">Take 2 matching Poké Balls only when at least 4 of that type are in the supply before taking them.</li>
+              <li data-i18n="ruleActionThree">Reserve a face-up Stage card or the top card of a Stage deck, then take 1 Master Ball if available. You may reserve at most 3 cards.</li>
+              <li data-i18n="ruleActionFour">Catch 1 face-up or reserved Pokémon by paying its cost. Card bonuses permanently reduce matching costs.</li>
+            </ul>
+          </div>
+        </section>
+
+        <section class="rule-section">
+          <span class="rule-number">3</span>
+          <div>
+            <h3 data-i18n="ruleMasterTitle">Master Balls and special Pokémon</h3>
+            <p data-i18n="ruleMasterText">Master Balls are wild and may replace any standard ball. Every Rare and Legendary/Mythical card includes 1 required Master Ball plus its printed standard-ball cost, and grants two matching permanent bonuses. These cards cannot be reserved. At the end of your action, return balls until you hold no more than 10 total.</p>
+          </div>
+        </section>
+
+        <section class="rule-section">
+          <span class="rule-number">4</span>
+          <div>
+            <h3 data-i18n="ruleEvolutionTitle">Evolve one Pokémon</h3>
+            <p data-i18n="ruleEvolutionText">After ball cleanup, you may evolve one Pokémon for free when its next stage is face-up or reserved by you and your permanent bonuses meet the evolution requirement. Tuck the earlier stage face-down; its points and bonus no longer count.</p>
+          </div>
+        </section>
+
+        <section class="rule-section">
+          <span class="rule-number">5</span>
+          <div>
+            <h3 data-i18n="ruleEndTitle">Finish the game</h3>
+            <p data-i18n="ruleEndText">Reaching 18 points triggers the final round so every trainer takes the same number of turns. Most points wins. Ties go to the trainer with the most tucked cards, then the most face-up Pokémon. The host may then start a fresh game; caught Pokédex progress is kept.</p>
+          </div>
+        </section>
+      </div>
+    </dialog>
+
+    <dialog id="pokedexDialog" class="rules-dialog pokedex-dialog" aria-labelledby="pokedexTitle">
+      <div class="rules-dialog-header pokedex-dialog-header">
+        <div>
+          <p class="eyebrow" data-i18n="multiGameChecklist">Multi-game checklist</p>
+          <h2 id="pokedexTitle" data-i18n="caughtPokedex">Caught Pokédex</h2>
+        </div>
+        <button id="closePokedex" class="dialog-close" type="button" aria-label="Close Pokédex">×</button>
+      </div>
+      <div class="pokedex-content">
+        <div class="pokedex-summary">
+          <div>
+            <strong id="pokedexSummary">0 / 0 caught</strong>
+            <p data-i18n="checklistHelp">Pokémon you catch are checked automatically and saved on this browser across games.</p>
+          </div>
+          <div class="pokedex-meter" aria-hidden="true"><span id="pokedexMeter"></span></div>
+        </div>
+        <div id="pokedexChecklist" class="pokedex-checklist"></div>
+      </div>
+    </dialog>
+
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+    <script type="module" src="/app.js"></script>
+  </body>
+</html>
