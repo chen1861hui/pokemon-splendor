@@ -28,6 +28,12 @@
           <button id="rulesButton" class="rules-button" type="button" aria-haspopup="dialog" aria-controls="rulesDialog">
             <span aria-hidden="true">?</span> <b data-i18n="gameRules">Game rules</b>
           </button>
+          <button id="endGameButton" class="rules-button end-game-button hidden" type="button" aria-haspopup="dialog" aria-controls="exitRoomDialog">
+            <span aria-hidden="true">■</span> <b data-i18n="endGame">End game</b>
+          </button>
+          <button id="exitRoomButton" class="rules-button room-exit-button hidden" type="button" aria-haspopup="dialog" aria-controls="exitRoomDialog">
+            <span aria-hidden="true">↪</span> <b>Leave room</b>
+          </button>
         </div>
       </header>
 
@@ -35,14 +41,19 @@
         <section id="welcomeView" class="welcome-view">
           <div class="hero-copy">
             <p class="eyebrow" data-i18n="heroEyebrow">A private trainer challenge</p>
-            <h1><span data-i18n="heroTitle">Catch. Collect.</span><br><em data-i18n="heroTitleAccent">Become Champion.</em></h1>
+            <div class="hero-heading">
+              <h1><span data-i18n="heroTitle">Catch. Collect.</span><br><em data-i18n="heroTitleAccent">Become Champion.</em></h1>
+              <div id="heroMascot" class="hero-mascot"></div>
+            </div>
             <p class="hero-description" data-i18n="heroDescription">Catch Pokémon, collect Poké Balls, and race your friends to 18 victory points. No accounts or installation required.</p>
             <div class="feature-row" aria-label="Game features">
               <span data-i18n="playersFeature">2–4 players</span>
               <span data-i18n="privateRooms">Private rooms</span>
               <span data-i18n="liveTurns">Live turns</span>
             </div>
-            <img class="hero-pokemon" data-pokemon-sprite src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/25.gif" data-fallback-src="/assets/pokemon/25.png" alt="Pikachu" aria-hidden="true">
+            <div class="hero-pokemon-showcase">
+              <div id="heroPokemonCollection" class="hero-pokemon-collection"></div>
+            </div>
           </div>
 
           <div class="entry-card">
@@ -267,6 +278,16 @@
           <div class="pokedex-meter" aria-hidden="true"><span id="pokedexMeter"></span></div>
         </div>
         <div id="pokedexChecklist" class="pokedex-checklist"></div>
+      </div>
+    </dialog>
+
+    <dialog id="exitRoomDialog" class="confirmation-dialog" aria-labelledby="exitRoomTitle" aria-describedby="exitRoomMessage">
+      <div class="confirmation-icon" aria-hidden="true"><img src="/assets/balls/poke-ball.png" alt=""></div>
+      <h2 id="exitRoomTitle">Leave room?</h2>
+      <p id="exitRoomMessage"></p>
+      <div class="confirmation-actions">
+        <button id="cancelExitRoom" class="secondary-button" type="button" data-i18n="cancel">Cancel</button>
+        <button id="confirmExitRoom" class="danger-button" type="button">Leave room</button>
       </div>
     </dialog>
 

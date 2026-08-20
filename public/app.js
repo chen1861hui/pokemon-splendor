@@ -26,12 +26,12 @@ const gameBackgrounds = [
   { id: "hoenn", labelKey: "backgroundHoenn", image: "/assets/backgrounds/hoenn.jpg" },
   { id: "sinnoh", labelKey: "backgroundSinnoh", image: "/assets/backgrounds/sinnoh.jpg" }
 ];
-
 const translations = {
   en: {
     gameRules: "Game rules", pokedex: "Pokédex", caughtPokedex: "Caught Pokédex", multiGameChecklist: "Multi-game checklist", checklistHelp: "Pokémon you catch are checked automatically and saved on this browser across games.", caughtProgress: "{caught} / {total} caught", stagePokemon: "Stage Pokémon", rarePokemon: "Rare Pokémon", legendaryPokemon: "Legendary Pokémon", mythicalPokemon: "Mythical Pokémon", catalogLoading: "Loading the Pokémon checklist…", heroEyebrow: "A private trainer challenge", heroTitle: "Catch. Collect.", heroTitleAccent: "Become Champion.",
     heroDescription: "Catch Pokémon, collect Poké Balls, and race your friends to 18 victory points. No accounts or installation required.",
-    playersFeature: "2–4 players", privateRooms: "Private rooms", liveTurns: "Live turns", createRoom: "Create room", joinRoom: "Join room",
+    playersFeature: "2–4 players", privateRooms: "Private rooms", liveTurns: "Live turns", pokedexPartners: "Your Pokédex partners", createRoom: "Create room", joinRoom: "Join room", endGame: "End game", leaveRoom: "Leave room", disbandRoom: "Disband room", cancel: "Cancel",
+    endGameTitle: "End the current game?", endGameMessage: "Everyone will return to this room's lobby and the current board will be cleared. Trainer choices, settings, and browser Pokédex progress will stay saved.", leaveRoomTitle: "Leave this room?", leaveRoomMessage: "Your seat and current game progress will be removed. Your browser Pokédex will stay saved.", disbandRoomTitle: "Disband this room?", disbandRoomMessage: "The current room will close immediately for every Trainer. This cannot be undone, but everyone keeps their browser Pokédex.", gameEnded: "Game ended; everyone returned to the lobby", roomLeft: "You left the room", roomDisbanded: "Room disbanded", roomEnded: "This room has ended or is no longer available",
     trainerName: "Trainer name", trainerPlaceholder: "e.g. Red", roomCode: "Room code", createPrivateRoom: "Create private room", joinPrivateRoom: "Join private room",
     trainerLobby: "Trainer lobby", gatherTeam: "Gather your team", shareRoom: "Share this private room code with up to three friends.", copyInvite: "Click to copy invite link", trainerCard: "Trainer tile", chooseTrainerCard: "Choose character", onePerTrainer: "One tile per trainer", whoAmIPool: "Who am I?", redTrainer: "Red & Pikachu", brockTrainer: "Brock & Onix", mistyTrainer: "Misty & Psyduck", giovanniTrainer: "Giovanni & Persian", chosenBy: "Chosen by {name}", available: "Available", stageOne: "Stage 1", stageTwo: "Stage 2", stageThree: "Stage 3", chooseTrainerFirst: "Choose a Trainer tile to continue.", waitingTrainerCards: "Waiting for every trainer to choose a tile…",
     startGame: "Start game", turnTimer: "Turn timer", timerOption: "Optional turn limit", enableTimer: "Enable timer", secondsPerTurn: "seconds per turn", timerHostHelp: "The host controls this setting. Enter 15–600 seconds.", timerGuestHelp: "Only the host can change the timer.", mysteryMode: "Mystery mode", silhouetteOption: "Silhouettes until caught", enableSilhouettes: "Enable silhouettes", silhouetteHelp: "Artwork and names stay hidden until that Pokémon is caught in the current game.", silhouetteGuestHelp: "Only the host can change this option.", gameBackground: "Personal game background", backgroundCurrent: "Current", backgroundKanto: "Gen I · Kanto", backgroundJohto: "Gen II · Johto", backgroundHoenn: "Gen III · Hoenn", backgroundSinnoh: "Gen IV · Sinnoh", timeRemaining: "Time remaining", pointsToWin: "points to win", ballSupply: "Poké Ball supply", chooseBalls: "Choose Poké Balls", clear: "Clear",
@@ -52,13 +52,14 @@ const translations = {
     recruitedReserved: "{caught} caught · {reserved} reserved", gameComplete: "Game complete", yourChampion: "You are the Champion!", trainerChampion: "{name} is Champion", restartGame: "Play again", hostDecision: "Start a fresh game with the same trainers and timer. Everyone keeps their browser Pokédex progress.", waitingDecision: "Waiting for the host to start the next game.", animationCaught: "{name} caught {pokemon}!", animationReserved: "{name} reserved a Pokémon", animationEvolved: "{name}'s Pokémon evolved!", animationVictory: "{name} is Champion!", rareEncounter: "Rare catch!", legendaryEncounter: "Legendary catch!", mythicalEncounter: "Mythical catch!",
     yourTurn: "Your turn", trainerTurn: "{name}'s turn", chooseAction: "Choose your action", finalRound: "Final round", finalScores: "Final scores", makeMove: "Make one move", watchingLive: "Watching live",
     inviteCopied: "Invite link copied", roomCodeToast: "Room code: {code}", permanentDiscount: "Permanent {ball} discount", roomCreated: "Room created",
-    joinedRoom: "{name} joined the room", firstTurn: "{name} takes the first turn", tookTokens: "{name} took Poké Balls", reservedCard: "{name} reserved a Pokémon", caughtCard: "{name} caught {pokemon}", turnTimedOut: "{name}'s turn timed out", winsWith: "{name} wins with {points} points!",
+    joinedRoom: "{name} joined the room", leftRoom: "{name} left the room", firstTurn: "{name} takes the first turn", tookTokens: "{name} took Poké Balls", reservedCard: "{name} reserved a Pokémon", caughtCard: "{name} caught {pokemon}", turnTimedOut: "{name}'s turn timed out", winsWith: "{name} wins with {points} points!",
     tokenPoke: "Poké Ball", tokenGreat: "Great Ball", tokenUltra: "Ultra Ball", tokenHeal: "Heal Ball", tokenQuick: "Quick Ball", tokenMaster: "Master Ball"
   },
   zh: {
     gameRules: "游戏规则", pokedex: "图鉴", caughtPokedex: "捕捉图鉴", multiGameChecklist: "多局游戏清单", checklistHelp: "你亲自捕捉的宝可梦会自动勾选，并保存在此浏览器中供多局游戏核对。", caughtProgress: "已捕捉 {caught} / {total}", stagePokemon: "阶段宝可梦", rarePokemon: "稀有宝可梦", legendaryPokemon: "传说宝可梦", mythicalPokemon: "幻之宝可梦", catalogLoading: "正在载入宝可梦清单…", heroEyebrow: "私人训练家挑战", heroTitle: "捕捉·收集", heroTitleAccent: "成为冠军！",
     heroDescription: "捕捉宝可梦、收集精灵球，与好友竞赛，率先触发18分终局。无需账号或安装。",
-    playersFeature: "2–4名玩家", privateRooms: "私人房间", liveTurns: "实时回合", createRoom: "创建房间", joinRoom: "加入房间",
+    playersFeature: "2–4名玩家", privateRooms: "私人房间", liveTurns: "实时回合", pokedexPartners: "你的图鉴伙伴", createRoom: "创建房间", joinRoom: "加入房间", endGame: "结束本局", leaveRoom: "离开房间", disbandRoom: "解散房间", cancel: "取消",
+    endGameTitle: "确定结束当前游戏？", endGameMessage: "所有训练家会回到当前房间的大厅，当前牌面会被清除；角色选择、房间设置与浏览器捕捉图鉴都会保留。", leaveRoomTitle: "确定离开房间？", leaveRoomMessage: "你的席位与本局进度将被移除，但浏览器中的捕捉图鉴会保留。", disbandRoomTitle: "确定解散房间？", disbandRoomMessage: "房间会立即对所有训练家关闭，且无法撤销；每人的浏览器捕捉图鉴仍会保留。", gameEnded: "本局已结束，所有训练家已返回大厅", roomLeft: "你已离开房间", roomDisbanded: "房间已解散", roomEnded: "房间已结束或无法继续使用",
     trainerName: "训练家名称", trainerPlaceholder: "例如：小智", roomCode: "房间代码", createPrivateRoom: "创建私人房间", joinPrivateRoom: "加入私人房间",
     trainerLobby: "训练家大厅", gatherTeam: "集结你的队伍", shareRoom: "将私人房间代码分享给最多三位好友。", copyInvite: "点击复制邀请链接", trainerCard: "训练家板块", chooseTrainerCard: "选择角色", onePerTrainer: "每位训练家一个", whoAmIPool: "我是谁？", redTrainer: "赤红与皮卡丘", brockTrainer: "小刚与大岩蛇", mistyTrainer: "小霞与可达鸭", giovanniTrainer: "坂木与猫老大", chosenBy: "{name}已选择", available: "可选择", stageOne: "阶段 1", stageTwo: "阶段 2", stageThree: "阶段 3", chooseTrainerFirst: "请先选择一个训练家板块。", waitingTrainerCards: "等待所有训练家选择板块…",
     startGame: "开始游戏", turnTimer: "回合计时器", timerOption: "可选回合时限", enableTimer: "启用计时器", secondsPerTurn: "秒／回合", timerHostHelp: "由房主控制，请输入15–600秒。", timerGuestHelp: "只有房主可以更改计时器。", mysteryMode: "神秘模式", silhouetteOption: "捕捉前显示剪影", enableSilhouettes: "启用剪影", silhouetteHelp: "宝可梦在本局被捕捉前，其图片与名称都会保持隐藏。", silhouetteGuestHelp: "只有房主可以更改此选项。", gameBackground: "个人游戏背景", backgroundCurrent: "当前背景", backgroundKanto: "第一世代·关都", backgroundJohto: "第二世代·城都", backgroundHoenn: "第三世代·丰缘", backgroundSinnoh: "第四世代·神奥", timeRemaining: "剩余时间", pointsToWin: "分触发终局", ballSupply: "精灵球供应区", chooseBalls: "选择精灵球", clear: "清除",
@@ -79,7 +80,7 @@ const translations = {
     recruitedReserved: "已捕捉 {caught} · 已保留 {reserved}", gameComplete: "游戏结束", yourChampion: "你成为了冠军！", trainerChampion: "{name}成为了冠军", restartGame: "再玩一局", hostDecision: "使用相同训练家与计时设置开始新一局；每人的浏览器捕捉图鉴进度会保留。", waitingDecision: "等待房主开始下一局。", animationCaught: "{name}捕捉了{pokemon}！", animationReserved: "{name}保留了一只宝可梦", animationEvolved: "{name}的宝可梦进化了！", animationVictory: "{name}成为冠军！", rareEncounter: "稀有捕捉！", legendaryEncounter: "传说捕捉！", mythicalEncounter: "幻之捕捉！",
     yourTurn: "你的回合", trainerTurn: "{name}的回合", chooseAction: "选择你的行动", finalRound: "最后一轮", finalScores: "最终得分", makeMove: "执行一个行动", watchingLive: "实时观战",
     inviteCopied: "邀请链接已复制", roomCodeToast: "房间代码：{code}", permanentDiscount: "永久减少{ball}费用", roomCreated: "房间已创建",
-    joinedRoom: "{name}加入了房间", firstTurn: "{name}开始第一个回合", tookTokens: "{name}拿取了精灵球", reservedCard: "{name}保留了一只宝可梦", caughtCard: "{name}捕捉了{pokemon}", turnTimedOut: "{name}的回合超时", winsWith: "{name}以{points}分获胜！",
+    joinedRoom: "{name}加入了房间", leftRoom: "{name}离开了房间", firstTurn: "{name}开始第一个回合", tookTokens: "{name}拿取了精灵球", reservedCard: "{name}保留了一只宝可梦", caughtCard: "{name}捕捉了{pokemon}", turnTimedOut: "{name}的回合超时", winsWith: "{name}以{points}分获胜！",
     tokenPoke: "精灵球", tokenGreat: "超级球", tokenUltra: "高级球", tokenHeal: "治愈球", tokenQuick: "先机球", tokenMaster: "大师球"
   }
 };
@@ -94,12 +95,13 @@ const pokemonNamesZh = {
 };
 
 const elements = Object.fromEntries([
-  "welcomeView", "lobbyView", "gameView", "roomBadge", "roomForm", "playerName", "roomCodeField",
+  "welcomeView", "lobbyView", "gameView", "roomBadge", "roomForm", "playerName", "roomCodeField", "heroMascot", "heroPokemonCollection",
   "roomCode", "roomSubmit", "formError", "largeRoomCode", "lobbyPlayers", "copyInvite", "startGame", "trainerChoices", "timerEnabled", "timerSeconds", "timerHint", "silhouetteEnabled", "silhouetteHint", "backgroundSelect",
   "lobbyHint", "turnLabel", "statusMessage", "turnTimer", "marketHint", "tokenBank", "takeThree", "takePair", "endTurn",
   "gameDecision", "gameDecisionText", "restartGame",
   "clearSelection", "market", "players", "toast", "languageButton", "rulesButton", "rulesDialog", "closeRules", "pokedexButton",
-  "pokedexProgress", "pokedexDialog", "closePokedex", "pokedexSummary", "pokedexMeter", "pokedexChecklist", "gameAnimation"
+  "pokedexProgress", "pokedexDialog", "closePokedex", "pokedexSummary", "pokedexMeter", "pokedexChecklist", "gameAnimation",
+  "endGameButton", "exitRoomButton", "exitRoomDialog", "exitRoomTitle", "exitRoomMessage", "cancelExitRoom", "confirmExitRoom"
 ].map((id) => [id, document.getElementById(id)]));
 
 let entryMode = "create";
@@ -121,6 +123,7 @@ let serverClockOffset = 0;
 let activePokemonAudio = null;
 let gameAnimationQueue = [];
 let gameAnimationRunning = false;
+let pendingRoomAction = null;
 
 function t(key, variables = {}) {
   const template = translations[currentLanguage][key] ?? translations.en[key] ?? key;
@@ -150,6 +153,7 @@ function translateStaticContent() {
   renderBackgroundSelector();
   setEntryMode(entryMode);
   renderPokedex();
+  if (elements.exitRoomDialog.open && pendingRoomAction) configureRoomActionDialog(pendingRoomAction);
 }
 
 function loadCaughtPokemon() {
@@ -177,7 +181,54 @@ function uniqueCatalog() {
   return [...new Map(catalog.map((card) => [card.pokedexId, card])).values()];
 }
 
+function landingPokemon() {
+  const pokemon = uniqueCatalog();
+  const pikachu = pokemon.find((card) => card.pokedexId === 25)
+    ?? { name: "Pikachu", nameZh: "皮卡丘", pokedexId: 25 };
+  const collected = pokemon.filter((card) => caughtPokemon.has(card.pokedexId) && card.pokedexId !== 25);
+  return [pikachu, ...collected];
+}
+
+function landingPokemonLayout(index, count) {
+  const goldenAngle = Math.PI * (3 - Math.sqrt(5));
+  const radius = Math.sqrt((index + 0.7) / count);
+  const angle = index * goldenAngle + 0.35;
+  const x = 52 + Math.cos(angle) * radius * 46;
+  const y = 82 + Math.sin(angle) * radius * 12;
+  const baseSize = Math.max(54, Math.min(156, 280 / Math.sqrt(Math.max(1, count / 2))));
+  const size = baseSize * (0.88 + (index % 4) * 0.04);
+  const rotation = ((index * 7) % 17) - 8;
+  return [x, y, size, rotation];
+}
+
+function renderLandingPokemon() {
+  const [pikachu, ...pokemon] = landingPokemon();
+  const buttonMarkup = (card, index, count, mascot = false) => {
+    const name = pokemonName(card);
+    const initialSprite = pokemonAnimatedSpriteUrl(card.pokedexId);
+    const [x, y, size, rotation] = mascot ? [0, 0, 220, 5] : landingPokemonLayout(index, count);
+    return `
+      <button class="landing-pokemon ${mascot ? "landing-mascot" : ""}" data-cry-src="${pokemonCryUrl(card.pokedexId)}" type="button" title="${escapeHtml(name)}" aria-label="${escapeHtml(t("previewPokemon", { pokemon: name }))}" style="--hero-x:${x}%;--hero-y:${y}%;--hero-size:${size}px;--hero-rotate:${rotation}deg">
+        <img data-pokemon-sprite src="${initialSprite}" data-fallback-src="/assets/pokemon/${card.pokedexId}.png" data-animated-src="${pokemonAnimatedSpriteUrl(card.pokedexId)}" alt="${escapeHtml(name)}" loading="lazy">
+      </button>
+    `;
+  };
+
+  elements.heroMascot.innerHTML = buttonMarkup(pikachu, 0, 1, true);
+  elements.heroPokemonCollection.classList.toggle("empty", pokemon.length === 0);
+  elements.heroPokemonCollection.setAttribute("role", "group");
+  elements.heroPokemonCollection.setAttribute("aria-label", t("pokedexPartners"));
+  elements.heroPokemonCollection.innerHTML = pokemon.map((card, index) => buttonMarkup(card, index, pokemon.length)).join("");
+  [elements.heroMascot, elements.heroPokemonCollection].forEach((container) => {
+    container.querySelectorAll(".landing-pokemon").forEach((button) => {
+      button.addEventListener("click", () => playPokemonPreview(button));
+    });
+    installImageFallbacks(container);
+  });
+}
+
 function renderPokedex() {
+  renderLandingPokemon();
   const pokemon = uniqueCatalog();
   const caughtCount = pokemon.filter((card) => caughtPokemon.has(card.pokedexId)).length;
   const total = pokemon.length;
@@ -205,16 +256,24 @@ function renderPokedex() {
           ${cards.map((card) => {
             const isCaught = caughtPokemon.has(card.pokedexId);
             const mystery = isPokemonMystery(card);
-            return `<label class="pokedex-entry ${isCaught ? "caught" : ""} ${mystery ? "mystery-silhouette" : ""}">
-              <input type="checkbox" ${isCaught ? "checked" : ""} disabled>
-              <img data-pokemon-sprite src="${pokemonPixelSpriteUrl(card.pokedexId)}" data-fallback-src="/assets/pokemon/${card.pokedexId}.png" alt="" loading="lazy">
+            const isInteractive = isCaught && !mystery;
+            const displayName = pokemonDisplayName(card);
+            const sprite = `<img data-pokemon-sprite src="${pokemonPixelSpriteUrl(card.pokedexId)}" data-fallback-src="/assets/pokemon/${card.pokedexId}.png" ${isInteractive ? `data-animated-src="${pokemonAnimatedSpriteUrl(card.pokedexId)}"` : ""} alt="" loading="lazy">`;
+            return `<div class="pokedex-entry ${isCaught ? "caught" : ""} ${mystery ? "mystery-silhouette" : ""}">
+              <input type="checkbox" aria-label="${escapeHtml(displayName)}" ${isCaught ? "checked" : ""} disabled>
+              ${isInteractive
+                ? `<button class="pokedex-pokemon-preview" data-cry-src="${pokemonCryUrl(card.pokedexId)}" type="button" title="${escapeHtml(t("previewPokemon", { pokemon: displayName }))}" aria-label="${escapeHtml(t("previewPokemon", { pokemon: displayName }))}">${sprite}</button>`
+                : `<span class="pokedex-pokemon-static">${sprite}</span>`}
               <span class="${mystery ? "mystery-name" : ""}">${escapeHtml(pokemonDisplayName(card))}</span>
-            </label>`;
+            </div>`;
           }).join("")}
         </div>
       </section>
     `;
   }).join("");
+  elements.pokedexChecklist.querySelectorAll(".pokedex-pokemon-preview").forEach((button) => {
+    button.addEventListener("click", () => playPokemonPreview(button));
+  });
   installImageFallbacks(elements.pokedexChecklist);
 }
 
@@ -223,6 +282,8 @@ function localizeAction(message) {
   if (message === "Room created") return t("roomCreated");
   let match = message.match(/^(.+) joined the room$/);
   if (match) return t("joinedRoom", { name: match[1] });
+  match = message.match(/^(.+) left the room$/);
+  if (match) return t("leftRoom", { name: match[1] });
   match = message.match(/^(.+) takes the first turn$/);
   if (match) return t("firstTurn", { name: match[1] });
   match = message.match(/^(.+) took .+ tokens$/);
@@ -255,7 +316,9 @@ function localizeError(message) {
     "The Pokémon pool can only be changed in the lobby.": "只能在大厅中更改宝可梦牌池。", "Only the room host can change the Pokémon pool.": "只有房主可以更改宝可梦牌池。", "Choose a valid Pokémon pool mode.": "请选择有效的牌池模式。",
     "Only the room host can change the turn timer.": "只有房主可以更改回合计时器。", "The turn timer can only be changed in the lobby.": "只能在大厅中更改回合计时器。",
     "Choose 0 to disable the timer, or 15–600 seconds.": "请输入15–600秒，或输入0关闭计时器。",
-    "Your player session is not valid for this room.": "你的玩家会话不属于该房间。", "Choose an action.": "请选择一个行动。", "Unknown game action.": "未知的游戏行动。"
+    "Your player session is not valid for this room.": "你的玩家会话不属于该房间。", "Choose an action.": "请选择一个行动。", "Unknown game action.": "未知的游戏行动。",
+    "The room host must disband the room.": "房主必须解散房间。", "Only the room host can disband the room.": "只有房主可以解散房间。",
+    "Only the room host can end the game.": "只有房主可以结束本局。", "The game has not started yet.": "游戏尚未开始。"
   };
   if (messages[message]) return messages[message];
   let match = message.match(/^At least four (.+) tokens must remain before taking a pair\.$/);
@@ -280,6 +343,8 @@ function saveSession(nextSession) {
 }
 
 function clearSession() {
+  window.clearInterval(pollTimer);
+  pollTimer = null;
   session = null;
   game = null;
   localStorage.removeItem("pokemon-splendor-session");
@@ -506,7 +571,16 @@ function setView(view) {
   elements.lobbyView.classList.toggle("hidden", view !== "lobby");
   elements.gameView.classList.toggle("hidden", view !== "game");
   elements.roomBadge.classList.toggle("hidden", view === "welcome");
+  elements.exitRoomButton.classList.toggle("hidden", view === "welcome" || !session || !game);
+  elements.endGameButton.classList.toggle("hidden", view !== "game" || !session || !game
+    || session.playerId !== game.hostId || game.status === "lobby");
   if (session) elements.roomBadge.textContent = t("room", { code: session.code });
+  if (session && game) {
+    const isHost = session.playerId === game.hostId;
+    const label = t(isHost ? "disbandRoom" : "leaveRoom");
+    elements.exitRoomButton.querySelector("b").textContent = label;
+    elements.exitRoomButton.title = label;
+  }
 }
 
 function applyGameBackground() {
@@ -1075,11 +1149,13 @@ async function refreshGame({ quiet = false } = {}) {
       presentGameTransition(transition);
     }
   } catch (error) {
-    if (!quiet) showToast(error.message, true);
     if (error.rawMessage === "Room not found." || error.message === "Room not found.") {
       clearSession();
       render();
+      showToast(t("roomEnded"), true);
+      return;
     }
+    if (!quiet) showToast(error.message, true);
   }
 }
 
@@ -1173,6 +1249,70 @@ elements.pokedexButton.addEventListener("click", () => {
 elements.closePokedex.addEventListener("click", () => elements.pokedexDialog.close());
 elements.pokedexDialog.addEventListener("click", (event) => {
   if (event.target === elements.pokedexDialog) elements.pokedexDialog.close();
+});
+
+function configureRoomActionDialog(action) {
+  const translationKeys = {
+    end: ["endGameTitle", "endGameMessage", "endGame"],
+    leave: ["leaveRoomTitle", "leaveRoomMessage", "leaveRoom"],
+    disband: ["disbandRoomTitle", "disbandRoomMessage", "disbandRoom"]
+  };
+  const [titleKey, messageKey, buttonKey] = translationKeys[action];
+  elements.exitRoomTitle.textContent = t(titleKey);
+  elements.exitRoomMessage.textContent = t(messageKey);
+  elements.confirmExitRoom.textContent = t(buttonKey);
+}
+
+function openRoomActionDialog(action) {
+  if (busy || !session || !game) return;
+  pendingRoomAction = action;
+  configureRoomActionDialog(action);
+  elements.exitRoomDialog.showModal();
+}
+
+elements.exitRoomButton.addEventListener("click", () => {
+  openRoomActionDialog(session?.playerId === game?.hostId ? "disband" : "leave");
+});
+elements.endGameButton.addEventListener("click", () => openRoomActionDialog("end"));
+elements.cancelExitRoom.addEventListener("click", () => elements.exitRoomDialog.close());
+elements.exitRoomDialog.addEventListener("click", (event) => {
+  if (event.target === elements.exitRoomDialog) elements.exitRoomDialog.close();
+});
+elements.exitRoomDialog.addEventListener("close", () => {
+  if (!busy) pendingRoomAction = null;
+});
+elements.confirmExitRoom.addEventListener("click", async () => {
+  if (busy || !session || !game || !pendingRoomAction) return;
+  const action = pendingRoomAction;
+  const notification = t(action === "end" ? "gameEnded" : action === "disband" ? "roomDisbanded" : "roomLeft");
+  busy = true;
+  elements.confirmExitRoom.disabled = true;
+  elements.cancelExitRoom.disabled = true;
+  try {
+    const nextGame = await api(`/api/rooms/${session.code}/${action}`, {
+      method: "POST",
+      body: JSON.stringify({ playerId: session.playerId, playerKey: session.playerKey })
+    });
+    elements.exitRoomDialog.close();
+    if (action === "end") game = useGameState(nextGame);
+    else clearSession();
+    render();
+    showToast(notification);
+  } catch (error) {
+    if (error.rawMessage === "Room not found." || error.message === "Room not found.") {
+      elements.exitRoomDialog.close();
+      clearSession();
+      render();
+      showToast(t("roomEnded"), true);
+    } else {
+      showToast(error.message, true);
+    }
+  } finally {
+    busy = false;
+    pendingRoomAction = null;
+    elements.confirmExitRoom.disabled = false;
+    elements.cancelExitRoom.disabled = false;
+  }
 });
 
 elements.startGame.addEventListener("click", async () => {

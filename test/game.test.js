@@ -1,6 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { addPlayer, advanceExpiredTurns, chooseTrainerCard, createLobby, paymentForCard, performAction, pokemonCatalog, publicGame, restartFinishedGame, setSilhouetteMode, setTurnTimer, startGame } from "../src/game.js";
+import { addPlayer, advanceExpiredTurns, chooseTrainerCard, createLobby, endGame, paymentForCard, performAction, pokemonCatalog, publicGame, removePlayer, restartFinishedGame, setSilhouetteMode, setTurnTimer, startGame } from "../src/game.js";
 
 function startedGame() {
   const game = createLobby({ id: "p1", key: "k1", name: "Red" });
@@ -32,6 +32,73 @@ test("requires exclusive Trainer card choices before starting", () => {
   startGame(game, () => 0.5);
   assert.equal(game.players[0].trainerCardId, "ash");
   assert.equal(game.players[1].trainerCardId, "brock");
+});
+
+test("a guest can leave the lobby and frees their Trainer card", () => {
+  const game = createLobby({ id: "p1", key: "k1", name: "Red" });
+  addPlayer(game, { id: "p2", key: "k2", name: "Blue" });
+  chooseTrainerCard(game, "p2", "brock");
+
+  removePlayer(game, "p2");
+
+  assert.deepEqual(game.players.map((player) => player.id), ["p1"]);
+  addPlayer(game, { id: "p3", key: "k3", name: "Green" });
+  chooseTrainerCard(game, "p3", "brock");
+  assert.equal(game.players[1].trainerCardId, "brock");
+  assert.throws(() => removePlayer(game, "p1"), /host must disband/);
+});
+
+test("an active guest leaving returns held balls and advances their turn", () => {
+  const game = createLobby({ id: "p1", key: "k1", name: "Red" });
+  addPlayer(game, { id: "p2", key: "k2", name: "Blue" });
+  addPlayer(game, { id: "p3", key: "k3", name: "Green" });
+  chooseTrainerCard(game, "p1", "ash");
+  chooseTrainerCard(game, "p2", "brock");
+  chooseTrainerCard(game, "p3", "misty");
+  startGame(game, () => 0.5);
+  performAction(game, "p1", { type: "takeTokens", tokens: ["poke", "great", "ultra"] });
+  game.players[1].tokens.heal = 2;
+  game.supply.heal -= 2;
+  const healSupply = game.supply.heal;
+
+  removePlayer(game, "p2");
+
+  assert.deepEqual(game.players.map((player) => player.id), ["p1", "p3"]);
+  assert.equal(game.players[game.turnIndex].id, "p3");
+  assert.equal(game.turnPhase, "action");
+  assert.equal(game.supply.heal, healSupply + 2);
+});
+
+test("a two-player game returns the host to the lobby when the guest leaves", () => {
+  const game = startedGame();
+  game.players[0].points = 7;
+  game.players[0].tokens.poke = 2;
+
+  removePlayer(game, "p2");
+
+  assert.equal(game.status, "lobby");
+  assert.equal(game.players.length, 1);
+  assert.equal(game.players[0].points, 0);
+  assert.equal(game.players[0].tokens.poke, 0);
+  assert.deepEqual(game.market.map((row) => row.length), [0, 0, 0, 0, 0]);
+  assert.equal(game.turnStartedAt, null);
+});
+
+test("the host can end the current game and return every Trainer to the same lobby", () => {
+  const game = startedGame();
+  game.players[0].points = 9;
+  game.players[0].tokens.master = 1;
+
+  assert.throws(() => endGame(game, "p2"), /Only the room host/);
+  endGame(game, "p1");
+
+  assert.equal(game.status, "lobby");
+  assert.deepEqual(game.players.map((player) => player.trainerCardId), ["ash", "brock"]);
+  assert.equal(game.players[0].points, 0);
+  assert.equal(game.players[0].tokens.master, 0);
+  assert.deepEqual(game.market.map((row) => row.length), [0, 0, 0, 0, 0]);
+  assert.equal(game.lastAction, "Game ended by host");
+  assert.throws(() => endGame(game, "p1"), /has not started/);
 });
 
 test("optional turn timer advances to the next trainer when time expires", () => {

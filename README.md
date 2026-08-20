@@ -4,6 +4,8 @@ A lightweight private browser game inspired by Splendor's token-and-card loop. I
 
 The interface supports English and Simplified Chinese. Use the language switch in the header; the selection is saved in the browser. The header Pokédex automatically keeps a browser-local checklist of Pokémon caught by the current player across multiple games.
 
+The landing page starts with Pikachu and places every collected Pokédex species into the interactive hero background. The responsive layout scales the full collection to fit; click a sprite there or in the Pokédex to replay its animation and cry.
+
 Pokémon use Generation V game-style pixel sprites throughout the interface. Market and owned/reserved cards use animated sprites; dense checklist and avatar views use matching static pixel sprites for smoother loading. Click a revealed market Pokémon to restart its animation and play its latest cry. Sprites and cries come from the PokeAPI repositories, with the previous local artwork retained as an automatic fallback. Mystery-mode cards do not expose the name or cry before they are caught.
 
 ## Run locally
@@ -19,6 +21,7 @@ Open `http://localhost:4173`, create a room, and share the displayed link. Every
 ## Rules in this prototype
 
 - Supports 2–4 trainers.
+- The host can end the current match and return everyone to the lobby, guests can leave their seat, and the host can disband the room for everyone. Each action requires confirmation and browser Pokédex progress remains saved locally.
 - Each trainer claims one of four Kanto character tiles in the lobby: Red, Brock, Misty, or Giovanni. All four use matching Generation III Pokémon Showdown trainer sprites with a lightweight idle animation.
 - Each deck uses a tier-colored “Who am I?” cover with a random Pokémon silhouette. The silhouette changes whenever that deck reveals or removes a card without changing deck order.
 - The host may optionally silhouette market, reserve, and uncaught Pokédex artwork until each Pokémon is caught.

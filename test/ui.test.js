@@ -34,6 +34,38 @@ test("caught cards expose hover details and opponent reservations stay masked", 
   assert.match(styles, /\.collection-hover-card/);
 });
 
+test("landing page starts with Pikachu and grows an interactive caught-Pokémon background", async () => {
+  const [appSource, html, styles] = await Promise.all([
+    readFile(new URL("../public/app.js", import.meta.url), "utf8"),
+    readFile(new URL("../public/index.html", import.meta.url), "utf8"),
+    readFile(new URL("../public/styles.css", import.meta.url), "utf8")
+  ]);
+
+  assert.match(html, /id="heroPokemonCollection"/);
+  assert.match(html, /id="heroMascot"/);
+  assert.doesNotMatch(html, /class="hero-pokemon"/);
+  assert.match(appSource, /name: "Pikachu", nameZh: "皮卡丘", pokedexId: 25/);
+  assert.match(appSource, /caughtPokemon\.has\(card\.pokedexId\)/);
+  assert.match(appSource, /return \[pikachu, \.\.\.collected\];/);
+  assert.doesNotMatch(appSource, /collected\.slice\(/);
+  assert.match(appSource, /function landingPokemonLayout\(index, count\)/);
+  assert.match(appSource, /const goldenAngle = Math\.PI \* \(3 - Math\.sqrt\(5\)\)/);
+  assert.match(appSource, /const y = 82 \+ Math\.sin\(angle\) \* radius \* 12/);
+  assert.doesNotMatch(appSource, /const columns = Math\.ceil/);
+  assert.match(appSource, /mascot \? "landing-mascot"/);
+  assert.match(appSource, /const initialSprite = pokemonAnimatedSpriteUrl\(card\.pokedexId\)/);
+  assert.match(appSource, /class="landing-pokemon /);
+  assert.match(appSource, /class="pokedex-pokemon-preview"/);
+  assert.match(appSource, /playPokemonPreview\(button\)/);
+  assert.match(styles, /\.hero-pokemon-collection/);
+  assert.match(styles, /\.hero-heading \{ display: flex;/);
+  assert.match(styles, /\.hero-mascot \.landing-pokemon/);
+  assert.match(styles, /\.hero-pokemon-showcase \{ position: absolute;/);
+  assert.match(styles, /\.landing-pokemon \{[^}]*position: absolute;[^}]*border: 0;[^}]*background: transparent;/);
+  assert.match(styles, /\.landing-pokemon\.preview-playing img/);
+  assert.match(styles, /\.pokedex-pokemon-preview\.preview-playing img/);
+});
+
 test("lobby exposes a synchronized optional turn timer", async () => {
   const [appSource, html] = await Promise.all([
     readFile(new URL("../public/app.js", import.meta.url), "utf8"),
@@ -47,6 +79,30 @@ test("lobby exposes a synchronized optional turn timer", async () => {
   assert.doesNotMatch(html, /<div class="game-status">/);
   assert.match(appSource, /updateLobbyOption\("timer"/);
   assert.match(appSource, /renderTurnTimer/);
+});
+
+test("room exit controls confirm guest leave and host disband actions", async () => {
+  const [appSource, html, styles, serverSource] = await Promise.all([
+    readFile(new URL("../public/app.js", import.meta.url), "utf8"),
+    readFile(new URL("../public/index.html", import.meta.url), "utf8"),
+    readFile(new URL("../public/styles.css", import.meta.url), "utf8"),
+    readFile(new URL("../server.js", import.meta.url), "utf8")
+  ]);
+
+  assert.match(html, /id="exitRoomButton"/);
+  assert.match(html, /id="endGameButton"/);
+  assert.match(html, /id="exitRoomDialog"/);
+  assert.match(html, /id="confirmExitRoom"/);
+  assert.match(appSource, /disbandRoomMessage/);
+  assert.match(appSource, /openRoomActionDialog\("end"\)/);
+  assert.match(appSource, /session\?\.playerId === game\?\.hostId \? "disband" : "leave"/);
+  assert.match(appSource, /clearSession\(\)/);
+  assert.match(styles, /\.confirmation-dialog/);
+  assert.match(styles, /\.danger-button/);
+  assert.match(serverSource, /finish\|end\|leave\|disband/);
+  assert.match(serverSource, /endGame\(room\.game, player\.id\)/);
+  assert.match(serverSource, /removePlayer\(room\.game, player\.id\)/);
+  assert.match(serverSource, /rooms\.delete\(code\.toUpperCase\(\)\)/);
 });
 
 test("game UI exposes cleanup, evolution, hidden reservation, and play-again control", async () => {
@@ -145,6 +201,7 @@ test("game UI exposes cleanup, evolution, hidden reservation, and play-again con
   assert.doesNotMatch(appSource, /elements\.startGame\.classList\.toggle\("hidden", !isHost\)/);
   assert.doesNotMatch(styles, /splendor-case\.(?:jpg|png)/);
   assert.match(styles, /--game-map-image/);
+  assert.match(styles, /body:is\(\.game-active, \.welcome-active\):not\(\[data-game-background="current"\]\)/);
   assert.match(styles, /\.market-panel \{ background: rgba\(246,251,255,\.68\)/);
   assert.match(styles, /\.trainers-section \{[^}]*background: rgba\(246,251,255,\.7\)/);
 });

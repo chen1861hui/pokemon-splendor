@@ -2,7 +2,7 @@ import { createServer } from "node:http";
 import { readFile } from "node:fs/promises";
 import { extname, join, normalize } from "node:path";
 import { randomBytes, randomUUID } from "node:crypto";
-import { addPlayer, advanceExpiredTurns, chooseTrainerCard, createLobby, performAction, pokemonCatalog, publicGame, restartFinishedGame, setSilhouetteMode, setTurnTimer, startGame } from "./src/game.js";
+import { addPlayer, advanceExpiredTurns, chooseTrainerCard, createLobby, endGame, performAction, pokemonCatalog, publicGame, removePlayer, restartFinishedGame, setSilhouetteMode, setTurnTimer, startGame } from "./src/game.js";
 
 const port = Number(process.env.PORT) || 4173;
 const publicDirectory = join(process.cwd(), "public");
@@ -75,7 +75,7 @@ async function handleApi(request, response, url) {
     return sendJson(response, 201, { code, playerId: credentials.id, playerKey: credentials.key });
   }
 
-  const match = url.pathname.match(/^\/api\/rooms\/([A-F0-9]{6})(?:\/(join|trainer|timer|silhouette|start|actions|finish))?$/i);
+  const match = url.pathname.match(/^\/api\/rooms\/([A-F0-9]{6})(?:\/(join|trainer|timer|silhouette|start|actions|finish|end|leave|disband))?$/i);
   if (!match) return false;
   const [, code, operation] = match;
   const room = getRoom(code);
@@ -96,6 +96,19 @@ async function handleApi(request, response, url) {
   }
 
   const player = authenticate(room, data.playerId, data.playerKey);
+  if (operation === "end") {
+    endGame(room.game, player.id);
+    return sendJson(response, 200, publicGame(room.game, player.id));
+  }
+  if (operation === "leave") {
+    removePlayer(room.game, player.id);
+    return sendJson(response, 200, { left: true });
+  }
+  if (operation === "disband") {
+    if (player.id !== room.game.hostId) throw new Error("Only the room host can disband the room.");
+    rooms.delete(code.toUpperCase());
+    return sendJson(response, 200, { disbanded: true });
+  }
   if (operation === "trainer") {
     chooseTrainerCard(room.game, player.id, data.trainerCardId);
     return sendJson(response, 200, publicGame(room.game, player.id));

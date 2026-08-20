@@ -323,6 +323,15 @@ function createPlayer({ id, key, name }) {
   };
 }
 
+function resetPlayerProgress(player) {
+  player.tokens = emptyTokens();
+  player.bonuses = emptyBonuses();
+  player.cards = [];
+  player.reserved = [];
+  player.tucked = [];
+  player.points = 0;
+}
+
 export function createLobby(host) {
   return {
     status: "lobby",
@@ -383,6 +392,79 @@ export function addPlayer(game, player) {
   game.lastAction = `${player.name.trim().slice(0, 24)} joined the room`;
 }
 
+function returnPlayerTokens(game, player) {
+  for (const type of allTokenTypes) {
+    game.supply[type] += player.tokens[type];
+  }
+}
+
+function resetGameToLobby(game, message) {
+  for (const player of game.players) resetPlayerProgress(player);
+  game.status = "lobby";
+  game.supply = emptyTokens();
+  game.decks = [[], [], [], [], []];
+  game.deckCovers = [null, null, null, null, null];
+  game.market = [[], [], [], [], []];
+  game.turnIndex = 0;
+  game.turnPhase = "action";
+  game.pendingActionMessage = null;
+  game.caughtPokedexIds = [];
+  game.turnStartedAt = null;
+  game.winnerId = null;
+  game.finalRoundTriggered = false;
+  game.lastAction = message;
+}
+
+export function endGame(game, playerId) {
+  if (playerId !== game.hostId) throw new Error("Only the room host can end the game.");
+  if (game.status === "lobby") throw new Error("The game has not started yet.");
+  resetGameToLobby(game, "Game ended by host");
+  game.revision += 1;
+}
+
+export function removePlayer(game, playerId) {
+  const playerIndex = game.players.findIndex((player) => player.id === playerId);
+  if (playerIndex === -1) throw new Error("Player not found.");
+  if (playerId === game.hostId) throw new Error("The room host must disband the room.");
+
+  const departingPlayer = game.players[playerIndex];
+  const wasCurrentPlayer = game.status === "playing" && playerIndex === game.turnIndex;
+  if (game.status === "playing") returnPlayerTokens(game, departingPlayer);
+  game.players.splice(playerIndex, 1);
+
+  if (game.status !== "lobby" && game.players.length < 2) {
+    resetGameToLobby(game, `${departingPlayer.name} left the room`);
+  } else if (game.status === "playing") {
+    if (playerIndex < game.turnIndex) game.turnIndex -= 1;
+    else if (wasCurrentPlayer) game.turnIndex %= game.players.length;
+
+    if (wasCurrentPlayer) {
+      game.turnPhase = "action";
+      game.pendingActionMessage = null;
+      game.turnStartedAt = game.turnDurationSeconds > 0 ? Date.now() : null;
+      if (game.finalRoundTriggered && game.turnIndex === 0) {
+        const winner = winnerForGame(game);
+        game.status = "finished";
+        game.winnerId = winner.id;
+        game.turnStartedAt = null;
+        game.lastAction = `${winner.name} wins with ${winner.points} points!`;
+      } else {
+        game.lastAction = `${departingPlayer.name} left the room`;
+      }
+    } else {
+      game.lastAction = `${departingPlayer.name} left the room`;
+    }
+  } else if (game.status === "finished") {
+    const winner = winnerForGame(game);
+    game.winnerId = winner.id;
+    game.lastAction = `${departingPlayer.name} left the room`;
+  } else {
+    game.lastAction = `${departingPlayer.name} left the room`;
+  }
+
+  game.revision += 1;
+}
+
 function refreshDeckCover(game, tierIndex, random = Math.random) {
   const previousPokedexId = game.deckCovers[tierIndex];
   const differentSpecies = game.decks[tierIndex].filter((card) => card.pokedexId !== previousPokedexId);
@@ -407,14 +489,7 @@ export function startGame(game, random = Math.random, restart = false) {
   if (game.players.some((player) => !player.trainerCardId)) throw new Error("Every player must choose a Trainer card.");
 
   const tokenCount = game.players.length === 2 ? 4 : game.players.length === 3 ? 5 : 7;
-  for (const player of game.players) {
-    player.tokens = emptyTokens();
-    player.bonuses = emptyBonuses();
-    player.cards = [];
-    player.reserved = [];
-    player.tucked = [];
-    player.points = 0;
-  }
+  for (const player of game.players) resetPlayerProgress(player);
   game.supply = Object.fromEntries([
     ...gemTypes.map((type) => [type, tokenCount]),
     ["master", 5]
