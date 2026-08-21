@@ -141,14 +141,19 @@ export class RedisRoomStore {
 }
 
 export function createRoomStore({ environment = process.env, redis = null, now = Date.now } = {}) {
-  const url = environment.UPSTASH_REDIS_REST_URL;
-  const token = environment.UPSTASH_REDIS_REST_TOKEN;
-  if (Boolean(url) !== Boolean(token)) {
-    throw new Error("Set both UPSTASH_REDIS_REST_URL and UPSTASH_REDIS_REST_TOKEN.");
+  const credentialPairs = [
+    { url: environment.UPSTASH_REDIS_REST_URL, token: environment.UPSTASH_REDIS_REST_TOKEN },
+    { url: environment.KV_REST_API_URL, token: environment.KV_REST_API_TOKEN }
+  ];
+  const credentials = credentialPairs.find(({ url, token }) => url && token);
+  const partiallyConfigured = credentialPairs.some(({ url, token }) => Boolean(url) !== Boolean(token));
+  if (!credentials && partiallyConfigured) {
+    throw new Error("Set a complete Redis REST credential pair: UPSTASH_REDIS_REST_URL and UPSTASH_REDIS_REST_TOKEN, or KV_REST_API_URL and KV_REST_API_TOKEN.");
   }
+  const { url, token } = credentials ?? {};
   if (url && token) return new RedisRoomStore(redis ?? new Redis({ url, token }), { now });
   if (environment.VERCEL) {
-    throw new Error("Vercel room persistence requires UPSTASH_REDIS_REST_URL and UPSTASH_REDIS_REST_TOKEN.");
+    throw new Error("Vercel room persistence requires Redis REST URL and write-token environment variables.");
   }
   return new MemoryRoomStore({ now });
 }

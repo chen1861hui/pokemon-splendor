@@ -117,6 +117,30 @@ test("Vercel fails fast instead of using disposable memory", () => {
   );
   assert.throws(
     () => createRoomStore({ environment: { UPSTASH_REDIS_REST_URL: "https:\/\/example.test" } }),
-    /Set both UPSTASH/
+    /Set a complete Redis REST credential pair/
   );
+});
+
+test("Vercel accepts both current Upstash and Vercel KV credential names", () => {
+  const redis = new FakeRedis();
+  const currentNames = createRoomStore({
+    environment: {
+      VERCEL: "1",
+      UPSTASH_REDIS_REST_URL: "https://example.test",
+      UPSTASH_REDIS_REST_TOKEN: "write-token"
+    },
+    redis
+  });
+  const kvNames = createRoomStore({
+    environment: {
+      VERCEL: "1",
+      KV_REST_API_URL: "https://example.test",
+      KV_REST_API_TOKEN: "write-token",
+      KV_REST_API_READ_ONLY_TOKEN: "read-only-token"
+    },
+    redis
+  });
+
+  assert.equal(currentNames.kind, "redis");
+  assert.equal(kvNames.kind, "redis");
 });

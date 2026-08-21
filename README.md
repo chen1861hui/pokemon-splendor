@@ -41,7 +41,7 @@ Rooms expire after 12 hours without activity. Local development stores rooms in 
 
 ## Deploy on Vercel
 
-Install an [Upstash Redis integration](https://vercel.com/marketplace/upstash) for the Vercel project and connect the database to every environment that runs the game, including Production and Preview when preview deployments are used. The integration must provide both `UPSTASH_REDIS_REST_URL` and `UPSTASH_REDIS_REST_TOKEN`. Redeploy after connecting it; Vercel intentionally fails fast when either credential is absent instead of creating rooms that disappear on the next serverless invocation.
+Install an [Upstash Redis integration](https://vercel.com/marketplace/upstash) for the Vercel project and connect the database to every environment that runs the game, including Production and Preview when preview deployments are used. The server accepts either `UPSTASH_REDIS_REST_URL` with `UPSTASH_REDIS_REST_TOKEN`, or Vercel's `KV_REST_API_URL` with the write-enabled `KV_REST_API_TOKEN`. The read-only token cannot save game state. Redeploy after connecting it; Vercel intentionally fails fast when no complete credential pair is available instead of creating rooms that disappear on the next serverless invocation.
 
 The catalog is validated at startup for all official deck counts, point distributions, bonus distributions, evolution links, Master Ball requirements, and printed numerical cost patterns. The supplied card-sheet preview and independent rules/pattern references agree with the transcription. A scan of every physical card is still required to independently certify every species-specific color assignment.
 
