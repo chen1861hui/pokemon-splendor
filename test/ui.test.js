@@ -116,6 +116,14 @@ test("lobby exposes a synchronized optional turn timer", async () => {
   assert.match(appSource, /renderTurnTimer/);
 });
 
+test("the first lobby render enables options after room entry completes", async () => {
+  const appSource = await readFile(new URL("../public/app.js", import.meta.url), "utf8");
+  const roomEntryHandler = appSource.match(/elements\.roomForm\.addEventListener\("submit",[\s\S]*?\n}\);/);
+
+  assert.ok(roomEntryHandler, "The room entry handler should be present.");
+  assert.match(roomEntryHandler[0], /finally \{\s*busy = false;\s*elements\.roomSubmit\.disabled = false;\s*render\(\);\s*}/);
+});
+
 test("room exit controls confirm guest leave and host disband actions", async () => {
   const [appSource, html, styles, serverSource] = await Promise.all([
     readFile(new URL("../public/app.js", import.meta.url), "utf8"),

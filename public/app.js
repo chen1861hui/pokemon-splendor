@@ -1308,6 +1308,7 @@ elements.roomForm.addEventListener("submit", async (event) => {
   } finally {
     busy = false;
     elements.roomSubmit.disabled = false;
+    render();
   }
 });
 
