@@ -66,6 +66,41 @@ test("landing page starts with Pikachu and grows an interactive caught-Pokémon 
   assert.match(styles, /\.pokedex-pokemon-preview\.preview-playing img/);
 });
 
+test("header provides persistent local WAV BGM with a music-only toggle", async () => {
+  const [appSource, html, styles, serverSource] = await Promise.all([
+    readFile(new URL("../public/app.js", import.meta.url), "utf8"),
+    readFile(new URL("../public/index.html", import.meta.url), "utf8"),
+    readFile(new URL("../public/styles.css", import.meta.url), "utf8"),
+    readFile(new URL("../server.js", import.meta.url), "utf8")
+  ]);
+
+  assert.match(html, /id="bgmSelect"/);
+  assert.match(html, /id="soundButton"/);
+  assert.match(appSource, /<optgroup label=/);
+  assert.doesNotMatch(appSource, /const bgmTracks/);
+  assert.doesNotMatch(appSource, /townBgmLocations/);
+  assert.doesNotMatch(appSource, /AudioContext/);
+  assert.match(appSource, /pokemon-splendor-bgm/);
+  assert.match(appSource, /pokemon-splendor-bgm-enabled/);
+  assert.match(appSource, /async function loadMusicCatalog\(\)/);
+  assert.match(appSource, /api\("\/api\/music"\)/);
+  assert.match(appSource, /new Audio\(localTrack\.url\)/);
+  assert.match(appSource, /activeBgmAudio\.loop = true/);
+  assert.match(appSource, /bgmLocal/);
+  assert.match(appSource, /elements\.bgmSelect\.disabled = !localBgmTracks\.length/);
+  assert.match(appSource, /elements\.bgmSelect\.addEventListener\("change"/);
+  assert.match(appSource, /elements\.soundButton\.addEventListener\("click"/);
+  assert.match(appSource, /if \(!bgmEnabled\) return;/);
+  const cryFunction = appSource.match(/function playPokemonCry[\s\S]*?\n}\n\nfunction playNextGameAnimation/);
+  assert.ok(cryFunction);
+  assert.doesNotMatch(cryFunction[0], /bgmEnabled/);
+  assert.match(serverSource, /url\.pathname === "\/api\/music"/);
+  assert.match(serverSource, /endsWith\("\.wav"\)/);
+  assert.match(serverSource, /"\.wav": "audio\/wav"/);
+  assert.match(styles, /\.music-nav-control select/);
+  assert.match(styles, /\.sound-button\[aria-pressed="true"\]/);
+});
+
 test("lobby exposes a synchronized optional turn timer", async () => {
   const [appSource, html] = await Promise.all([
     readFile(new URL("../public/app.js", import.meta.url), "utf8"),
@@ -181,10 +216,17 @@ test("game UI exposes cleanup, evolution, hidden reservation, and play-again con
   assert.match(styles, /\.card-points, \.bonus-gem \{ width: 30px; height: 30px; \}/);
   assert.match(appSource, /function gameTransition/);
   assert.match(appSource, /function presentGameTransition/);
+  assert.match(appSource, /function playPokemonCry/);
   assert.match(appSource, /type: "caught"/);
   assert.match(appSource, /type: "reserve"/);
   assert.match(appSource, /type: "evolve"/);
   assert.match(appSource, /type: "victory"/);
+  assert.match(appSource, /type: "reveal"/);
+  assert.match(appSource, /if \(!isPokemonMystery\(card\)\) playPokemonCry/);
+  assert.match(appSource, /image\.src = `\$\{image\.dataset\.animatedSrc\}\?reveal=/);
+  assert.match(appSource, /pendingRevealCardIds\.add\(cardId\)/);
+  assert.match(appSource, /cardElement\?\.classList\.remove\("market-card-pending-reveal"\)/);
+  assert.match(styles, /\.market-card-pending-reveal \{ opacity: 0; pointer-events: none; \}/);
   assert.match(styles, /@keyframes catch-pokeball-throw/);
   assert.match(styles, /@keyframes catch-capture-flash/);
   assert.match(styles, /@keyframes reserve-card-slide/);

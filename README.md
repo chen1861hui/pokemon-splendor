@@ -6,6 +6,8 @@ The interface supports English and Simplified Chinese. Use the language switch i
 
 The landing page starts with Pikachu and places every collected Pokédex species into the interactive hero background. The responsive layout scales the full collection to fit; click a sprite there or in the Pokédex to replay its animation and cry.
 
+The header loads only user-supplied `.wav` files from `public/assets/musics`; no generated soundtrack is used. New WAV files appear automatically after restarting the server, while incomplete cloud placeholders and non-WAV files are ignored. The persistent BGM toggle controls only background music; Pokémon cries remain active. BGM starts only after player interaction to comply with browser autoplay rules.
+
 Pokémon use Generation V game-style pixel sprites throughout the interface. Market and owned/reserved cards use animated sprites; dense checklist and avatar views use matching static pixel sprites for smoother loading. Click a revealed market Pokémon to restart its animation and play its latest cry. Sprites and cries come from the PokeAPI repositories, with the previous local artwork retained as an automatic fallback. Mystery-mode cards do not expose the name or cry before they are caught.
 
 ## Run locally

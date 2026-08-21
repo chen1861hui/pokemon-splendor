@@ -82,6 +82,9 @@ button:disabled { cursor: not-allowed; opacity: .46; }
 .background-nav-control > span { flex: 0 0 auto; font-size: .88rem; }
 .background-nav-control select { width: 118px; min-width: 0; border: 0; outline: 0; background: transparent; color: var(--blue-deep); font-size: .68rem; font-weight: 900; }
 .background-nav-control:focus-within { border-color: var(--blue); box-shadow: 0 0 0 3px rgba(40,120,208,.12); }
+.music-nav-control select { width: 112px; }
+.sound-button { min-width: 43px; padding-inline: 8px; }
+.sound-button[aria-pressed="true"] span { background: #dff7d8; color: #25703a; }
 
 .brand {
   display: inline-flex;
@@ -481,6 +484,7 @@ img.mystery-silhouette,
 .victory-confetti i { width: 9px; height: 16px; clip-path: none; background: #ef4b4d; animation: victory-confetti-fall 2.4s linear var(--delay) infinite; }
 .victory-confetti i:nth-child(3n+2) { background: #ffda2e; }
 .victory-confetti i:nth-child(3n+3) { background: #3c96df; }
+.market-card-pending-reveal { opacity: 0; pointer-events: none; }
 .market-card-reveal { z-index: 7; animation: market-card-reveal 1.15s cubic-bezier(.2,1.2,.4,1) both; }
 .market-card-reveal::before { content: ""; position: absolute; z-index: 6; right: -4px; bottom: -3px; left: -4px; height: 64%; background: linear-gradient(#78d45a, #277b39); clip-path: polygon(0 100%,0 54%,4% 8%,9% 62%,14% 0,20% 66%,26% 18%,32% 70%,38% 5%,44% 59%,50% 12%,56% 68%,62% 0,68% 62%,74% 17%,80% 70%,86% 4%,92% 59%,97% 13%,100% 61%,100% 100%); filter: drop-shadow(0 -2px 0 rgba(255,255,255,.35)); transform-origin: center bottom; animation: replacement-grass-shake 1.05s steps(2, end) both; }
 .market-card-reveal .pokemon-art > img { animation: replacement-pokemon-rise .82s cubic-bezier(.2,1.2,.4,1) 260ms both; }
@@ -757,6 +761,7 @@ img.mystery-silhouette,
   .lobby-mystery-section > * { grid-column: 1; }
   .background-nav-control { padding-inline: 6px; }
   .background-nav-control select { width: 82px; font-size: .61rem; }
+  .music-nav-control select { width: 76px; }
   .game-status-tools { align-items: flex-start; }
   .lobby-option-heading { align-items: flex-start; }
   .rules-dialog-header { padding: 16px 17px 14px; }
@@ -775,6 +780,7 @@ img.mystery-silhouette,
 @media (max-width: 420px) {
   .background-nav-control > span, .pokedex-button small { display: none; }
   .background-nav-control select { width: 62px; }
+  .music-nav-control select { width: 70px; }
   .rules-button { padding-inline: 6px; }
   .language-button { min-width: 39px; padding-inline: 6px; }
 }

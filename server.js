@@ -1,11 +1,12 @@
 import { createServer } from "node:http";
-import { readFile } from "node:fs/promises";
+import { readFile, readdir } from "node:fs/promises";
 import { extname, join, normalize } from "node:path";
 import { randomBytes, randomUUID } from "node:crypto";
 import { addPlayer, advanceExpiredTurns, chooseTrainerCard, createLobby, endGame, performAction, pokemonCatalog, publicGame, removePlayer, restartFinishedGame, setSilhouetteMode, setTurnTimer, startGame } from "./src/game.js";
 
 const port = Number(process.env.PORT) || 4173;
 const publicDirectory = join(process.cwd(), "public");
+const musicDirectory = join(publicDirectory, "assets", "musics");
 const rooms = new Map();
 
 const contentTypes = {
@@ -15,8 +16,25 @@ const contentTypes = {
   ".js": "text/javascript; charset=utf-8",
   ".json": "application/json; charset=utf-8",
   ".png": "image/png",
-  ".svg": "image/svg+xml"
+  ".svg": "image/svg+xml",
+  ".wav": "audio/wav"
 };
+
+async function musicCatalog() {
+  try {
+    const entries = await readdir(musicDirectory, { withFileTypes: true });
+    return entries
+      .filter((entry) => entry.isFile() && entry.name.toLowerCase().endsWith(".wav"))
+      .map((entry) => ({
+        id: `local:${entry.name}`,
+        name: entry.name.replace(/\.wav$/i, ""),
+        url: `/assets/musics/${encodeURIComponent(entry.name)}`
+      }))
+      .sort((left, right) => left.name.localeCompare(right.name, "en", { numeric: true }));
+  } catch {
+    return [];
+  }
+}
 
 function roomCode() {
   let code;
@@ -64,6 +82,9 @@ function authenticate(room, playerId, playerKey) {
 async function handleApi(request, response, url) {
   if (request.method === "GET" && url.pathname === "/api/catalog") {
     return sendJson(response, 200, pokemonCatalog());
+  }
+  if (request.method === "GET" && url.pathname === "/api/music") {
+    return sendJson(response, 200, await musicCatalog());
   }
 
   if (request.method === "POST" && url.pathname === "/api/rooms") {
@@ -139,7 +160,13 @@ async function handleApi(request, response, url) {
 }
 
 async function serveStatic(response, pathname) {
-  const requestedPath = pathname === "/" ? "/index.html" : pathname;
+  let decodedPath;
+  try {
+    decodedPath = decodeURIComponent(pathname);
+  } catch {
+    return false;
+  }
+  const requestedPath = decodedPath === "/" ? "/index.html" : decodedPath;
   const relativePath = normalize(requestedPath).replace(/^[/\\]+/, "");
   const filePath = join(publicDirectory, relativePath);
   if (!filePath.startsWith(publicDirectory)) return false;
