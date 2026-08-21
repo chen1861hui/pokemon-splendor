@@ -116,6 +116,31 @@ test("lobby exposes a synchronized optional turn timer", async () => {
   assert.match(appSource, /renderTurnTimer/);
 });
 
+test("lobby exposes a host-controlled Normal PvE bot", async () => {
+  const [appSource, html, styles, serverSource] = await Promise.all([
+    readFile(new URL("../public/app.js", import.meta.url), "utf8"),
+    readFile(new URL("../public/index.html", import.meta.url), "utf8"),
+    readFile(new URL("../public/styles.css", import.meta.url), "utf8"),
+    readFile(new URL("../server.js", import.meta.url), "utf8")
+  ]);
+
+  assert.match(html, /id="botCount"/);
+  assert.match(html, /id="botHint"/);
+  assert.match(html, /data-i18n="normalOpponent"/);
+  assert.match(appSource, /updateLobbyOption\("bot", \{ count:/);
+  assert.match(appSource, /maximumBotCount = Math\.min\(3, 4 - humanCount\)/);
+  assert.match(appSource, /player\.isBot \? t\("normalBot"\)/);
+  assert.match(appSource, /activePlayer\?\.isBot \? t\("botThinking"\)/);
+  assert.match(styles, /\.lobby-bot-section/);
+  assert.match(serverSource, /operation === "bot"/);
+  assert.match(serverSource, /setNormalBotCount\(room\.game, Number\(data\.count\)\)/);
+  assert.match(serverSource, /function scheduleBotTurn\(room\)/);
+  assert.match(serverSource, /chooseNormalBotAction\(room\.game\)/);
+  assert.match(serverSource, /botThinkingDelayMilliseconds = 2200/);
+  assert.match(serverSource, /botFollowUpDelayMilliseconds = 1100/);
+  assert.match(serverSource, /!candidate\.isBot/);
+});
+
 test("the first lobby render enables options after room entry completes", async () => {
   const appSource = await readFile(new URL("../public/app.js", import.meta.url), "utf8");
   const roomEntryHandler = appSource.match(/elements\.roomForm\.addEventListener\("submit",[\s\S]*?\n}\);/);

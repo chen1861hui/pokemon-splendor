@@ -34,7 +34,7 @@ const translations = {
     endGameTitle: "End the current game?", endGameMessage: "Everyone will return to this room's lobby and the current board will be cleared. Trainer choices, settings, and browser Pokédex progress will stay saved.", leaveRoomTitle: "Leave this room?", leaveRoomMessage: "Your seat and current game progress will be removed. Your browser Pokédex will stay saved.", disbandRoomTitle: "Disband this room?", disbandRoomMessage: "The current room will close immediately for every Trainer. This cannot be undone, but everyone keeps their browser Pokédex.", gameEnded: "Game ended; everyone returned to the lobby", roomLeft: "You left the room", roomDisbanded: "Room disbanded", roomEnded: "This room has ended or is no longer available",
     trainerName: "Trainer name", trainerPlaceholder: "e.g. Red", roomCode: "Room code", createPrivateRoom: "Create private room", joinPrivateRoom: "Join private room",
     trainerLobby: "Trainer lobby", gatherTeam: "Gather your team", shareRoom: "Share this private room code with up to three friends.", copyInvite: "Click to copy invite link", trainerCard: "Trainer tile", chooseTrainerCard: "Choose character", onePerTrainer: "One tile per trainer", whoAmIPool: "Who am I?", redTrainer: "Red & Pikachu", brockTrainer: "Brock & Onix", mistyTrainer: "Misty & Psyduck", giovanniTrainer: "Giovanni & Persian", chosenBy: "Chosen by {name}", available: "Available", stageOne: "Stage 1", stageTwo: "Stage 2", stageThree: "Stage 3", chooseTrainerFirst: "Choose a Trainer tile to continue.", waitingTrainerCards: "Waiting for every trainer to choose a tile…",
-    startGame: "Start game", turnTimer: "Turn timer", timerOption: "Optional turn limit", enableTimer: "Enable timer", secondsPerTurn: "seconds per turn", timerHostHelp: "The host controls this setting. Enter 15–600 seconds.", timerGuestHelp: "Only the host can change the timer.", mysteryMode: "Mystery mode", silhouetteOption: "Silhouettes until caught", enableSilhouettes: "Enable silhouettes", silhouetteHelp: "Artwork and names stay hidden until that Pokémon is caught in the current game.", silhouetteGuestHelp: "Only the host can change this option.", gameBackground: "Personal game background", backgroundCurrent: "Current", backgroundKanto: "Gen I · Kanto", backgroundJohto: "Gen II · Johto", backgroundHoenn: "Gen III · Hoenn", backgroundSinnoh: "Gen IV · Sinnoh", timeRemaining: "Time remaining", pointsToWin: "points to win", ballSupply: "Poké Ball supply", chooseBalls: "Choose Poké Balls", clear: "Clear",
+    startGame: "Start game", pveMode: "PvE mode", normalOpponent: "Normal opponents", cpuTrainerCount: "CPU Trainers", noCpuTrainers: "No CPU Trainers", cpuTrainerOption: "{count} CPU Trainer(s)", normalBot: "Normal CPU", botHostHelp: "Choose up to three server-controlled Trainers. CPUs think briefly and collect useful balls before reserving cards.", botGuestHelp: "Only the host can change the number of CPU Trainers.", botThinking: "CPU Trainer is choosing…", turnTimer: "Turn timer", timerOption: "Optional turn limit", enableTimer: "Enable timer", secondsPerTurn: "seconds per turn", timerHostHelp: "The host controls this setting. Enter 15–600 seconds.", timerGuestHelp: "Only the host can change the timer.", mysteryMode: "Mystery mode", silhouetteOption: "Silhouettes until caught", enableSilhouettes: "Enable silhouettes", silhouetteHelp: "Artwork and names stay hidden until that Pokémon is caught in the current game.", silhouetteGuestHelp: "Only the host can change this option.", gameBackground: "Personal game background", backgroundCurrent: "Current", backgroundKanto: "Gen I · Kanto", backgroundJohto: "Gen II · Johto", backgroundHoenn: "Gen III · Hoenn", backgroundSinnoh: "Gen IV · Sinnoh", timeRemaining: "Time remaining", pointsToWin: "points to win", ballSupply: "Poké Ball supply", chooseBalls: "Choose Poké Balls", clear: "Clear",
     takeThree: "Take 3 different", takeAvailable: "Take available colors", takePair: "Take pair", returnBalls: "Return Poké Balls", returnExact: "Choose exactly {count} ball(s) to return.", skipEvolution: "Skip evolution", chooseEvolution: "Evolve one Pokémon or skip", evolve: "Evolve", reserveDeck: "Reserve top", ballHelp: "Take three different Poké Balls (or every available color if fewer than three remain), or take a pair when four of that color remain. Return to 10 after the action.",
     wildEncounter: "Wild encounter", pokemonMarket: "Pokémon market", leagueTable: "League table", trainers: "Trainers", trainerHandbook: "Trainer handbook", howToPlay: "How to play",
     ruleIntroTitle: "Become the Pokémon Champion", ruleIntroText: "Collect Poké Balls, catch Pokémon, evolve your team, and finish with the most victory points.",
@@ -62,7 +62,7 @@ const translations = {
     endGameTitle: "确定结束当前游戏？", endGameMessage: "所有训练家会回到当前房间的大厅，当前牌面会被清除；角色选择、房间设置与浏览器捕捉图鉴都会保留。", leaveRoomTitle: "确定离开房间？", leaveRoomMessage: "你的席位与本局进度将被移除，但浏览器中的捕捉图鉴会保留。", disbandRoomTitle: "确定解散房间？", disbandRoomMessage: "房间会立即对所有训练家关闭，且无法撤销；每人的浏览器捕捉图鉴仍会保留。", gameEnded: "本局已结束，所有训练家已返回大厅", roomLeft: "你已离开房间", roomDisbanded: "房间已解散", roomEnded: "房间已结束或无法继续使用",
     trainerName: "训练家名称", trainerPlaceholder: "例如：小智", roomCode: "房间代码", createPrivateRoom: "创建私人房间", joinPrivateRoom: "加入私人房间",
     trainerLobby: "训练家大厅", gatherTeam: "集结你的队伍", shareRoom: "将私人房间代码分享给最多三位好友。", copyInvite: "点击复制邀请链接", trainerCard: "训练家板块", chooseTrainerCard: "选择角色", onePerTrainer: "每位训练家一个", whoAmIPool: "我是谁？", redTrainer: "赤红与皮卡丘", brockTrainer: "小刚与大岩蛇", mistyTrainer: "小霞与可达鸭", giovanniTrainer: "坂木与猫老大", chosenBy: "{name}已选择", available: "可选择", stageOne: "阶段 1", stageTwo: "阶段 2", stageThree: "阶段 3", chooseTrainerFirst: "请先选择一个训练家板块。", waitingTrainerCards: "等待所有训练家选择板块…",
-    startGame: "开始游戏", turnTimer: "回合计时器", timerOption: "可选回合时限", enableTimer: "启用计时器", secondsPerTurn: "秒／回合", timerHostHelp: "由房主控制，请输入15–600秒。", timerGuestHelp: "只有房主可以更改计时器。", mysteryMode: "神秘模式", silhouetteOption: "捕捉前显示剪影", enableSilhouettes: "启用剪影", silhouetteHelp: "宝可梦在本局被捕捉前，其图片与名称都会保持隐藏。", silhouetteGuestHelp: "只有房主可以更改此选项。", gameBackground: "个人游戏背景", backgroundCurrent: "当前背景", backgroundKanto: "第一世代·关都", backgroundJohto: "第二世代·城都", backgroundHoenn: "第三世代·丰缘", backgroundSinnoh: "第四世代·神奥", timeRemaining: "剩余时间", pointsToWin: "分触发终局", ballSupply: "精灵球供应区", chooseBalls: "选择精灵球", clear: "清除",
+    startGame: "开始游戏", pveMode: "人机模式", normalOpponent: "普通难度对手", cpuTrainerCount: "电脑训练家", noCpuTrainers: "不加入电脑", cpuTrainerOption: "{count}名电脑训练家", normalBot: "普通电脑", botHostHelp: "最多选择三名服务器控制的训练家；电脑会稍作思考，并优先收集有用的精灵球而非保留卡牌。", botGuestHelp: "只有房主可以更改电脑训练家数量。", botThinking: "电脑训练家正在选择…", turnTimer: "回合计时器", timerOption: "可选回合时限", enableTimer: "启用计时器", secondsPerTurn: "秒／回合", timerHostHelp: "由房主控制，请输入15–600秒。", timerGuestHelp: "只有房主可以更改计时器。", mysteryMode: "神秘模式", silhouetteOption: "捕捉前显示剪影", enableSilhouettes: "启用剪影", silhouetteHelp: "宝可梦在本局被捕捉前，其图片与名称都会保持隐藏。", silhouetteGuestHelp: "只有房主可以更改此选项。", gameBackground: "个人游戏背景", backgroundCurrent: "当前背景", backgroundKanto: "第一世代·关都", backgroundJohto: "第二世代·城都", backgroundHoenn: "第三世代·丰缘", backgroundSinnoh: "第四世代·神奥", timeRemaining: "剩余时间", pointsToWin: "分触发终局", ballSupply: "精灵球供应区", chooseBalls: "选择精灵球", clear: "清除",
     takeThree: "拿3种不同球", takeAvailable: "拿取现有颜色", takePair: "拿2个同色球", returnBalls: "归还精灵球", returnExact: "请选择正好{count}个球归还。", skipEvolution: "跳过进化", chooseEvolution: "进化一只宝可梦或跳过", evolve: "进化", reserveDeck: "保留牌堆顶", ballHelp: "拿取三种不同的普通球（若不足三种则拿取全部现有颜色），或在同色球至少剩4个时拿取2个。行动后须弃至10个。",
     wildEncounter: "野外遭遇", pokemonMarket: "宝可梦展示区", leagueTable: "联盟排名", trainers: "训练家", trainerHandbook: "训练家手册", howToPlay: "游戏玩法",
     ruleIntroTitle: "成为宝可梦冠军", ruleIntroText: "收集精灵球、捕捉宝可梦、进化队伍，并获得最高胜利点数。",
@@ -96,7 +96,7 @@ const pokemonNamesZh = {
 
 const elements = Object.fromEntries([
   "welcomeView", "lobbyView", "gameView", "roomBadge", "roomForm", "playerName", "roomCodeField", "heroMascot", "heroPokemonCollection", "bgmSelect", "soundButton",
-  "roomCode", "roomSubmit", "formError", "largeRoomCode", "lobbyPlayers", "copyInvite", "startGame", "trainerChoices", "timerEnabled", "timerSeconds", "timerHint", "silhouetteEnabled", "silhouetteHint", "backgroundSelect",
+  "roomCode", "roomSubmit", "formError", "largeRoomCode", "lobbyPlayers", "copyInvite", "startGame", "trainerChoices", "botCount", "botHint", "timerEnabled", "timerSeconds", "timerHint", "silhouetteEnabled", "silhouetteHint", "backgroundSelect",
   "lobbyHint", "turnLabel", "statusMessage", "turnTimer", "marketHint", "tokenBank", "takeThree", "takePair", "endTurn",
   "gameDecision", "gameDecisionText", "restartGame",
   "clearSelection", "market", "players", "toast", "languageButton", "rulesButton", "rulesDialog", "closeRules", "pokedexButton",
@@ -761,7 +761,8 @@ function renderLobby() {
 
   elements.lobbyPlayers.innerHTML = game.players.map((player) => {
     const trainerCard = trainerCardById(player.trainerCardId);
-    const status = [player.id === game.hostId ? t("host") : t("ready"), trainerCard ? t(trainerCard.labelKey) : null].filter(Boolean).join(" · ");
+    const role = player.isBot ? t("normalBot") : player.id === game.hostId ? t("host") : t("ready");
+    const status = [role, trainerCard ? t(trainerCard.labelKey) : null].filter(Boolean).join(" · ");
     return `
       <div class="lobby-player">
         ${trainerAvatarMarkup(player)}
@@ -791,6 +792,15 @@ function renderLobby() {
   });
 
   const configuredTimerSeconds = pendingTimerSeconds ?? game.turnDurationSeconds ?? 0;
+  const botCount = game.players.filter((player) => player.isBot).length;
+  const humanCount = game.players.length - botCount;
+  const maximumBotCount = Math.min(3, 4 - humanCount);
+  elements.botCount.innerHTML = Array.from({ length: maximumBotCount + 1 }, (_, count) =>
+    `<option value="${count}">${count === 0 ? t("noCpuTrainers") : t("cpuTrainerOption", { count })}</option>`
+  ).join("");
+  elements.botCount.value = String(botCount);
+  elements.botCount.disabled = busy || !isHost;
+  elements.botHint.textContent = isHost ? t("botHostHelp") : t("botGuestHelp");
   elements.timerEnabled.checked = configuredTimerSeconds > 0;
   if (configuredTimerSeconds > 0) elements.timerSeconds.value = String(configuredTimerSeconds);
   elements.timerEnabled.disabled = busy || !isHost;
@@ -1213,7 +1223,7 @@ function renderGame() {
         ? t("returnExact", { count: playerTokenTotal(myPlayer()) - 10 })
         : game.turnPhase === "evolve" ? t("chooseEvolution") : t("chooseAction")
       : localizeAction(game.lastAction);
-    elements.marketHint.textContent = isMyTurn ? game.turnPhase === "action" ? t("makeMove") : t("yourTurn") : t("watchingLive");
+    elements.marketHint.textContent = activePlayer?.isBot ? t("botThinking") : isMyTurn ? game.turnPhase === "action" ? t("makeMove") : t("yourTurn") : t("watchingLive");
   }
 
   renderTokenBank(isMyTurn);
@@ -1467,6 +1477,9 @@ elements.timerSeconds.addEventListener("change", () => {
 });
 elements.silhouetteEnabled.addEventListener("change", () => {
   updateLobbyOption("silhouette", { enabled: elements.silhouetteEnabled.checked });
+});
+elements.botCount.addEventListener("change", () => {
+  updateLobbyOption("bot", { count: Number(elements.botCount.value) });
 });
 
 elements.clearSelection.addEventListener("click", () => {

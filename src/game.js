@@ -308,11 +308,12 @@ function shuffle(items, random = Math.random) {
   return result;
 }
 
-function createPlayer({ id, key, name }) {
+function createPlayer({ id, key, name, isBot = false }) {
   return {
     id,
     key,
     name: name.trim().slice(0, 24),
+    isBot: Boolean(isBot),
     trainerCardId: null,
     tokens: emptyTokens(),
     bonuses: emptyBonuses(),
@@ -385,11 +386,57 @@ export function chooseTrainerCard(game, playerId, trainerCardId) {
 
 export function addPlayer(game, player) {
   if (game.status !== "lobby") throw new Error("This game has already started.");
-  if (game.players.length >= 4) throw new Error("This room is full.");
+  if (game.players.length >= 4) {
+    const botIndex = game.players.findLastIndex((candidate) => candidate.isBot);
+    if (botIndex === -1) throw new Error("This room is full.");
+    game.players.splice(botIndex, 1);
+  }
   if (!player.name?.trim()) throw new Error("Enter a player name.");
   game.players.push(createPlayer(player));
   game.revision += 1;
   game.lastAction = `${player.name.trim().slice(0, 24)} joined the room`;
+}
+
+export function addNormalBot(game) {
+  if (game.status !== "lobby") throw new Error("Bots can only be changed in the lobby.");
+  if (game.players.length >= 4) throw new Error("This room is full.");
+  const usedBotNumbers = new Set(game.players.filter((player) => player.isBot)
+    .map((player) => Number(player.id.replace("normal-bot-", ""))));
+  const botNumber = [1, 2, 3].find((number) => !usedBotNumbers.has(number));
+  if (!botNumber) throw new Error("You may add at most three CPU Trainers.");
+  const usedTrainerCards = new Set(game.players.map((player) => player.trainerCardId).filter(Boolean));
+  const trainerCardId = ["rocket", "brock", "misty", "ash"].find((id) => !usedTrainerCards.has(id));
+  if (!trainerCardId) throw new Error("No Trainer card is available for the bot.");
+  const bot = createPlayer({ id: `normal-bot-${botNumber}`, key: null, name: `CPU Trainer ${botNumber}`, isBot: true });
+  bot.trainerCardId = trainerCardId;
+  game.players.push(bot);
+  game.revision += 1;
+  game.lastAction = `${bot.name} joined the room`;
+  return bot;
+}
+
+export function removeNormalBot(game, botId = null) {
+  if (game.status !== "lobby") throw new Error("Bots can only be changed in the lobby.");
+  const botIndex = botId
+    ? game.players.findIndex((player) => player.isBot && player.id === botId)
+    : game.players.findLastIndex((player) => player.isBot);
+  if (botIndex === -1) return false;
+  const [bot] = game.players.splice(botIndex, 1);
+  game.revision += 1;
+  game.lastAction = `${bot.name} left the room`;
+  return true;
+}
+
+export function setNormalBotCount(game, count) {
+  if (game.status !== "lobby") throw new Error("Bots can only be changed in the lobby.");
+  const humanCount = game.players.filter((player) => !player.isBot).length;
+  const maximumBotCount = Math.min(3, 4 - humanCount);
+  if (!Number.isInteger(count) || count < 0 || count > maximumBotCount) {
+    throw new Error(`Choose between 0 and ${maximumBotCount} CPU Trainers.`);
+  }
+  while (game.players.filter((player) => player.isBot).length < count) addNormalBot(game);
+  while (game.players.filter((player) => player.isBot).length > count) removeNormalBot(game);
+  return game.players.filter((player) => player.isBot);
 }
 
 function returnPlayerTokens(game, player) {

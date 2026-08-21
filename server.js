@@ -2,12 +2,15 @@ import { createServer } from "node:http";
 import { readFile, readdir } from "node:fs/promises";
 import { extname, join, normalize } from "node:path";
 import { randomBytes, randomUUID } from "node:crypto";
-import { addPlayer, advanceExpiredTurns, chooseTrainerCard, createLobby, endGame, performAction, pokemonCatalog, publicGame, removePlayer, restartFinishedGame, setSilhouetteMode, setTurnTimer, startGame } from "./src/game.js";
+import { addPlayer, advanceExpiredTurns, chooseTrainerCard, createLobby, endGame, performAction, pokemonCatalog, publicGame, removePlayer, restartFinishedGame, setNormalBotCount, setSilhouetteMode, setTurnTimer, startGame } from "./src/game.js";
+import { chooseNormalBotAction } from "./src/bot.js";
 
 const port = Number(process.env.PORT) || 4173;
 const publicDirectory = join(process.cwd(), "public");
 const musicDirectory = join(publicDirectory, "assets", "musics");
 const rooms = new Map();
+const botThinkingDelayMilliseconds = 2200;
+const botFollowUpDelayMilliseconds = 1100;
 
 const contentTypes = {
   ".css": "text/css; charset=utf-8",
@@ -70,13 +73,44 @@ function getRoom(code) {
   if (!room) throw new Error("Room not found.");
   room.lastSeenAt = Date.now();
   advanceExpiredTurns(room.game);
+  scheduleBotTurn(room);
   return room;
 }
 
 function authenticate(room, playerId, playerKey) {
-  const player = room.game.players.find((candidate) => candidate.id === playerId && candidate.key === playerKey);
+  const player = room.game.players.find((candidate) => !candidate.isBot && candidate.id === playerId && candidate.key === playerKey);
   if (!player) throw new Error("Your player session is not valid for this room.");
   return player;
+}
+
+function clearBotTimer(room) {
+  if (!room.botTimer) return;
+  clearTimeout(room.botTimer);
+  room.botTimer = null;
+}
+
+function scheduleBotTurn(room) {
+  const player = room.game.status === "playing" ? room.game.players[room.game.turnIndex] : null;
+  if (!player?.isBot) {
+    clearBotTimer(room);
+    return;
+  }
+  if (room.botTimer) return;
+  const delay = room.game.turnPhase === "action" ? botThinkingDelayMilliseconds : botFollowUpDelayMilliseconds;
+  room.botTimer = setTimeout(() => {
+    room.botTimer = null;
+    const currentPlayer = room.game.status === "playing" ? room.game.players[room.game.turnIndex] : null;
+    if (!currentPlayer?.isBot) return;
+    try {
+      const action = chooseNormalBotAction(room.game);
+      if (action) performAction(room.game, currentPlayer.id, action);
+    } catch (error) {
+      console.error("Normal bot turn failed:", error);
+      return;
+    }
+    scheduleBotTurn(room);
+  }, delay);
+  room.botTimer.unref?.();
 }
 
 async function handleApi(request, response, url) {
@@ -92,11 +126,11 @@ async function handleApi(request, response, url) {
     if (!name?.trim()) throw new Error("Enter a player name.");
     const credentials = playerCredentials(name);
     const code = roomCode();
-    rooms.set(code, { game: createLobby(credentials), lastSeenAt: Date.now() });
+    rooms.set(code, { game: createLobby(credentials), lastSeenAt: Date.now(), botTimer: null });
     return sendJson(response, 201, { code, playerId: credentials.id, playerKey: credentials.key });
   }
 
-  const match = url.pathname.match(/^\/api\/rooms\/([A-F0-9]{6})(?:\/(join|trainer|timer|silhouette|start|actions|finish|end|leave|disband))?$/i);
+  const match = url.pathname.match(/^\/api\/rooms\/([A-F0-9]{6})(?:\/(join|trainer|timer|silhouette|bot|start|actions|finish|end|leave|disband))?$/i);
   if (!match) return false;
   const [, code, operation] = match;
   const room = getRoom(code);
@@ -119,14 +153,17 @@ async function handleApi(request, response, url) {
   const player = authenticate(room, data.playerId, data.playerKey);
   if (operation === "end") {
     endGame(room.game, player.id);
+    clearBotTimer(room);
     return sendJson(response, 200, publicGame(room.game, player.id));
   }
   if (operation === "leave") {
     removePlayer(room.game, player.id);
+    scheduleBotTurn(room);
     return sendJson(response, 200, { left: true });
   }
   if (operation === "disband") {
     if (player.id !== room.game.hostId) throw new Error("Only the room host can disband the room.");
+    clearBotTimer(room);
     rooms.delete(code.toUpperCase());
     return sendJson(response, 200, { disbanded: true });
   }
@@ -144,16 +181,24 @@ async function handleApi(request, response, url) {
     setSilhouetteMode(room.game, data.enabled);
     return sendJson(response, 200, publicGame(room.game, player.id));
   }
+  if (operation === "bot") {
+    if (player.id !== room.game.hostId) throw new Error("Only the room host can change CPU Trainers.");
+    setNormalBotCount(room.game, Number(data.count));
+    return sendJson(response, 200, publicGame(room.game, player.id));
+  }
   if (operation === "start") {
     startGame(room.game);
+    scheduleBotTurn(room);
     return sendJson(response, 200, publicGame(room.game, player.id));
   }
   if (operation === "actions") {
     performAction(room.game, player.id, data.action);
+    scheduleBotTurn(room);
     return sendJson(response, 200, publicGame(room.game, player.id));
   }
   if (operation === "finish") {
     restartFinishedGame(room.game, player.id);
+    scheduleBotTurn(room);
     return sendJson(response, 200, publicGame(room.game, player.id));
   }
   return false;
@@ -200,12 +245,18 @@ const server = createServer(async (request, response) => {
 setInterval(() => {
   const expiry = Date.now() - 12 * 60 * 60 * 1000;
   for (const [code, room] of rooms) {
-    if (room.lastSeenAt < expiry) rooms.delete(code);
+    if (room.lastSeenAt < expiry) {
+      clearBotTimer(room);
+      rooms.delete(code);
+    }
   }
 }, 60 * 60 * 1000).unref();
 
 setInterval(() => {
-  for (const room of rooms.values()) advanceExpiredTurns(room.game);
+  for (const room of rooms.values()) {
+    advanceExpiredTurns(room.game);
+    scheduleBotTurn(room);
+  }
 }, 250).unref();
 
 server.listen(port, () => {
