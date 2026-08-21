@@ -145,7 +145,7 @@ test("room exit controls confirm guest leave and host disband actions", async ()
   assert.match(serverSource, /finish\|end\|leave\|disband/);
   assert.match(serverSource, /endGame\(room\.game, player\.id\)/);
   assert.match(serverSource, /removePlayer\(room\.game, player\.id\)/);
-  assert.match(serverSource, /rooms\.delete\(code\.toUpperCase\(\)\)/);
+  assert.match(serverSource, /roomStore\.remove\(code/);
 });
 
 test("game UI exposes cleanup, evolution, hidden reservation, and play-again control", async () => {

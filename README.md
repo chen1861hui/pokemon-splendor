@@ -1,6 +1,6 @@
 # Pokémon Splendor
 
-A lightweight private browser game inspired by Splendor's token-and-card loop. It uses a dependency-free Node server, server-validated rules, and private six-character room codes.
+A lightweight private browser game inspired by Splendor's token-and-card loop. It uses a small Node server, server-validated rules, and private six-character room codes.
 
 The interface supports English and Simplified Chinese. Use the language switch in the header; the selection is saved in the browser. The header Pokédex automatically keeps a browser-local checklist of Pokémon caught by the current player across multiple games.
 
@@ -15,6 +15,7 @@ Pokémon use Generation V game-style pixel sprites throughout the interface. Mar
 Requirements: Node.js 20 or newer.
 
 ```bash
+npm install
 npm start
 ```
 
@@ -36,7 +37,11 @@ Open `http://localhost:4173`, create a room, and share the displayed link. Every
 - Rare and Legendary/Mythical Pokémon cannot be reserved. Their printed catch cost includes one required Master Ball, they grant two matching permanent discounts, Rare Pokémon score 0, and Legendary/Mythical Pokémon score 2.
 - Reaching 18 points triggers the final round. Ties compare tucked cards, then face-up Pokémon. After scoring, the host may start a fresh game while browser Pokédex progress is retained.
 
-Rooms are stored in server memory and expire after 12 hours without activity.
+Rooms expire after 12 hours without activity. Local development stores rooms in server memory. Vercel production uses Upstash Redis so room state survives function recycling and can be shared by every server instance.
+
+## Deploy on Vercel
+
+Install an [Upstash Redis integration](https://vercel.com/marketplace/upstash) for the Vercel project and connect the database to every environment that runs the game, including Production and Preview when preview deployments are used. The integration must provide both `UPSTASH_REDIS_REST_URL` and `UPSTASH_REDIS_REST_TOKEN`. Redeploy after connecting it; Vercel intentionally fails fast when either credential is absent instead of creating rooms that disappear on the next serverless invocation.
 
 The catalog is validated at startup for all official deck counts, point distributions, bonus distributions, evolution links, Master Ball requirements, and printed numerical cost patterns. The supplied card-sheet preview and independent rules/pattern references agree with the transcription. A scan of every physical card is still required to independently certify every species-specific color assignment.
 

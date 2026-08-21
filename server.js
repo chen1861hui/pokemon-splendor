@@ -3,11 +3,13 @@ import { readFile, readdir } from "node:fs/promises";
 import { extname, join, normalize } from "node:path";
 import { randomBytes, randomUUID } from "node:crypto";
 import { addPlayer, advanceExpiredTurns, chooseTrainerCard, createLobby, endGame, performAction, pokemonCatalog, publicGame, removePlayer, restartFinishedGame, setSilhouetteMode, setTurnTimer, startGame } from "./src/game.js";
+import { createRoomStore } from "./src/room-store.js";
 
 const port = Number(process.env.PORT) || 4173;
 const publicDirectory = join(process.cwd(), "public");
 const musicDirectory = join(publicDirectory, "assets", "musics");
-const rooms = new Map();
+const roomStore = createRoomStore();
+const roomTouchIntervalMilliseconds = 60_000;
 
 const contentTypes = {
   ".css": "text/css; charset=utf-8",
@@ -37,10 +39,7 @@ async function musicCatalog() {
 }
 
 function roomCode() {
-  let code;
-  do code = randomBytes(3).toString("hex").toUpperCase();
-  while (rooms.has(code));
-  return code;
+  return randomBytes(3).toString("hex").toUpperCase();
 }
 
 function playerCredentials(name) {
@@ -65,12 +64,37 @@ async function readJson(request) {
   }
 }
 
-function getRoom(code) {
-  const room = rooms.get(code.toUpperCase());
+function turnHasExpired(game, now) {
+  return game.status === "playing"
+    && game.turnDurationSeconds > 0
+    && Number.isFinite(game.turnStartedAt)
+    && now - game.turnStartedAt >= game.turnDurationSeconds * 1000;
+}
+
+async function getRoom(code) {
+  let room = await roomStore.get(code);
   if (!room) throw new Error("Room not found.");
-  room.lastSeenAt = Date.now();
-  advanceExpiredTurns(room.game);
+  const now = Date.now();
+  if (turnHasExpired(room.game, now) || now - room.lastSeenAt >= roomTouchIntervalMilliseconds) {
+    room = await updateRoom(code, (currentRoom) => currentRoom);
+  }
   return room;
+}
+
+async function updateRoom(code, updater) {
+  return roomStore.update(code, (room) => {
+    advanceExpiredTurns(room.game);
+    return updater(room);
+  });
+}
+
+async function createStoredRoom(credentials) {
+  for (let attempt = 0; attempt < 20; attempt += 1) {
+    const code = roomCode();
+    const created = await roomStore.create(code, { game: createLobby(credentials), lastSeenAt: Date.now() });
+    if (created) return code;
+  }
+  throw new Error("Unable to create a unique room. Try again.");
 }
 
 function authenticate(room, playerId, playerKey) {
@@ -91,17 +115,16 @@ async function handleApi(request, response, url) {
     const { name } = await readJson(request);
     if (!name?.trim()) throw new Error("Enter a player name.");
     const credentials = playerCredentials(name);
-    const code = roomCode();
-    rooms.set(code, { game: createLobby(credentials), lastSeenAt: Date.now() });
+    const code = await createStoredRoom(credentials);
     return sendJson(response, 201, { code, playerId: credentials.id, playerKey: credentials.key });
   }
 
   const match = url.pathname.match(/^\/api\/rooms\/([A-F0-9]{6})(?:\/(join|trainer|timer|silhouette|start|actions|finish|end|leave|disband))?$/i);
   if (!match) return false;
   const [, code, operation] = match;
-  const room = getRoom(code);
 
   if (request.method === "GET" && !operation) {
+    const room = await getRoom(code);
     const playerId = request.headers["x-player-id"];
     const playerKey = request.headers["x-player-key"];
     const viewer = playerId || playerKey ? authenticate(room, playerId, playerKey) : null;
@@ -112,51 +135,36 @@ async function handleApi(request, response, url) {
 
   if (operation === "join") {
     const credentials = playerCredentials(data.name);
-    addPlayer(room.game, credentials);
+    await updateRoom(code, (room) => addPlayer(room.game, credentials));
     return sendJson(response, 200, { code: code.toUpperCase(), playerId: credentials.id, playerKey: credentials.key });
   }
 
-  const player = authenticate(room, data.playerId, data.playerKey);
-  if (operation === "end") {
-    endGame(room.game, player.id);
-    return sendJson(response, 200, publicGame(room.game, player.id));
-  }
-  if (operation === "leave") {
-    removePlayer(room.game, player.id);
-    return sendJson(response, 200, { left: true });
-  }
   if (operation === "disband") {
-    if (player.id !== room.game.hostId) throw new Error("Only the room host can disband the room.");
-    rooms.delete(code.toUpperCase());
+    await roomStore.remove(code, (room) => {
+      const player = authenticate(room, data.playerId, data.playerKey);
+      if (player.id !== room.game.hostId) throw new Error("Only the room host can disband the room.");
+    });
     return sendJson(response, 200, { disbanded: true });
   }
-  if (operation === "trainer") {
-    chooseTrainerCard(room.game, player.id, data.trainerCardId);
-    return sendJson(response, 200, publicGame(room.game, player.id));
-  }
-  if (operation === "timer") {
-    if (player.id !== room.game.hostId) throw new Error("Only the room host can change the turn timer.");
-    setTurnTimer(room.game, Number(data.seconds));
-    return sendJson(response, 200, publicGame(room.game, player.id));
-  }
-  if (operation === "silhouette") {
-    if (player.id !== room.game.hostId) throw new Error("Only the room host can change mystery silhouettes.");
-    setSilhouetteMode(room.game, data.enabled);
-    return sendJson(response, 200, publicGame(room.game, player.id));
-  }
-  if (operation === "start") {
-    startGame(room.game);
-    return sendJson(response, 200, publicGame(room.game, player.id));
-  }
-  if (operation === "actions") {
-    performAction(room.game, player.id, data.action);
-    return sendJson(response, 200, publicGame(room.game, player.id));
-  }
-  if (operation === "finish") {
-    restartFinishedGame(room.game, player.id);
-    return sendJson(response, 200, publicGame(room.game, player.id));
-  }
-  return false;
+
+  const result = await updateRoom(code, (room) => {
+    const player = authenticate(room, data.playerId, data.playerKey);
+    if (operation === "end") endGame(room.game, player.id);
+    else if (operation === "leave") removePlayer(room.game, player.id);
+    else if (operation === "trainer") chooseTrainerCard(room.game, player.id, data.trainerCardId);
+    else if (operation === "timer") {
+      if (player.id !== room.game.hostId) throw new Error("Only the room host can change the turn timer.");
+      setTurnTimer(room.game, Number(data.seconds));
+    } else if (operation === "silhouette") {
+      if (player.id !== room.game.hostId) throw new Error("Only the room host can change mystery silhouettes.");
+      setSilhouetteMode(room.game, data.enabled);
+    } else if (operation === "start") startGame(room.game);
+    else if (operation === "actions") performAction(room.game, player.id, data.action);
+    else if (operation === "finish") restartFinishedGame(room.game, player.id);
+    else throw new Error("Unknown room operation.");
+    return operation === "leave" ? { left: true } : publicGame(room.game, player.id);
+  });
+  return sendJson(response, 200, result);
 }
 
 async function serveStatic(response, pathname) {
@@ -198,14 +206,11 @@ const server = createServer(async (request, response) => {
 });
 
 setInterval(() => {
-  const expiry = Date.now() - 12 * 60 * 60 * 1000;
-  for (const [code, room] of rooms) {
-    if (room.lastSeenAt < expiry) rooms.delete(code);
-  }
+  roomStore.cleanupExpired();
 }, 60 * 60 * 1000).unref();
 
 setInterval(() => {
-  for (const room of rooms.values()) advanceExpiredTurns(room.game);
+  for (const room of roomStore.localRooms()) advanceExpiredTurns(room.game);
 }, 250).unref();
 
 server.listen(port, () => {
