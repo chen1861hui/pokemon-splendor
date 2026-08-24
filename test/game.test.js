@@ -34,6 +34,21 @@ test("requires exclusive Trainer card choices before starting", () => {
   assert.equal(game.players[1].trainerCardId, "brock");
 });
 
+test("orders players and turns by the chosen Trainer characters", () => {
+  const game = createLobby({ id: "p1", key: "k1", name: "Misty player" });
+  addPlayer(game, { id: "p2", key: "k2", name: "Giovanni player" });
+  addPlayer(game, { id: "p3", key: "k3", name: "Red player" });
+  chooseTrainerCard(game, "p1", "misty");
+  chooseTrainerCard(game, "p2", "rocket");
+  chooseTrainerCard(game, "p3", "ash");
+
+  startGame(game, () => 0.5);
+
+  assert.deepEqual(game.players.map((player) => player.id), ["p3", "p1", "p2"]);
+  assert.equal(game.players[game.turnIndex].id, "p3");
+  assert.equal(game.lastAction, "Red player takes the first turn");
+});
+
 test("a guest can leave the lobby and frees their Trainer card", () => {
   const game = createLobby({ id: "p1", key: "k1", name: "Red" });
   addPlayer(game, { id: "p2", key: "k2", name: "Blue" });

@@ -127,6 +127,7 @@ let serverClockOffset = 0;
 let activePokemonAudio = null;
 let activeBgmAudio = null;
 let activeBgmAudioId = null;
+let activeTurnReminderAudio = null;
 let gameAnimationQueue = [];
 let gameAnimationRunning = false;
 let pendingRevealCardIds = new Set();
@@ -517,6 +518,41 @@ function playPokemonCry(crySource, delay = 0) {
   else play();
 }
 
+function playTurnReminder() {
+  const reminderTrack = localBgmTracks.find(({ name }) =>
+    name.toLowerCase().includes("trainer appears (boy version)")
+  );
+  if (!reminderTrack) return;
+  if (activeTurnReminderAudio) {
+    activeTurnReminderAudio.pause();
+    activeTurnReminderAudio.currentTime = 0;
+  }
+  const audio = new Audio(reminderTrack.url);
+  activeTurnReminderAudio = audio;
+  audio.volume = 0.58;
+  audio.addEventListener("ended", () => {
+    if (activeTurnReminderAudio === audio) activeTurnReminderAudio = null;
+  });
+  audio.play().catch(() => {
+    if (activeTurnReminderAudio === audio) activeTurnReminderAudio = null;
+  });
+  window.setTimeout(() => {
+    if (activeTurnReminderAudio !== audio) return;
+    audio.pause();
+    audio.currentTime = 0;
+    activeTurnReminderAudio = null;
+  }, 2600);
+}
+
+function notifyMyTurn(previousGame, nextGame) {
+  const nextPlayerId = nextGame.status === "playing" ? nextGame.players[nextGame.turnIndex]?.id : null;
+  if (!session || nextPlayerId !== session.playerId) return;
+  const previousPlayerId = previousGame?.status === "playing"
+    ? previousGame.players[previousGame.turnIndex]?.id
+    : null;
+  if (previousPlayerId !== session.playerId) playTurnReminder();
+}
+
 function playNextGameAnimation() {
   if (gameAnimationRunning || !gameAnimationQueue.length) return;
   const event = gameAnimationQueue.shift();
@@ -572,6 +608,7 @@ function presentGameTransition(transition) {
 }
 
 function useGameState(nextGame) {
+  notifyMyTurn(game, nextGame);
   serverClockOffset = (nextGame.serverNow ?? Date.now()) - Date.now();
   return nextGame;
 }
@@ -946,6 +983,48 @@ function playPokemonPreview(button) {
   playPokemonCry(button.dataset.crySrc);
 }
 
+function ballCardShellMarkup(type) {
+  const shell = {
+    poke: `
+      <rect width="100" height="44" fill="#df202c"/>
+      <rect y="50" width="100" height="50" fill="#f1f2f8"/>
+    `,
+    great: `
+      <rect width="100" height="44" fill="#1399d0"/>
+      <polygon points="0,4 27,10 37,23 27,36 0,24" fill="#ff5f70"/>
+      <polygon points="100,4 73,10 63,23 73,36 100,24" fill="#ff5f70"/>
+      <rect y="50" width="100" height="50" fill="#f1f2f8"/>
+    `,
+    ultra: `
+      <rect width="100" height="44" fill="#f1d166"/>
+      <path d="M28 44 L32 8 Q50 -4 68 8 L72 44 Z" fill="#3d3e40"/>
+      <rect y="50" width="100" height="50" fill="#f1f2f8"/>
+    `,
+    heal: `
+      <rect width="100" height="100" fill="#fff8d9"/>
+      <ellipse cx="50" cy="48" rx="31" ry="56" fill="#dda5cc"/>
+      <ellipse cx="18" cy="14" rx="8" ry="12" fill="rgba(255,255,255,.92)"/>
+      <ellipse cx="82" cy="14" rx="8" ry="12" fill="rgba(255,255,255,.92)"/>
+    `,
+    quick: `
+      <rect width="100" height="100" fill="#e1bd37"/>
+      <polygon points="34,0 66,0 56,22 50,14 44,22" fill="#397bc0"/>
+      <polygon points="0,12 40,39 29,48 0,39" fill="#397bc0"/>
+      <polygon points="100,12 60,39 71,48 100,39" fill="#397bc0"/>
+      <polygon points="0,65 30,53 39,62 16,100 0,100" fill="#397bc0"/>
+      <polygon points="100,65 70,53 61,62 84,100 100,100" fill="#397bc0"/>
+      <polygon points="42,67 50,57 58,67 67,100 33,100" fill="#397bc0"/>
+    `
+  }[type] ?? "";
+  const bandColor = type === "heal" ? "#67598b" : "#25282d";
+  return `
+    <svg class="ball-card-shell" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+      ${shell}
+      <rect y="44" width="100" height="6" fill="${bandColor}"/>
+    </svg>
+  `;
+}
+
 function cardMarkup(card, isMyTurn, player) {
   const affordable = canAfford(player, card);
   const isActionPhase = isMyTurn && game.turnPhase === "action";
@@ -957,8 +1036,9 @@ function cardMarkup(card, isMyTurn, player) {
   const mystery = isPokemonMystery(card);
   const displayName = pokemonDisplayName(card);
   return `
-    <article class="pokemon-card ${card.kind !== "stage" ? `special-card ${card.kind}` : ""} ${affordable ? "affordable" : ""} ${pendingRevealCardIds.has(card.id) ? "market-card-pending-reveal" : ""}" data-card-id="${card.id}" style="--card-color:${colors[card.bonus]}">
-      <div class="card-top">${card.points > 0 ? `<strong class="card-points">${card.points}</strong>` : ""}<span class="bonus-gem" title="${bonusTitle}"><img src="${tokenImages[card.bonus]}" alt="">${card.bonusAmount === 2 ? '<b>×2</b>' : ""}</span></div>
+    <article class="pokemon-card bonus-${card.bonus} ${card.bonusAmount === 2 ? "double-bonus" : ""} ${card.kind !== "stage" ? `special-card ${card.kind}` : ""} ${affordable ? "affordable" : ""} ${pendingRevealCardIds.has(card.id) ? "market-card-pending-reveal" : ""}" data-card-id="${card.id}" aria-label="${escapeHtml(`${displayName} · ${bonusTitle}`)}" style="--card-color:${colors[card.bonus]}">
+      ${ballCardShellMarkup(card.bonus)}
+      <div class="card-top">${card.points > 0 ? `<strong class="card-points">${card.points}</strong>` : ""}</div>
       <button class="pokemon-art" data-pokemon-preview="${card.pokedexId}" data-cry-src="${pokemonCryUrl(card.pokedexId)}" type="button" aria-label="${mystery ? escapeHtml(t("unknownPokemon")) : escapeHtml(t("previewPokemon", { pokemon: displayName }))}" ${mystery ? "disabled" : ""}>
         <img class="${mystery ? "mystery-silhouette" : ""}" data-pokemon-sprite src="${pokemonAnimatedSpriteUrl(card.pokedexId)}" data-fallback-src="/assets/pokemon/${card.pokedexId}.png" data-animated-src="${pokemonAnimatedSpriteUrl(card.pokedexId)}" alt="${mystery ? "" : escapeHtml(displayName)}" loading="lazy">
         <h3 class="pokemon-nameplate ${mystery ? "mystery-name" : ""}">${escapeHtml(displayName)}</h3>

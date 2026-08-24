@@ -101,6 +101,28 @@ test("header provides persistent local WAV BGM with a music-only toggle", async 
   assert.match(styles, /\.sound-button\[aria-pressed="true"\]/);
 });
 
+test("large game screens show enlarged player cards in a two-by-two layout and alert the active player", async () => {
+  const [appSource, styles] = await Promise.all([
+    readFile(new URL("../public/app.js", import.meta.url), "utf8"),
+    readFile(new URL("../public/styles.css", import.meta.url), "utf8")
+  ]);
+
+  assert.match(styles, /@media \(min-width: 1280px\)/);
+  assert.match(styles, /grid-template-columns: repeat\(2, minmax\(0, 1fr\)\)/);
+  assert.match(styles, /grid-template-rows: repeat\(2, minmax\(0, 1fr\)\)/);
+  assert.match(styles, /\.player-header h3 \{ font-size: 1rem; \}/);
+  assert.match(styles, /\.collection-hover-card \{ width: min\(280px/);
+  assert.match(styles, /\.collection-tooltip-heading strong \{[^}]*font-size: 1\.05rem/);
+  assert.match(appSource, /function playTurnReminder\(\)/);
+  assert.match(appSource, /includes\("trainer appears \(boy version\)"\)/);
+  assert.match(appSource, /audio\.volume = 0\.58/);
+  assert.match(appSource, /function notifyMyTurn\(previousGame, nextGame\)/);
+  assert.match(appSource, /notifyMyTurn\(game, nextGame\)/);
+  const reminderFunction = appSource.match(/function playTurnReminder[\s\S]*?\n}\n\nfunction notifyMyTurn/);
+  assert.ok(reminderFunction);
+  assert.doesNotMatch(reminderFunction[0], /bgmEnabled/);
+});
+
 test("lobby exposes a synchronized optional turn timer", async () => {
   const [appSource, html] = await Promise.all([
     readFile(new URL("../public/app.js", import.meta.url), "utf8"),
@@ -220,8 +242,26 @@ test("game UI exposes cleanup, evolution, hidden reservation, and play-again con
   assert.match(styles, /\.cost-token img \{ width: 18px; height: 18px; \}/);
   assert.match(styles, /\.card-actions button \{ min-height: 22px;/);
   assert.match(styles, /\.card-points \{ width: 40px; height: 40px;/);
-  assert.match(styles, /\.bonus-gem \{ width: 42px; height: 42px;/);
-  assert.match(styles, /\.card-points, \.bonus-gem \{ width: 30px; height: 30px; \}/);
+  assert.doesNotMatch(appSource, /bonus-gem/);
+  assert.doesNotMatch(styles, /\.bonus-gem/);
+  assert.match(appSource, /card\.bonusAmount === 2 \? "double-bonus"/);
+  assert.doesNotMatch(appSource, /--bonus-image/);
+  assert.doesNotMatch(styles, /--bonus-image/);
+  assert.match(appSource, /bonus-\$\{card\.bonus\}/);
+  assert.match(appSource, /function ballCardShellMarkup\(type\)/);
+  assert.match(appSource, /class="ball-card-shell"/);
+  assert.match(appSource, /<polygon points="0,4 27,10 37,23 27,36 0,24"/);
+  assert.match(appSource, /M28 44 L32 8 Q50 -4 68 8 L72 44 Z/);
+  assert.match(appSource, /<ellipse cx="50" cy="48" rx="31" ry="56"/);
+  assert.match(appSource, /<rect width="100" height="100" fill="#e1bd37"\/>/);
+  assert.match(appSource, /<polygon points="34,0 66,0 56,22 50,14 44,22" fill="#397bc0"\/>/);
+  assert.match(styles, /\.ball-card-shell \{ width: 100%; height: 100%; position: absolute;/);
+  assert.match(styles, /\.pokemon-card::after \{[^}]*border: 7px solid var\(--ball-band-color\);[^}]*border-radius: 50%;/);
+  assert.match(styles, /\.pokemon-card\.double-bonus::after/);
+  assert.match(styles, /\.pokemon-card\.double-bonus::after \{ content: "2"; \}/);
+  assert.match(styles, /\.pokemon-card::after \{[^}]*font-size: 1\.15rem;[^}]*font-weight: 950;/);
+  assert.match(styles, /\.pokemon-nameplate \{[^}]*right: 9px;[^}]*left: 54px;[^}]*white-space: normal;/);
+  assert.match(styles, /clamp\(360px, 25vw, 440px\)/);
   assert.match(appSource, /function gameTransition/);
   assert.match(appSource, /function presentGameTransition/);
   assert.match(appSource, /function playPokemonCry/);
@@ -242,6 +282,8 @@ test("game UI exposes cleanup, evolution, hidden reservation, and play-again con
   assert.match(styles, /@keyframes victory-emblem-arrive/);
   assert.match(styles, /@keyframes market-card-reveal/);
   assert.match(styles, /@keyframes replacement-grass-shake/);
+  assert.match(styles, /0% \{ opacity: 0; transform: translateY\(110%\) scaleY\(\.45\)/);
+  assert.match(styles, /16% \{ opacity: 1; transform: translateY\(0\) scaleY\(1\)/);
   assert.match(styles, /\.rare-animation/);
   assert.match(styles, /\.legendary-animation/);
   assert.match(html, /id="backgroundSelect"/);

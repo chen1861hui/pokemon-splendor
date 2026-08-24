@@ -488,6 +488,9 @@ export function startGame(game, random = Math.random, restart = false) {
   if (game.players.length < 2) throw new Error("At least two players are required.");
   if (game.players.some((player) => !player.trainerCardId)) throw new Error("Every player must choose a Trainer card.");
 
+  game.players.sort((left, right) =>
+    trainerCardIds.indexOf(left.trainerCardId) - trainerCardIds.indexOf(right.trainerCardId)
+  );
   const tokenCount = game.players.length === 2 ? 4 : game.players.length === 3 ? 5 : 7;
   for (const player of game.players) resetPlayerProgress(player);
   game.supply = Object.fromEntries([
