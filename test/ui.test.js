@@ -127,6 +127,11 @@ test("settings separate audio and switch animated artwork to 3D-rendered GIFs", 
   assert.match(appSource, /activeBgmAudio\.volume = bgmVolume/);
   assert.match(appSource, /audio\.volume = sfxVolume/);
   assert.match(appSource, /\/pokemon\/other\/showdown\/\$\{pokedexId\}\.gif/);
+  assert.match(appSource, /Spr_Masters_Red\.png/);
+  assert.match(appSource, /Spr_Masters_Brock\.png/);
+  assert.match(appSource, /Spr_Masters_Misty\.png/);
+  assert.match(appSource, /Spr_Masters_Giovanni\.png/);
+  assert.match(appSource, /trainerArtworkUrl/);
   assert.match(appSource, /function pokemonAnimatedArtworkUrl|const pokemonAnimatedArtworkUrl/);
   assert.match(appSource, /function pokemonCardArtworkMarkup/);
   assert.match(appSource, /function renderStaticPokemonArtwork/);
@@ -136,6 +141,7 @@ test("settings separate audio and switch animated artwork to 3D-rendered GIFs", 
   assert.match(appSource, /if \(!sfxEnabled \|\| !crySource\) return/);
   assert.match(appSource, /function stopSoundEffects/);
   assert.match(styles, /src\*="\/other\/showdown\/"/);
+  assert.match(styles, /data-art-mode="hd"/);
   assert.match(styles, /\.settings-dialog/);
   assert.match(styles, /\.settings-range/);
 });

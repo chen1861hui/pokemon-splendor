@@ -25,7 +25,8 @@
 
 * { box-sizing: border-box; }
 img[data-pokemon-sprite], img[data-trainer-sprite] { image-rendering: pixelated; }
-img[data-pokemon-sprite][src*="/other/showdown/"] { image-rendering: auto; }
+img[data-pokemon-sprite][src*="/other/showdown/"],
+img[data-trainer-sprite][data-art-mode="hd"] { image-rendering: auto; }
 
 body {
   margin: 0;
@@ -246,19 +247,25 @@ input:focus { border-color: var(--blue); box-shadow: 0 0 0 4px rgba(40,120,208,.
 .trainer-choice:not(:disabled):hover { transform: translateY(-3px); }
 .trainer-choice.selected { outline: 0; transform: translateY(-4px); }
 .trainer-choice-art { width: 100%; height: var(--trainer-art-height); display: flex; align-items: flex-end; justify-content: center; position: relative; overflow: hidden; border-radius: 0; background: transparent; }
-.trainer-choice-art .trainer-main-art { width: auto; max-width: 100%; height: 100%; max-height: 100%; display: block; flex: 0 0 auto; object-fit: contain; object-position: center bottom; filter: drop-shadow(0 5px 4px rgba(30,70,104,.22)); }
+.trainer-choice-art .trainer-main-art { width: auto; max-width: 100%; height: 100%; max-height: 100%; display: block; flex: 0 0 auto; position: relative; z-index: 2; object-fit: contain; object-position: center bottom; filter: drop-shadow(0 5px 4px rgba(30,70,104,.22)); }
 .trainer-choice-art .trainer-main-art[data-trainer-sprite] { width: 100%; object-position: center; transform-origin: center bottom; animation: trainer-pixel-idle 2.1s steps(2, end) infinite; }
+.trainer-choice-art .trainer-main-art[data-art-mode="hd"] { width: auto; animation: trainer-hd-idle 2.35s ease-in-out infinite; }
 .trainer-choice.brock .trainer-main-art { animation-delay: -.45s; }
 .trainer-choice.misty .trainer-main-art { animation-delay: -.9s; }
 .trainer-choice.giovanni .trainer-main-art { animation-delay: -1.35s; }
 .trainer-choice.selected .trainer-main-art { filter: drop-shadow(0 0 4px #fff) drop-shadow(0 0 9px var(--yellow)) drop-shadow(0 7px 4px rgba(30,70,104,.24)); }
-.trainer-choice-art .trainer-partner-art { width: min(88px, 38%); height: min(88px, 42%); position: absolute; z-index: 3; right: 2px; bottom: 2px; object-fit: contain; filter: drop-shadow(0 5px 3px rgba(16,44,92,.3)); transform-origin: center bottom; animation: trainer-partner-idle 1.65s steps(2, end) infinite; }
-.trainer-choice.brock .trainer-partner-art { width: min(102px, 43%); height: min(102px, 48%); right: -2px; }
-.trainer-choice.giovanni .trainer-partner-art { right: -3px; }
+.trainer-choice-art .trainer-partner-art { width: min(72px, 31%); height: min(72px, 34%); position: absolute; z-index: 3; right: 5px; bottom: 2px; object-fit: contain; filter: drop-shadow(0 5px 3px rgba(16,44,92,.3)); transform-origin: center bottom; animation: trainer-partner-idle 1.65s ease-in-out infinite; }
+.trainer-choice.brock .trainer-partner-art { width: min(142px, 61%); height: min(174px, 76%); z-index: 1; right: -12px; bottom: -4px; }
+.trainer-choice.misty .trainer-partner-art { width: min(82px, 35%); height: min(88px, 39%); }
+.trainer-choice.giovanni .trainer-partner-art { width: min(104px, 45%); height: min(116px, 51%); right: -6px; }
 .trainer-choice.selected .trainer-partner-art { filter: drop-shadow(0 0 5px #fff) drop-shadow(0 0 9px var(--yellow)) drop-shadow(0 5px 3px rgba(16,44,92,.3)); }
 @keyframes trainer-pixel-idle {
   0%, 100% { transform: translateY(0); }
   50% { transform: translateY(-5px); }
+}
+@keyframes trainer-hd-idle {
+  0%, 100% { transform: translateY(7%) scale(1.15); }
+  50% { transform: translateY(calc(7% - 4px)) scale(1.17); }
 }
 @keyframes trainer-partner-idle {
   0%, 100% { transform: translateY(0) scale(1); }
