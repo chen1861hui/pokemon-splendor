@@ -10,7 +10,7 @@ The header loads only user-supplied `.wav` files from `public/assets/musics`; no
 
 Pokémon use Generation V game-style pixel sprites throughout the interface. Market and owned/reserved cards use animated sprites; dense checklist and avatar views use matching static pixel sprites for smoother loading. Click a revealed market Pokémon to restart its animation and play its latest cry. Sprites and cries come from the PokeAPI repositories, with the previous local artwork retained as an automatic fallback. Mystery-mode cards do not expose the name or cry before they are caught.
 
-An optional 3D preview mode is available under Settings. When enabled, clicking a revealed market Pokémon loads one animated GLB model at a time from the unofficial Pokémon3D API through Google's pinned `<model-viewer>` web component. Pixel sprites remain the default, are used for mystery cards, and automatically remain visible when a model or the external service is unavailable. Background music and sound effects can be controlled separately in the same device-local settings panel.
+An optional 3D preview mode is available under Settings. When enabled, clicking a revealed market Pokémon loads one animated GLB model at a time from the unofficial Pokémon3D API through Google's pinned `<model-viewer>` web component. Pixel sprites remain the default, are used for mystery cards, and automatically remain visible when a model or the external service is unavailable. Background, music-track, BGM volume, and sound-effect volume choices live in the same device-local settings panel; music and effects can also be enabled independently.
 
 ## Run locally
 

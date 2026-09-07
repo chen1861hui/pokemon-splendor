@@ -17,14 +17,6 @@
         </a>
         <div class="header-actions">
           <div id="roomBadge" class="room-badge hidden"></div>
-          <label class="background-nav-control" for="backgroundSelect">
-            <span aria-hidden="true">🗺</span>
-            <select id="backgroundSelect" aria-label="Personal game background"></select>
-          </label>
-          <label class="background-nav-control music-nav-control" for="bgmSelect">
-            <span aria-hidden="true">♫</span>
-            <select id="bgmSelect" aria-label="Background music"></select>
-          </label>
           <button id="soundButton" class="rules-button sound-button" type="button" aria-pressed="false">
             <span aria-hidden="true">🔇</span> <b>BGM off</b>
           </button>
@@ -219,9 +211,9 @@
             <span aria-hidden="true">🖼</span>
             <div><h3 data-i18n="visualSettings">Visuals</h3><p data-i18n="visualSettingsHelp">These preferences apply only on this device.</p></div>
           </div>
-          <label class="settings-field" for="settingsBackgroundSelect">
+          <label class="settings-field" for="backgroundSelect">
             <span data-i18n="gameBackground">Personal game background</span>
-            <select id="settingsBackgroundSelect" aria-label="Personal game background"></select>
+            <select id="backgroundSelect" aria-label="Personal game background"></select>
           </label>
           <label class="settings-toggle" for="model3dEnabled">
             <span><b data-i18n="model3d">3D Pokémon previews</b><small data-i18n="model3dHelp">Click a revealed card to load one animated 3D model at a time. Pixel sprites remain the fallback.</small></span>
@@ -238,13 +230,21 @@
             <span><b data-i18n="bgm">Background music</b><small data-i18n="bgmHelp">Play the selected local game track.</small></span>
             <input id="bgmEnabledInput" type="checkbox" role="switch">
           </label>
-          <label class="settings-field" for="settingsBgmSelect">
+          <label class="settings-field" for="bgmSelect">
             <span data-i18n="musicTrack">Music track</span>
-            <select id="settingsBgmSelect" aria-label="Background music"></select>
+            <select id="bgmSelect" aria-label="Background music"></select>
+          </label>
+          <label class="settings-range" for="bgmVolumeInput">
+            <span><b data-i18n="bgmVolume">Music volume</b><output id="bgmVolumeValue" for="bgmVolumeInput">35%</output></span>
+            <input id="bgmVolumeInput" type="range" min="0" max="100" step="1" value="35">
           </label>
           <label class="settings-toggle" for="sfxEnabledInput">
             <span><b data-i18n="soundEffects">Sound effects</b><small data-i18n="soundEffectsHelp">Pokémon cries and your-turn reminders.</small></span>
             <input id="sfxEnabledInput" type="checkbox" role="switch">
+          </label>
+          <label class="settings-range" for="sfxVolumeInput">
+            <span><b data-i18n="sfxVolume">Sound-effect volume</b><output id="sfxVolumeValue" for="sfxVolumeInput">70%</output></span>
+            <input id="sfxVolumeInput" type="range" min="0" max="100" step="1" value="70">
           </label>
         </section>
       </div>

@@ -66,7 +66,7 @@ test("landing page starts with Pikachu and grows an interactive caught-Pokémon 
   assert.match(styles, /\.pokedex-pokemon-preview\.preview-playing img/);
 });
 
-test("header provides persistent local WAV BGM with a music-only toggle", async () => {
+test("settings provide persistent local WAV BGM with a music-only quick toggle", async () => {
   const [appSource, html, styles, serverSource] = await Promise.all([
     readFile(new URL("../public/app.js", import.meta.url), "utf8"),
     readFile(new URL("../public/index.html", import.meta.url), "utf8"),
@@ -87,8 +87,8 @@ test("header provides persistent local WAV BGM with a music-only toggle", async 
   assert.match(appSource, /new Audio\(localTrack\.url\)/);
   assert.match(appSource, /activeBgmAudio\.loop = true/);
   assert.match(appSource, /bgmLocal/);
-  assert.match(appSource, /select\.disabled = !localBgmTracks\.length \|\| !bgmEnabled/);
-  assert.match(appSource, /\[elements\.bgmSelect, elements\.settingsBgmSelect\]/);
+  assert.match(appSource, /elements\.bgmSelect\.disabled = !localBgmTracks\.length \|\| !bgmEnabled/);
+  assert.match(appSource, /elements\.bgmSelect\.addEventListener\("change"/);
   assert.match(appSource, /elements\.soundButton\.addEventListener\("click"/);
   assert.match(appSource, /if \(!bgmEnabled\) return;/);
   const cryFunction = appSource.match(/function playPokemonCry[\s\S]*?\n}\n\nfunction playNextGameAnimation/);
@@ -97,7 +97,7 @@ test("header provides persistent local WAV BGM with a music-only toggle", async 
   assert.match(serverSource, /url\.pathname === "\/api\/music"/);
   assert.match(serverSource, /endsWith\("\.wav"\)/);
   assert.match(serverSource, /"\.wav": "audio\/wav"/);
-  assert.match(styles, /\.music-nav-control select/);
+  assert.match(styles, /\.settings-field select/);
   assert.match(styles, /\.sound-button\[aria-pressed="true"\]/);
 });
 
@@ -112,9 +112,20 @@ test("settings separate music, sound effects, and optional on-demand 3D previews
   assert.match(html, /id="settingsDialog"/);
   assert.match(html, /id="model3dEnabled"/);
   assert.match(html, /id="bgmEnabledInput"/);
+  assert.match(html, /id="bgmVolumeInput"/);
+  assert.match(html, /id="bgmVolumeValue"/);
   assert.match(html, /id="sfxEnabledInput"/);
+  assert.match(html, /id="sfxVolumeInput"/);
+  assert.match(html, /id="sfxVolumeValue"/);
+  assert.doesNotMatch(html.match(/<header[\s\S]*?<\/header>/)?.[0] ?? "", /id="(?:backgroundSelect|bgmSelect)"/);
+  assert.match(html.match(/id="settingsDialog"[\s\S]*?<\/dialog>/)?.[0] ?? "", /id="backgroundSelect"/);
+  assert.match(html.match(/id="settingsDialog"[\s\S]*?<\/dialog>/)?.[0] ?? "", /id="bgmSelect"/);
   assert.match(appSource, /pokemon-splendor-3d-enabled/);
   assert.match(appSource, /pokemon-splendor-sfx-enabled/);
+  assert.match(appSource, /pokemon-splendor-bgm-volume/);
+  assert.match(appSource, /pokemon-splendor-sfx-volume/);
+  assert.match(appSource, /activeBgmAudio\.volume = bgmVolume/);
+  assert.match(appSource, /audio\.volume = sfxVolume/);
   assert.match(appSource, /https:\/\/pokemon-3d-api\.onrender\.com\/v1\/pokemon/);
   assert.match(appSource, /@google\/model-viewer@4\.1\.0/);
   assert.match(appSource, /function pokemonCardArtworkMarkup/);
@@ -123,6 +134,7 @@ test("settings separate music, sound effects, and optional on-demand 3D previews
   assert.match(appSource, /function stopSoundEffects/);
   assert.match(styles, /\.pokemon-art > \.pokemon-model/);
   assert.match(styles, /\.settings-dialog/);
+  assert.match(styles, /\.settings-range/);
 });
 
 test("large game screens show enlarged player cards in a two-by-two layout and alert the active player", async () => {
@@ -139,7 +151,7 @@ test("large game screens show enlarged player cards in a two-by-two layout and a
   assert.match(styles, /\.collection-tooltip-heading strong \{[^}]*font-size: 1\.05rem/);
   assert.match(appSource, /function playTurnReminder\(\)/);
   assert.match(appSource, /includes\("trainer appears \(boy version\)"\)/);
-  assert.match(appSource, /audio\.volume = 0\.58/);
+  assert.match(appSource, /audio\.volume = sfxVolume/);
   assert.match(appSource, /function notifyMyTurn\(previousGame, nextGame\)/);
   assert.match(appSource, /notifyMyTurn\(game, nextGame\)/);
   const reminderFunction = appSource.match(/function playTurnReminder[\s\S]*?\n}\n\nfunction notifyMyTurn/);
@@ -312,7 +324,7 @@ test("game UI exposes cleanup, evolution, hidden reservation, and play-again con
   assert.match(styles, /\.legendary-animation/);
   assert.match(html, /id="backgroundSelect"/);
   assert.match(appSource, /pokemon-splendor-background/);
-  assert.match(appSource, /\[elements\.backgroundSelect, elements\.settingsBackgroundSelect\]/);
+  assert.match(appSource, /elements\.backgroundSelect\.addEventListener/);
   assert.doesNotMatch(appSource, /updateLobbyOption\("background"/);
   assert.doesNotMatch(appSource, /elements\.startGame\.classList\.toggle\("hidden", !isHost\)/);
   assert.doesNotMatch(styles, /splendor-case\.(?:jpg|png)/);

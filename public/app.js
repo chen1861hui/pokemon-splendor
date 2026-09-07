@@ -32,7 +32,7 @@ const translations = {
   en: {
     gameRules: "Game rules", pokedex: "Pokédex", caughtPokedex: "Caught Pokédex", multiGameChecklist: "Multi-game checklist", checklistHelp: "Pokémon you catch are checked automatically and saved on this browser across games.", caughtProgress: "{caught} / {total} caught", stagePokemon: "Stage Pokémon", rarePokemon: "Rare Pokémon", legendaryPokemon: "Legendary Pokémon", mythicalPokemon: "Mythical Pokémon", catalogLoading: "Loading the Pokémon checklist…", heroEyebrow: "A private trainer challenge", heroTitle: "Catch. Collect.", heroTitleAccent: "Become Champion.",
     heroDescription: "Catch Pokémon, collect Poké Balls, and race your friends to 18 victory points. No accounts or installation required.",
-    playersFeature: "2–4 players", privateRooms: "Private rooms", liveTurns: "Live turns", pokedexPartners: "Your Pokédex partners", settings: "Settings", personalPreferences: "Personal preferences", visualSettings: "Visuals", visualSettingsHelp: "These preferences apply only on this device.", model3d: "3D Pokémon previews", model3dHelp: "Click a revealed card to load one animated 3D model at a time. Pixel sprites remain the fallback.", model3dLoading: "Loading 3D Pokémon…", model3dUnavailable: "A 3D model is not available for this Pokémon.", model3dError: "The 3D model service is unavailable. Using pixel sprites.", audioSettings: "Audio", audioSettingsHelp: "Control music and game sounds separately.", bgm: "Background music", bgmLocal: "Background music", bgmUnavailable: "No background music", bgmOn: "BGM on", bgmOff: "BGM off", bgmHelp: "Play the selected local game track.", musicTrack: "Music track", soundEffects: "Sound effects", soundEffectsHelp: "Pokémon cries and your-turn reminders.", createRoom: "Create room", joinRoom: "Join room", endGame: "End game", leaveRoom: "Leave room", disbandRoom: "Disband room", cancel: "Cancel",
+    playersFeature: "2–4 players", privateRooms: "Private rooms", liveTurns: "Live turns", pokedexPartners: "Your Pokédex partners", settings: "Settings", personalPreferences: "Personal preferences", visualSettings: "Visuals", visualSettingsHelp: "These preferences apply only on this device.", model3d: "3D Pokémon previews", model3dHelp: "Click a revealed card to load one animated 3D model at a time. Pixel sprites remain the fallback.", model3dLoading: "Loading 3D Pokémon…", model3dUnavailable: "A 3D model is not available for this Pokémon.", model3dError: "The 3D model service is unavailable. Using pixel sprites.", audioSettings: "Audio", audioSettingsHelp: "Control music and game sounds separately.", bgm: "Background music", bgmLocal: "Background music", bgmUnavailable: "No background music", bgmOn: "BGM on", bgmOff: "BGM off", bgmHelp: "Play the selected local game track.", musicTrack: "Music track", bgmVolume: "Music volume", soundEffects: "Sound effects", soundEffectsHelp: "Pokémon cries and your-turn reminders.", sfxVolume: "Sound-effect volume", createRoom: "Create room", joinRoom: "Join room", endGame: "End game", leaveRoom: "Leave room", disbandRoom: "Disband room", cancel: "Cancel",
     endGameTitle: "End the current game?", endGameMessage: "Everyone will return to this room's lobby and the current board will be cleared. Trainer choices, settings, and browser Pokédex progress will stay saved.", leaveRoomTitle: "Leave this room?", leaveRoomMessage: "Your seat and current game progress will be removed. Your browser Pokédex will stay saved.", disbandRoomTitle: "Disband this room?", disbandRoomMessage: "The current room will close immediately for every Trainer. This cannot be undone, but everyone keeps their browser Pokédex.", gameEnded: "Game ended; everyone returned to the lobby", roomLeft: "You left the room", roomDisbanded: "Room disbanded", roomEnded: "This room has ended or is no longer available",
     trainerName: "Trainer name", trainerPlaceholder: "e.g. Red", roomCode: "Room code", createPrivateRoom: "Create private room", joinPrivateRoom: "Join private room",
     trainerLobby: "Trainer lobby", gatherTeam: "Gather your team", shareRoom: "Share this private room code with up to three friends.", copyInvite: "Click to copy invite link", trainerCard: "Trainer tile", chooseTrainerCard: "Choose character", onePerTrainer: "One tile per trainer", whoAmIPool: "Who am I?", redTrainer: "Red & Pikachu", brockTrainer: "Brock & Onix", mistyTrainer: "Misty & Psyduck", giovanniTrainer: "Giovanni & Persian", chosenBy: "Chosen by {name}", available: "Available", stageOne: "Stage 1", stageTwo: "Stage 2", stageThree: "Stage 3", chooseTrainerFirst: "Choose a Trainer tile to continue.", waitingTrainerCards: "Waiting for every trainer to choose a tile…",
@@ -60,7 +60,7 @@ const translations = {
   zh: {
     gameRules: "游戏规则", pokedex: "图鉴", caughtPokedex: "捕捉图鉴", multiGameChecklist: "多局游戏清单", checklistHelp: "你亲自捕捉的宝可梦会自动勾选，并保存在此浏览器中供多局游戏核对。", caughtProgress: "已捕捉 {caught} / {total}", stagePokemon: "阶段宝可梦", rarePokemon: "稀有宝可梦", legendaryPokemon: "传说宝可梦", mythicalPokemon: "幻之宝可梦", catalogLoading: "正在载入宝可梦清单…", heroEyebrow: "私人训练家挑战", heroTitle: "捕捉·收集", heroTitleAccent: "成为冠军！",
     heroDescription: "捕捉宝可梦、收集精灵球，与好友竞赛，率先触发18分终局。无需账号或安装。",
-    playersFeature: "2–4名玩家", privateRooms: "私人房间", liveTurns: "实时回合", pokedexPartners: "你的图鉴伙伴", settings: "设置", personalPreferences: "个人偏好", visualSettings: "画面", visualSettingsHelp: "这些偏好只应用于此设备。", model3d: "3D宝可梦预览", model3dHelp: "点击已揭晓卡牌，每次载入一个带动画的3D模型；像素精灵图会作为后备。", model3dLoading: "正在载入3D宝可梦…", model3dUnavailable: "这只宝可梦暂时没有可用的3D模型。", model3dError: "3D模型服务暂时无法使用，已改用像素精灵图。", audioSettings: "声音", audioSettingsHelp: "可分别控制音乐与游戏音效。", bgm: "背景音乐", bgmLocal: "背景音乐", bgmUnavailable: "没有背景音乐", bgmOn: "背景音乐已开", bgmOff: "背景音乐已关", bgmHelp: "播放所选的本地游戏音乐。", musicTrack: "音乐曲目", soundEffects: "游戏音效", soundEffectsHelp: "宝可梦叫声与轮到你的提示音。", createRoom: "创建房间", joinRoom: "加入房间", endGame: "结束本局", leaveRoom: "离开房间", disbandRoom: "解散房间", cancel: "取消",
+    playersFeature: "2–4名玩家", privateRooms: "私人房间", liveTurns: "实时回合", pokedexPartners: "你的图鉴伙伴", settings: "设置", personalPreferences: "个人偏好", visualSettings: "画面", visualSettingsHelp: "这些偏好只应用于此设备。", model3d: "3D宝可梦预览", model3dHelp: "点击已揭晓卡牌，每次载入一个带动画的3D模型；像素精灵图会作为后备。", model3dLoading: "正在载入3D宝可梦…", model3dUnavailable: "这只宝可梦暂时没有可用的3D模型。", model3dError: "3D模型服务暂时无法使用，已改用像素精灵图。", audioSettings: "声音", audioSettingsHelp: "可分别控制音乐与游戏音效。", bgm: "背景音乐", bgmLocal: "背景音乐", bgmUnavailable: "没有背景音乐", bgmOn: "背景音乐已开", bgmOff: "背景音乐已关", bgmHelp: "播放所选的本地游戏音乐。", musicTrack: "音乐曲目", bgmVolume: "音乐音量", soundEffects: "游戏音效", soundEffectsHelp: "宝可梦叫声与轮到你的提示音。", sfxVolume: "音效音量", createRoom: "创建房间", joinRoom: "加入房间", endGame: "结束本局", leaveRoom: "离开房间", disbandRoom: "解散房间", cancel: "取消",
     endGameTitle: "确定结束当前游戏？", endGameMessage: "所有训练家会回到当前房间的大厅，当前牌面会被清除；角色选择、房间设置与浏览器捕捉图鉴都会保留。", leaveRoomTitle: "确定离开房间？", leaveRoomMessage: "你的席位与本局进度将被移除，但浏览器中的捕捉图鉴会保留。", disbandRoomTitle: "确定解散房间？", disbandRoomMessage: "房间会立即对所有训练家关闭，且无法撤销；每人的浏览器捕捉图鉴仍会保留。", gameEnded: "本局已结束，所有训练家已返回大厅", roomLeft: "你已离开房间", roomDisbanded: "房间已解散", roomEnded: "房间已结束或无法继续使用",
     trainerName: "训练家名称", trainerPlaceholder: "例如：小智", roomCode: "房间代码", createPrivateRoom: "创建私人房间", joinPrivateRoom: "加入私人房间",
     trainerLobby: "训练家大厅", gatherTeam: "集结你的队伍", shareRoom: "将私人房间代码分享给最多三位好友。", copyInvite: "点击复制邀请链接", trainerCard: "训练家板块", chooseTrainerCard: "选择角色", onePerTrainer: "每位训练家一个", whoAmIPool: "我是谁？", redTrainer: "赤红与皮卡丘", brockTrainer: "小刚与大岩蛇", mistyTrainer: "小霞与可达鸭", giovanniTrainer: "坂木与猫老大", chosenBy: "{name}已选择", available: "可选择", stageOne: "阶段 1", stageTwo: "阶段 2", stageThree: "阶段 3", chooseTrainerFirst: "请先选择一个训练家板块。", waitingTrainerCards: "等待所有训练家选择板块…",
@@ -97,8 +97,8 @@ const pokemonNamesZh = {
 };
 
 const elements = Object.fromEntries([
-  "welcomeView", "lobbyView", "gameView", "roomBadge", "roomForm", "playerName", "roomCodeField", "heroMascot", "heroPokemonCollection", "bgmSelect", "settingsBgmSelect", "soundButton", "settingsButton", "settingsDialog", "closeSettings", "model3dEnabled", "bgmEnabledInput", "sfxEnabledInput",
-  "roomCode", "roomSubmit", "formError", "largeRoomCode", "lobbyPlayers", "copyInvite", "startGame", "trainerChoices", "timerEnabled", "timerSeconds", "timerHint", "silhouetteEnabled", "silhouetteHint", "backgroundSelect", "settingsBackgroundSelect",
+  "welcomeView", "lobbyView", "gameView", "roomBadge", "roomForm", "playerName", "roomCodeField", "heroMascot", "heroPokemonCollection", "bgmSelect", "soundButton", "settingsButton", "settingsDialog", "closeSettings", "model3dEnabled", "bgmEnabledInput", "bgmVolumeInput", "bgmVolumeValue", "sfxEnabledInput", "sfxVolumeInput", "sfxVolumeValue",
+  "roomCode", "roomSubmit", "formError", "largeRoomCode", "lobbyPlayers", "copyInvite", "startGame", "trainerChoices", "timerEnabled", "timerSeconds", "timerHint", "silhouetteEnabled", "silhouetteHint", "backgroundSelect",
   "lobbyHint", "turnLabel", "statusMessage", "turnTimer", "marketHint", "tokenBank", "takeThree", "takePair", "endTurn",
   "gameDecision", "gameDecisionText", "restartGame",
   "clearSelection", "market", "players", "toast", "languageButton", "rulesButton", "rulesDialog", "closeRules", "pokedexButton",
@@ -122,6 +122,8 @@ let selectedBgmId = localStorage.getItem("pokemon-splendor-bgm") ?? "";
 let bgmEnabled = (localStorage.getItem("pokemon-splendor-bgm-enabled")
   ?? localStorage.getItem("pokemon-splendor-sound")) === "true";
 let sfxEnabled = localStorage.getItem("pokemon-splendor-sfx-enabled") !== "false";
+let bgmVolume = loadAudioVolume("pokemon-splendor-bgm-volume", 0.35);
+let sfxVolume = loadAudioVolume("pokemon-splendor-sfx-volume", 0.7);
 let model3dEnabled = localStorage.getItem("pokemon-splendor-3d-enabled") === "true";
 let catalog = [];
 let caughtPokemon = loadCaughtPokemon();
@@ -144,6 +146,13 @@ let pendingRoomAction = null;
 function t(key, variables = {}) {
   const template = translations[currentLanguage][key] ?? translations.en[key] ?? key;
   return Object.entries(variables).reduce((text, [name, value]) => text.replaceAll(`{${name}}`, value), template);
+}
+
+function loadAudioVolume(key, fallback) {
+  const stored = localStorage.getItem(key);
+  if (stored === null) return fallback;
+  const saved = Number(stored);
+  return Number.isFinite(saved) && saved >= 0 && saved <= 1 ? saved : fallback;
 }
 
 function ballLabel(type) {
@@ -515,7 +524,7 @@ function playPokemonCry(crySource, delay = 0) {
     }
     const audio = new Audio(crySource);
     activePokemonAudio = audio;
-    audio.volume = 0.7;
+    audio.volume = sfxVolume;
     audio.addEventListener("ended", () => {
       if (activePokemonAudio === audio) activePokemonAudio = null;
     });
@@ -539,7 +548,7 @@ function playTurnReminder() {
   }
   const audio = new Audio(reminderTrack.url);
   activeTurnReminderAudio = audio;
-  audio.volume = 0.58;
+  audio.volume = sfxVolume;
   audio.addEventListener("ended", () => {
     if (activeTurnReminderAudio === audio) activeTurnReminderAudio = null;
   });
@@ -702,30 +711,24 @@ function applyGameBackground() {
 }
 
 function renderBackgroundSelector() {
-  const options = gameBackgrounds.map((background) =>
+  elements.backgroundSelect.innerHTML = gameBackgrounds.map((background) =>
     `<option value="${background.id}">${t(background.labelKey)}</option>`
   ).join("");
-  for (const select of [elements.backgroundSelect, elements.settingsBackgroundSelect]) {
-    select.innerHTML = options;
-    select.value = selectedGameBackgroundId;
-    select.setAttribute("aria-label", t("gameBackground"));
-    select.title = t("gameBackground");
-  }
+  elements.backgroundSelect.value = selectedGameBackgroundId;
+  elements.backgroundSelect.setAttribute("aria-label", t("gameBackground"));
+  elements.backgroundSelect.title = t("gameBackground");
 }
 
 function renderAudioControls() {
-  const options = localBgmTracks.length ? `
+  elements.bgmSelect.innerHTML = localBgmTracks.length ? `
     <optgroup label="${t("bgmLocal")}">
       ${localBgmTracks.map((track) => `<option value="${escapeHtml(track.id)}">${escapeHtml(track.name)}</option>`).join("")}
     </optgroup>
   ` : `<option value="">${t("bgmUnavailable")}</option>`;
-  for (const select of [elements.bgmSelect, elements.settingsBgmSelect]) {
-    select.innerHTML = options;
-    select.value = selectedBgmId;
-    select.disabled = !localBgmTracks.length || !bgmEnabled;
-    select.setAttribute("aria-label", t("bgm"));
-    select.title = t("bgm");
-  }
+  elements.bgmSelect.value = selectedBgmId;
+  elements.bgmSelect.disabled = !localBgmTracks.length || !bgmEnabled;
+  elements.bgmSelect.setAttribute("aria-label", t("bgm"));
+  elements.bgmSelect.title = t("bgm");
   const soundLabel = t(bgmEnabled ? "bgmOn" : "bgmOff");
   elements.soundButton.setAttribute("aria-pressed", String(bgmEnabled));
   elements.soundButton.setAttribute("aria-label", soundLabel);
@@ -734,10 +737,20 @@ function renderAudioControls() {
   elements.soundButton.querySelector("b").textContent = soundLabel;
   elements.bgmEnabledInput.checked = bgmEnabled;
   elements.sfxEnabledInput.checked = sfxEnabled;
+  elements.bgmVolumeInput.disabled = !bgmEnabled;
+  elements.sfxVolumeInput.disabled = !sfxEnabled;
+  renderAudioLevels();
 }
 
 function renderSettingsControls() {
   elements.model3dEnabled.checked = model3dEnabled;
+}
+
+function renderAudioLevels() {
+  elements.bgmVolumeInput.value = String(Math.round(bgmVolume * 100));
+  elements.bgmVolumeValue.value = `${Math.round(bgmVolume * 100)}%`;
+  elements.sfxVolumeInput.value = String(Math.round(sfxVolume * 100));
+  elements.sfxVolumeValue.value = `${Math.round(sfxVolume * 100)}%`;
 }
 
 async function startBgm() {
@@ -748,7 +761,7 @@ async function startBgm() {
     if (activeBgmAudio) activeBgmAudio.pause();
     activeBgmAudio = new Audio(localTrack.url);
     activeBgmAudio.loop = true;
-    activeBgmAudio.volume = 0.35;
+    activeBgmAudio.volume = bgmVolume;
     activeBgmAudioId = localTrack.id;
   }
   activeBgmAudio.play().catch(() => {});
@@ -777,6 +790,25 @@ function setBgmEnabled(enabled) {
   if (bgmEnabled) startBgm();
   else stopBgm();
   renderAudioControls();
+}
+
+function setBgmVolume(percent) {
+  const nextVolume = Number(percent);
+  if (!Number.isFinite(nextVolume)) return;
+  bgmVolume = Math.min(1, Math.max(0, nextVolume / 100));
+  localStorage.setItem("pokemon-splendor-bgm-volume", String(bgmVolume));
+  if (activeBgmAudio) activeBgmAudio.volume = bgmVolume;
+  renderAudioLevels();
+}
+
+function setSfxVolume(percent) {
+  const nextVolume = Number(percent);
+  if (!Number.isFinite(nextVolume)) return;
+  sfxVolume = Math.min(1, Math.max(0, nextVolume / 100));
+  localStorage.setItem("pokemon-splendor-sfx-volume", String(sfxVolume));
+  if (activePokemonAudio) activePokemonAudio.volume = sfxVolume;
+  if (activeTurnReminderAudio) activeTurnReminderAudio.volume = sfxVolume;
+  renderAudioLevels();
 }
 
 function stopSoundEffects() {
@@ -1525,9 +1557,7 @@ function selectGameBackground(value) {
   renderBackgroundSelector();
 }
 
-for (const select of [elements.backgroundSelect, elements.settingsBackgroundSelect]) {
-  select.addEventListener("change", () => selectGameBackground(select.value));
-}
+elements.backgroundSelect.addEventListener("change", () => selectGameBackground(elements.backgroundSelect.value));
 
 function selectBgm(value) {
   selectedBgmId = localBgmTracks.some(({ id }) => id === value)
@@ -1539,9 +1569,7 @@ function selectBgm(value) {
   renderAudioControls();
 }
 
-for (const select of [elements.bgmSelect, elements.settingsBgmSelect]) {
-  select.addEventListener("change", () => selectBgm(select.value));
-}
+elements.bgmSelect.addEventListener("change", () => selectBgm(elements.bgmSelect.value));
 
 elements.soundButton.addEventListener("click", () => {
   setBgmEnabled(!bgmEnabled);
@@ -1558,12 +1586,14 @@ elements.settingsDialog.addEventListener("click", (event) => {
   if (event.target === elements.settingsDialog) elements.settingsDialog.close();
 });
 elements.bgmEnabledInput.addEventListener("change", () => setBgmEnabled(elements.bgmEnabledInput.checked));
+elements.bgmVolumeInput.addEventListener("input", () => setBgmVolume(elements.bgmVolumeInput.value));
 elements.sfxEnabledInput.addEventListener("change", () => {
   sfxEnabled = elements.sfxEnabledInput.checked;
   localStorage.setItem("pokemon-splendor-sfx-enabled", String(sfxEnabled));
   if (!sfxEnabled) stopSoundEffects();
   renderAudioControls();
 });
+elements.sfxVolumeInput.addEventListener("input", () => setSfxVolume(elements.sfxVolumeInput.value));
 elements.model3dEnabled.addEventListener("change", async () => {
   model3dEnabled = elements.model3dEnabled.checked;
   active3dCardId = null;

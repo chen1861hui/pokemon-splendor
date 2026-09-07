@@ -78,11 +78,6 @@ button:disabled { cursor: not-allowed; opacity: .46; }
 }
 
 .header-actions { display: flex; align-items: center; gap: 9px; }
-.background-nav-control { min-width: 0; display: flex; align-items: center; gap: 5px; margin: 0; padding: 5px 7px; border: 2px solid rgba(16,44,92,.18); border-radius: 999px; background: rgba(255,255,255,.84); box-shadow: 0 3px 0 rgba(35,92,148,.12); }
-.background-nav-control > span { flex: 0 0 auto; font-size: .88rem; }
-.background-nav-control select { width: 118px; min-width: 0; border: 0; outline: 0; background: transparent; color: var(--blue-deep); font-size: .68rem; font-weight: 900; }
-.background-nav-control:focus-within { border-color: var(--blue); box-shadow: 0 0 0 3px rgba(40,120,208,.12); }
-.music-nav-control select { width: 112px; }
 .sound-button { min-width: 43px; padding-inline: 8px; }
 .sound-button[aria-pressed="true"] span { background: #dff7d8; color: #25703a; }
 .settings-button span { font-size: .9rem; }
@@ -559,7 +554,7 @@ img.mystery-silhouette,
 .settings-section-heading > span { width: 36px; height: 36px; display: grid; place-items: center; border-radius: 50%; background: #e7f3ff; font-size: 1rem; }
 .settings-section-heading h3 { margin: 0; color: var(--blue-deep); font-size: 1rem; font-weight: 950; }
 .settings-section-heading p { margin: 2px 0 0; color: var(--muted); font-size: .7rem; }
-.settings-field, .settings-toggle { min-width: 0; display: flex; align-items: center; justify-content: space-between; gap: 18px; padding: 10px 11px; border: 1px solid #d8e6f1; border-radius: 12px; background: #f7fbfe; color: var(--blue-deep); font-size: .78rem; font-weight: 850; }
+.settings-field, .settings-toggle, .settings-range { min-width: 0; display: flex; align-items: center; justify-content: space-between; gap: 18px; padding: 10px 11px; border: 1px solid #d8e6f1; border-radius: 12px; background: #f7fbfe; color: var(--blue-deep); font-size: .78rem; font-weight: 850; }
 .settings-field select { width: min(270px, 52%); min-width: 0; padding: 7px 9px; border: 2px solid #b7cfe3; border-radius: 9px; background: #fff; color: var(--blue-deep); font-size: .72rem; font-weight: 800; }
 .settings-toggle > span { min-width: 0; display: grid; gap: 3px; }
 .settings-toggle b { font-size: .78rem; }
@@ -569,6 +564,11 @@ img.mystery-silhouette,
 .settings-toggle input:checked { border-color: #32804c; background: #58b96d; }
 .settings-toggle input:checked::after { transform: translateX(19px); }
 .settings-toggle input:focus-visible { outline: 3px solid rgba(41,128,198,.25); outline-offset: 2px; }
+.settings-range { display: grid; gap: 8px; }
+.settings-range > span { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.settings-range output { color: var(--blue); font-size: .72rem; font-variant-numeric: tabular-nums; font-weight: 950; }
+.settings-range input { width: 100%; height: 7px; margin: 4px 0; border-radius: 999px; background: #c7ddec; accent-color: var(--blue); cursor: pointer; }
+.settings-range input:disabled { cursor: not-allowed; opacity: .45; }
 
 .pokedex-dialog { width: min(920px, calc(100% - 28px)); }
 .pokedex-dialog-header { background: linear-gradient(135deg, #e5434f, #b92838); }
@@ -845,9 +845,6 @@ img.mystery-silhouette,
   .lobby-timer-section > div, .lobby-timer-section > small { grid-column: 1 / -1; }
   .lobby-mystery-section { grid-template-columns: 1fr; }
   .lobby-mystery-section > * { grid-column: 1; }
-  .background-nav-control { padding-inline: 6px; }
-  .background-nav-control select { width: 82px; font-size: .61rem; }
-  .music-nav-control select { width: 76px; }
   .game-status-tools { align-items: flex-start; }
   .lobby-option-heading { align-items: flex-start; }
   .rules-dialog-header { padding: 16px 17px 14px; }
@@ -867,9 +864,7 @@ img.mystery-silhouette,
 }
 
 @media (max-width: 420px) {
-  .background-nav-control > span, .pokedex-button small { display: none; }
-  .background-nav-control select { width: 62px; }
-  .music-nav-control select { width: 70px; }
+  .pokedex-button small { display: none; }
   .rules-button { padding-inline: 6px; }
   .language-button { min-width: 39px; padding-inline: 6px; }
 }
