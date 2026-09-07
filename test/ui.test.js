@@ -87,8 +87,8 @@ test("header provides persistent local WAV BGM with a music-only toggle", async 
   assert.match(appSource, /new Audio\(localTrack\.url\)/);
   assert.match(appSource, /activeBgmAudio\.loop = true/);
   assert.match(appSource, /bgmLocal/);
-  assert.match(appSource, /elements\.bgmSelect\.disabled = !localBgmTracks\.length/);
-  assert.match(appSource, /elements\.bgmSelect\.addEventListener\("change"/);
+  assert.match(appSource, /select\.disabled = !localBgmTracks\.length \|\| !bgmEnabled/);
+  assert.match(appSource, /\[elements\.bgmSelect, elements\.settingsBgmSelect\]/);
   assert.match(appSource, /elements\.soundButton\.addEventListener\("click"/);
   assert.match(appSource, /if \(!bgmEnabled\) return;/);
   const cryFunction = appSource.match(/function playPokemonCry[\s\S]*?\n}\n\nfunction playNextGameAnimation/);
@@ -99,6 +99,30 @@ test("header provides persistent local WAV BGM with a music-only toggle", async 
   assert.match(serverSource, /"\.wav": "audio\/wav"/);
   assert.match(styles, /\.music-nav-control select/);
   assert.match(styles, /\.sound-button\[aria-pressed="true"\]/);
+});
+
+test("settings separate music, sound effects, and optional on-demand 3D previews", async () => {
+  const [appSource, html, styles] = await Promise.all([
+    readFile(new URL("../public/app.js", import.meta.url), "utf8"),
+    readFile(new URL("../public/index.html", import.meta.url), "utf8"),
+    readFile(new URL("../public/styles.css", import.meta.url), "utf8")
+  ]);
+
+  assert.match(html, /id="settingsButton"/);
+  assert.match(html, /id="settingsDialog"/);
+  assert.match(html, /id="model3dEnabled"/);
+  assert.match(html, /id="bgmEnabledInput"/);
+  assert.match(html, /id="sfxEnabledInput"/);
+  assert.match(appSource, /pokemon-splendor-3d-enabled/);
+  assert.match(appSource, /pokemon-splendor-sfx-enabled/);
+  assert.match(appSource, /https:\/\/pokemon-3d-api\.onrender\.com\/v1\/pokemon/);
+  assert.match(appSource, /@google\/model-viewer@4\.1\.0/);
+  assert.match(appSource, /function pokemonCardArtworkMarkup/);
+  assert.match(appSource, /active3dCardId === card\.id/);
+  assert.match(appSource, /if \(!sfxEnabled \|\| !crySource\) return/);
+  assert.match(appSource, /function stopSoundEffects/);
+  assert.match(styles, /\.pokemon-art > \.pokemon-model/);
+  assert.match(styles, /\.settings-dialog/);
 });
 
 test("large game screens show enlarged player cards in a two-by-two layout and alert the active player", async () => {
@@ -288,7 +312,7 @@ test("game UI exposes cleanup, evolution, hidden reservation, and play-again con
   assert.match(styles, /\.legendary-animation/);
   assert.match(html, /id="backgroundSelect"/);
   assert.match(appSource, /pokemon-splendor-background/);
-  assert.match(appSource, /elements\.backgroundSelect\.addEventListener/);
+  assert.match(appSource, /\[elements\.backgroundSelect, elements\.settingsBackgroundSelect\]/);
   assert.doesNotMatch(appSource, /updateLobbyOption\("background"/);
   assert.doesNotMatch(appSource, /elements\.startGame\.classList\.toggle\("hidden", !isHost\)/);
   assert.doesNotMatch(styles, /splendor-case\.(?:jpg|png)/);

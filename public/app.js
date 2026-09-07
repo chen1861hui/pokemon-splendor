@@ -12,6 +12,8 @@ const tokenImages = Object.fromEntries(allTokenTypes.map((type) => [type, `/asse
 const pokemonPixelSpriteUrl = (pokedexId) => `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/${pokedexId}.png`;
 const pokemonAnimatedSpriteUrl = (pokedexId) => `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/${pokedexId}.gif`;
 const pokemonCryUrl = (pokedexId) => `https://raw.githubusercontent.com/PokeAPI/cries/main/cries/pokemon/latest/${pokedexId}.ogg`;
+const pokemon3dApiUrl = "https://pokemon-3d-api.onrender.com/v1/pokemon";
+const modelViewerModuleUrl = "https://unpkg.com/@google/model-viewer@4.1.0/dist/model-viewer.min.js";
 const trainerPixelSpriteUrl = (name) => `https://play.pokemonshowdown.com/sprites/trainers/${name}.png`;
 const trainerCards = [
   { id: "ash", styleId: "red", pokedexId: 25, labelKey: "redTrainer", image: trainerPixelSpriteUrl("red-gen3"), fallbackImage: "/assets/trainers/ash-xy.svg" },
@@ -30,7 +32,7 @@ const translations = {
   en: {
     gameRules: "Game rules", pokedex: "Pokédex", caughtPokedex: "Caught Pokédex", multiGameChecklist: "Multi-game checklist", checklistHelp: "Pokémon you catch are checked automatically and saved on this browser across games.", caughtProgress: "{caught} / {total} caught", stagePokemon: "Stage Pokémon", rarePokemon: "Rare Pokémon", legendaryPokemon: "Legendary Pokémon", mythicalPokemon: "Mythical Pokémon", catalogLoading: "Loading the Pokémon checklist…", heroEyebrow: "A private trainer challenge", heroTitle: "Catch. Collect.", heroTitleAccent: "Become Champion.",
     heroDescription: "Catch Pokémon, collect Poké Balls, and race your friends to 18 victory points. No accounts or installation required.",
-    playersFeature: "2–4 players", privateRooms: "Private rooms", liveTurns: "Live turns", pokedexPartners: "Your Pokédex partners", bgm: "Background music", bgmLocal: "Background music", bgmUnavailable: "No background music", bgmOn: "BGM on", bgmOff: "BGM off", createRoom: "Create room", joinRoom: "Join room", endGame: "End game", leaveRoom: "Leave room", disbandRoom: "Disband room", cancel: "Cancel",
+    playersFeature: "2–4 players", privateRooms: "Private rooms", liveTurns: "Live turns", pokedexPartners: "Your Pokédex partners", settings: "Settings", personalPreferences: "Personal preferences", visualSettings: "Visuals", visualSettingsHelp: "These preferences apply only on this device.", model3d: "3D Pokémon previews", model3dHelp: "Click a revealed card to load one animated 3D model at a time. Pixel sprites remain the fallback.", model3dLoading: "Loading 3D Pokémon…", model3dUnavailable: "A 3D model is not available for this Pokémon.", model3dError: "The 3D model service is unavailable. Using pixel sprites.", audioSettings: "Audio", audioSettingsHelp: "Control music and game sounds separately.", bgm: "Background music", bgmLocal: "Background music", bgmUnavailable: "No background music", bgmOn: "BGM on", bgmOff: "BGM off", bgmHelp: "Play the selected local game track.", musicTrack: "Music track", soundEffects: "Sound effects", soundEffectsHelp: "Pokémon cries and your-turn reminders.", createRoom: "Create room", joinRoom: "Join room", endGame: "End game", leaveRoom: "Leave room", disbandRoom: "Disband room", cancel: "Cancel",
     endGameTitle: "End the current game?", endGameMessage: "Everyone will return to this room's lobby and the current board will be cleared. Trainer choices, settings, and browser Pokédex progress will stay saved.", leaveRoomTitle: "Leave this room?", leaveRoomMessage: "Your seat and current game progress will be removed. Your browser Pokédex will stay saved.", disbandRoomTitle: "Disband this room?", disbandRoomMessage: "The current room will close immediately for every Trainer. This cannot be undone, but everyone keeps their browser Pokédex.", gameEnded: "Game ended; everyone returned to the lobby", roomLeft: "You left the room", roomDisbanded: "Room disbanded", roomEnded: "This room has ended or is no longer available",
     trainerName: "Trainer name", trainerPlaceholder: "e.g. Red", roomCode: "Room code", createPrivateRoom: "Create private room", joinPrivateRoom: "Join private room",
     trainerLobby: "Trainer lobby", gatherTeam: "Gather your team", shareRoom: "Share this private room code with up to three friends.", copyInvite: "Click to copy invite link", trainerCard: "Trainer tile", chooseTrainerCard: "Choose character", onePerTrainer: "One tile per trainer", whoAmIPool: "Who am I?", redTrainer: "Red & Pikachu", brockTrainer: "Brock & Onix", mistyTrainer: "Misty & Psyduck", giovanniTrainer: "Giovanni & Persian", chosenBy: "Chosen by {name}", available: "Available", stageOne: "Stage 1", stageTwo: "Stage 2", stageThree: "Stage 3", chooseTrainerFirst: "Choose a Trainer tile to continue.", waitingTrainerCards: "Waiting for every trainer to choose a tile…",
@@ -58,7 +60,7 @@ const translations = {
   zh: {
     gameRules: "游戏规则", pokedex: "图鉴", caughtPokedex: "捕捉图鉴", multiGameChecklist: "多局游戏清单", checklistHelp: "你亲自捕捉的宝可梦会自动勾选，并保存在此浏览器中供多局游戏核对。", caughtProgress: "已捕捉 {caught} / {total}", stagePokemon: "阶段宝可梦", rarePokemon: "稀有宝可梦", legendaryPokemon: "传说宝可梦", mythicalPokemon: "幻之宝可梦", catalogLoading: "正在载入宝可梦清单…", heroEyebrow: "私人训练家挑战", heroTitle: "捕捉·收集", heroTitleAccent: "成为冠军！",
     heroDescription: "捕捉宝可梦、收集精灵球，与好友竞赛，率先触发18分终局。无需账号或安装。",
-    playersFeature: "2–4名玩家", privateRooms: "私人房间", liveTurns: "实时回合", pokedexPartners: "你的图鉴伙伴", bgm: "背景音乐", bgmLocal: "背景音乐", bgmUnavailable: "没有背景音乐", bgmOn: "背景音乐已开", bgmOff: "背景音乐已关", createRoom: "创建房间", joinRoom: "加入房间", endGame: "结束本局", leaveRoom: "离开房间", disbandRoom: "解散房间", cancel: "取消",
+    playersFeature: "2–4名玩家", privateRooms: "私人房间", liveTurns: "实时回合", pokedexPartners: "你的图鉴伙伴", settings: "设置", personalPreferences: "个人偏好", visualSettings: "画面", visualSettingsHelp: "这些偏好只应用于此设备。", model3d: "3D宝可梦预览", model3dHelp: "点击已揭晓卡牌，每次载入一个带动画的3D模型；像素精灵图会作为后备。", model3dLoading: "正在载入3D宝可梦…", model3dUnavailable: "这只宝可梦暂时没有可用的3D模型。", model3dError: "3D模型服务暂时无法使用，已改用像素精灵图。", audioSettings: "声音", audioSettingsHelp: "可分别控制音乐与游戏音效。", bgm: "背景音乐", bgmLocal: "背景音乐", bgmUnavailable: "没有背景音乐", bgmOn: "背景音乐已开", bgmOff: "背景音乐已关", bgmHelp: "播放所选的本地游戏音乐。", musicTrack: "音乐曲目", soundEffects: "游戏音效", soundEffectsHelp: "宝可梦叫声与轮到你的提示音。", createRoom: "创建房间", joinRoom: "加入房间", endGame: "结束本局", leaveRoom: "离开房间", disbandRoom: "解散房间", cancel: "取消",
     endGameTitle: "确定结束当前游戏？", endGameMessage: "所有训练家会回到当前房间的大厅，当前牌面会被清除；角色选择、房间设置与浏览器捕捉图鉴都会保留。", leaveRoomTitle: "确定离开房间？", leaveRoomMessage: "你的席位与本局进度将被移除，但浏览器中的捕捉图鉴会保留。", disbandRoomTitle: "确定解散房间？", disbandRoomMessage: "房间会立即对所有训练家关闭，且无法撤销；每人的浏览器捕捉图鉴仍会保留。", gameEnded: "本局已结束，所有训练家已返回大厅", roomLeft: "你已离开房间", roomDisbanded: "房间已解散", roomEnded: "房间已结束或无法继续使用",
     trainerName: "训练家名称", trainerPlaceholder: "例如：小智", roomCode: "房间代码", createPrivateRoom: "创建私人房间", joinPrivateRoom: "加入私人房间",
     trainerLobby: "训练家大厅", gatherTeam: "集结你的队伍", shareRoom: "将私人房间代码分享给最多三位好友。", copyInvite: "点击复制邀请链接", trainerCard: "训练家板块", chooseTrainerCard: "选择角色", onePerTrainer: "每位训练家一个", whoAmIPool: "我是谁？", redTrainer: "赤红与皮卡丘", brockTrainer: "小刚与大岩蛇", mistyTrainer: "小霞与可达鸭", giovanniTrainer: "坂木与猫老大", chosenBy: "{name}已选择", available: "可选择", stageOne: "阶段 1", stageTwo: "阶段 2", stageThree: "阶段 3", chooseTrainerFirst: "请先选择一个训练家板块。", waitingTrainerCards: "等待所有训练家选择板块…",
@@ -95,8 +97,8 @@ const pokemonNamesZh = {
 };
 
 const elements = Object.fromEntries([
-  "welcomeView", "lobbyView", "gameView", "roomBadge", "roomForm", "playerName", "roomCodeField", "heroMascot", "heroPokemonCollection", "bgmSelect", "soundButton",
-  "roomCode", "roomSubmit", "formError", "largeRoomCode", "lobbyPlayers", "copyInvite", "startGame", "trainerChoices", "timerEnabled", "timerSeconds", "timerHint", "silhouetteEnabled", "silhouetteHint", "backgroundSelect",
+  "welcomeView", "lobbyView", "gameView", "roomBadge", "roomForm", "playerName", "roomCodeField", "heroMascot", "heroPokemonCollection", "bgmSelect", "settingsBgmSelect", "soundButton", "settingsButton", "settingsDialog", "closeSettings", "model3dEnabled", "bgmEnabledInput", "sfxEnabledInput",
+  "roomCode", "roomSubmit", "formError", "largeRoomCode", "lobbyPlayers", "copyInvite", "startGame", "trainerChoices", "timerEnabled", "timerSeconds", "timerHint", "silhouetteEnabled", "silhouetteHint", "backgroundSelect", "settingsBackgroundSelect",
   "lobbyHint", "turnLabel", "statusMessage", "turnTimer", "marketHint", "tokenBank", "takeThree", "takePair", "endTurn",
   "gameDecision", "gameDecisionText", "restartGame",
   "clearSelection", "market", "players", "toast", "languageButton", "rulesButton", "rulesDialog", "closeRules", "pokedexButton",
@@ -119,6 +121,8 @@ let localBgmTracks = [];
 let selectedBgmId = localStorage.getItem("pokemon-splendor-bgm") ?? "";
 let bgmEnabled = (localStorage.getItem("pokemon-splendor-bgm-enabled")
   ?? localStorage.getItem("pokemon-splendor-sound")) === "true";
+let sfxEnabled = localStorage.getItem("pokemon-splendor-sfx-enabled") !== "false";
+let model3dEnabled = localStorage.getItem("pokemon-splendor-3d-enabled") === "true";
 let catalog = [];
 let caughtPokemon = loadCaughtPokemon();
 let collectionTooltip = null;
@@ -128,6 +132,10 @@ let activePokemonAudio = null;
 let activeBgmAudio = null;
 let activeBgmAudioId = null;
 let activeTurnReminderAudio = null;
+let active3dCardId = null;
+let pokemon3dModelUrls = new Map();
+let pokemon3dCatalogPromise = null;
+let modelViewerModulePromise = null;
 let gameAnimationQueue = [];
 let gameAnimationRunning = false;
 let pendingRevealCardIds = new Set();
@@ -160,6 +168,7 @@ function translateStaticContent() {
   elements.languageButton.setAttribute("aria-label", currentLanguage === "zh" ? "Switch to English" : "切换为简体中文");
   renderBackgroundSelector();
   renderAudioControls();
+  renderSettingsControls();
   setEntryMode(entryMode);
   renderPokedex();
   if (elements.exitRoomDialog.open && pendingRoomAction) configureRoomActionDialog(pendingRoomAction);
@@ -499,7 +508,7 @@ function gameAnimationMarkup(event) {
 
 function playPokemonCry(crySource, delay = 0) {
   const play = () => {
-    if (!crySource) return;
+    if (!sfxEnabled || !crySource) return;
     if (activePokemonAudio) {
       activePokemonAudio.pause();
       activePokemonAudio.currentTime = 0;
@@ -519,6 +528,7 @@ function playPokemonCry(crySource, delay = 0) {
 }
 
 function playTurnReminder() {
+  if (!sfxEnabled) return;
   const reminderTrack = localBgmTracks.find(({ name }) =>
     name.toLowerCase().includes("trainer appears (boy version)")
   );
@@ -692,30 +702,42 @@ function applyGameBackground() {
 }
 
 function renderBackgroundSelector() {
-  elements.backgroundSelect.innerHTML = gameBackgrounds.map((background) =>
+  const options = gameBackgrounds.map((background) =>
     `<option value="${background.id}">${t(background.labelKey)}</option>`
   ).join("");
-  elements.backgroundSelect.value = selectedGameBackgroundId;
-  elements.backgroundSelect.setAttribute("aria-label", t("gameBackground"));
-  elements.backgroundSelect.title = t("gameBackground");
+  for (const select of [elements.backgroundSelect, elements.settingsBackgroundSelect]) {
+    select.innerHTML = options;
+    select.value = selectedGameBackgroundId;
+    select.setAttribute("aria-label", t("gameBackground"));
+    select.title = t("gameBackground");
+  }
 }
 
 function renderAudioControls() {
-  elements.bgmSelect.innerHTML = localBgmTracks.length ? `
+  const options = localBgmTracks.length ? `
     <optgroup label="${t("bgmLocal")}">
       ${localBgmTracks.map((track) => `<option value="${escapeHtml(track.id)}">${escapeHtml(track.name)}</option>`).join("")}
     </optgroup>
   ` : `<option value="">${t("bgmUnavailable")}</option>`;
-  elements.bgmSelect.value = selectedBgmId;
-  elements.bgmSelect.disabled = !localBgmTracks.length;
-  elements.bgmSelect.setAttribute("aria-label", t("bgm"));
-  elements.bgmSelect.title = t("bgm");
+  for (const select of [elements.bgmSelect, elements.settingsBgmSelect]) {
+    select.innerHTML = options;
+    select.value = selectedBgmId;
+    select.disabled = !localBgmTracks.length || !bgmEnabled;
+    select.setAttribute("aria-label", t("bgm"));
+    select.title = t("bgm");
+  }
   const soundLabel = t(bgmEnabled ? "bgmOn" : "bgmOff");
   elements.soundButton.setAttribute("aria-pressed", String(bgmEnabled));
   elements.soundButton.setAttribute("aria-label", soundLabel);
   elements.soundButton.title = soundLabel;
   elements.soundButton.querySelector("span").textContent = bgmEnabled ? "🔊" : "🔇";
   elements.soundButton.querySelector("b").textContent = soundLabel;
+  elements.bgmEnabledInput.checked = bgmEnabled;
+  elements.sfxEnabledInput.checked = sfxEnabled;
+}
+
+function renderSettingsControls() {
+  elements.model3dEnabled.checked = model3dEnabled;
 }
 
 async function startBgm() {
@@ -746,6 +768,69 @@ function stopBgm({ reset = false } = {}) {
 function restartBgm() {
   stopBgm({ reset: true });
   if (bgmEnabled) startBgm();
+}
+
+function setBgmEnabled(enabled) {
+  bgmEnabled = Boolean(enabled);
+  localStorage.setItem("pokemon-splendor-bgm-enabled", String(bgmEnabled));
+  localStorage.removeItem("pokemon-splendor-sound");
+  if (bgmEnabled) startBgm();
+  else stopBgm();
+  renderAudioControls();
+}
+
+function stopSoundEffects() {
+  for (const audio of [activePokemonAudio, activeTurnReminderAudio]) {
+    if (!audio) continue;
+    audio.pause();
+    audio.currentTime = 0;
+  }
+  activePokemonAudio = null;
+  activeTurnReminderAudio = null;
+}
+
+function regularPokemonModel(pokemon) {
+  return pokemon?.forms?.find(({ formName }) => formName === "regular")
+    ?? pokemon?.forms?.find(({ formName }) => formName !== "shiny")
+    ?? pokemon?.forms?.[0];
+}
+
+async function loadPokemon3dSupport() {
+  modelViewerModulePromise ??= import(modelViewerModuleUrl);
+  pokemon3dCatalogPromise ??= fetch(pokemon3dApiUrl)
+    .then((response) => {
+      if (!response.ok) throw new Error(`3D catalog request failed (${response.status})`);
+      return response.json();
+    })
+    .then((data) => {
+      const pokemon = Array.isArray(data?.pokemon) ? data.pokemon : Array.isArray(data) ? data : [];
+      pokemon3dModelUrls = new Map(pokemon.flatMap((entry) => {
+        const model = regularPokemonModel(entry)?.model;
+        return Number.isInteger(entry?.id) && typeof model === "string" && model.startsWith("https://")
+          ? [[entry.id, model]]
+          : [];
+      }));
+      return pokemon3dModelUrls;
+    });
+  try {
+    await Promise.all([modelViewerModulePromise, pokemon3dCatalogPromise]);
+    return true;
+  } catch {
+    modelViewerModulePromise = null;
+    pokemon3dCatalogPromise = null;
+    pokemon3dModelUrls = new Map();
+    return false;
+  }
+}
+
+function pokemonCardArtworkMarkup(card, mystery) {
+  const name = pokemonDisplayName(card);
+  const poster = pokemonAnimatedSpriteUrl(card.pokedexId);
+  const model = active3dCardId === card.id ? pokemon3dModelUrls.get(card.pokedexId) : null;
+  if (model3dEnabled && !mystery && model) {
+    return `<model-viewer class="pokemon-model" src="${escapeHtml(model)}" poster="${escapeHtml(poster)}" alt="${escapeHtml(name)}" autoplay auto-rotate shadow-intensity="1" interaction-prompt="none"></model-viewer>`;
+  }
+  return `<img class="${mystery ? "mystery-silhouette" : ""}" data-pokemon-sprite src="${poster}" data-fallback-src="/assets/pokemon/${card.pokedexId}.png" data-animated-src="${poster}" alt="${mystery ? "" : escapeHtml(name)}" loading="lazy">`;
 }
 
 function setEntryMode(mode) {
@@ -972,8 +1057,30 @@ function evolutionCardMarkup(card, mystery) {
   `;
 }
 
-function playPokemonPreview(button) {
+async function playPokemonPreview(button) {
   if (button.disabled) return;
+  const cardId = button.closest("[data-card-id]")?.dataset.cardId;
+  const pokedexId = Number(button.dataset.pokemonPreview);
+  if (model3dEnabled && cardId && Number.isInteger(pokedexId)) {
+    button.classList.add("preview-loading");
+    showToast(t("model3dLoading"));
+    const supported = await loadPokemon3dSupport();
+    button.classList.remove("preview-loading");
+    if (!supported) {
+      showToast(t("model3dError"), true);
+    } else if (!pokemon3dModelUrls.has(pokedexId)) {
+      showToast(t("model3dUnavailable"), true);
+    } else {
+      active3dCardId = cardId;
+      if (game?.status !== "lobby") {
+        const activePlayer = game.players[game.turnIndex];
+        renderMarket(game.status === "playing" && activePlayer?.id === session?.playerId);
+        installImageFallbacks(elements.market);
+      }
+      playPokemonCry(button.dataset.crySrc);
+      return;
+    }
+  }
   const image = button.querySelector("img");
   if (!image) return;
   button.classList.add("preview-playing");
@@ -1039,8 +1146,8 @@ function cardMarkup(card, isMyTurn, player) {
     <article class="pokemon-card bonus-${card.bonus} ${card.bonusAmount === 2 ? "double-bonus" : ""} ${card.kind !== "stage" ? `special-card ${card.kind}` : ""} ${affordable ? "affordable" : ""} ${pendingRevealCardIds.has(card.id) ? "market-card-pending-reveal" : ""}" data-card-id="${card.id}" aria-label="${escapeHtml(`${displayName} · ${bonusTitle}`)}" style="--card-color:${colors[card.bonus]}">
       ${ballCardShellMarkup(card.bonus)}
       <div class="card-top">${card.points > 0 ? `<strong class="card-points">${card.points}</strong>` : ""}</div>
-      <button class="pokemon-art" data-pokemon-preview="${card.pokedexId}" data-cry-src="${pokemonCryUrl(card.pokedexId)}" type="button" aria-label="${mystery ? escapeHtml(t("unknownPokemon")) : escapeHtml(t("previewPokemon", { pokemon: displayName }))}" ${mystery ? "disabled" : ""}>
-        <img class="${mystery ? "mystery-silhouette" : ""}" data-pokemon-sprite src="${pokemonAnimatedSpriteUrl(card.pokedexId)}" data-fallback-src="/assets/pokemon/${card.pokedexId}.png" data-animated-src="${pokemonAnimatedSpriteUrl(card.pokedexId)}" alt="${mystery ? "" : escapeHtml(displayName)}" loading="lazy">
+      <button class="pokemon-art ${model3dEnabled && !mystery ? "model-preview-enabled" : ""}" data-pokemon-preview="${card.pokedexId}" data-cry-src="${pokemonCryUrl(card.pokedexId)}" type="button" aria-label="${mystery ? escapeHtml(t("unknownPokemon")) : escapeHtml(t("previewPokemon", { pokemon: displayName }))}" ${mystery ? "disabled" : ""}>
+        ${pokemonCardArtworkMarkup(card, mystery)}
         <h3 class="pokemon-nameplate ${mystery ? "mystery-name" : ""}">${escapeHtml(displayName)}</h3>
         ${evolutionCardMarkup(card, mystery)}
       </button>
@@ -1409,30 +1516,61 @@ elements.languageButton.addEventListener("click", () => {
   render();
 });
 
-elements.backgroundSelect.addEventListener("change", () => {
-  selectedGameBackgroundId = gameBackgrounds.some(({ id }) => id === elements.backgroundSelect.value)
-    ? elements.backgroundSelect.value
+function selectGameBackground(value) {
+  selectedGameBackgroundId = gameBackgrounds.some(({ id }) => id === value)
+    ? value
     : "current";
   localStorage.setItem("pokemon-splendor-background", selectedGameBackgroundId);
   applyGameBackground();
-});
+  renderBackgroundSelector();
+}
 
-elements.bgmSelect.addEventListener("change", () => {
-  selectedBgmId = localBgmTracks.some(({ id }) => id === elements.bgmSelect.value)
-    ? elements.bgmSelect.value
+for (const select of [elements.backgroundSelect, elements.settingsBackgroundSelect]) {
+  select.addEventListener("change", () => selectGameBackground(select.value));
+}
+
+function selectBgm(value) {
+  selectedBgmId = localBgmTracks.some(({ id }) => id === value)
+    ? value
     : localBgmTracks[0]?.id ?? "";
   if (selectedBgmId) localStorage.setItem("pokemon-splendor-bgm", selectedBgmId);
   else localStorage.removeItem("pokemon-splendor-bgm");
   restartBgm();
-});
+  renderAudioControls();
+}
+
+for (const select of [elements.bgmSelect, elements.settingsBgmSelect]) {
+  select.addEventListener("change", () => selectBgm(select.value));
+}
 
 elements.soundButton.addEventListener("click", () => {
-  bgmEnabled = !bgmEnabled;
-  localStorage.setItem("pokemon-splendor-bgm-enabled", String(bgmEnabled));
-  localStorage.removeItem("pokemon-splendor-sound");
-  if (bgmEnabled) startBgm();
-  else stopBgm();
+  setBgmEnabled(!bgmEnabled);
+});
+
+elements.settingsButton.addEventListener("click", () => {
+  renderBackgroundSelector();
   renderAudioControls();
+  renderSettingsControls();
+  elements.settingsDialog.showModal();
+});
+elements.closeSettings.addEventListener("click", () => elements.settingsDialog.close());
+elements.settingsDialog.addEventListener("click", (event) => {
+  if (event.target === elements.settingsDialog) elements.settingsDialog.close();
+});
+elements.bgmEnabledInput.addEventListener("change", () => setBgmEnabled(elements.bgmEnabledInput.checked));
+elements.sfxEnabledInput.addEventListener("change", () => {
+  sfxEnabled = elements.sfxEnabledInput.checked;
+  localStorage.setItem("pokemon-splendor-sfx-enabled", String(sfxEnabled));
+  if (!sfxEnabled) stopSoundEffects();
+  renderAudioControls();
+});
+elements.model3dEnabled.addEventListener("change", async () => {
+  model3dEnabled = elements.model3dEnabled.checked;
+  active3dCardId = null;
+  localStorage.setItem("pokemon-splendor-3d-enabled", String(model3dEnabled));
+  if (model3dEnabled && !await loadPokemon3dSupport()) showToast(t("model3dError"), true);
+  if (game?.status !== "lobby") render();
+  renderSettingsControls();
 });
 
 elements.rulesButton.addEventListener("click", () => elements.rulesDialog.showModal());

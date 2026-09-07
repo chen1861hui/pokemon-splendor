@@ -85,6 +85,7 @@ button:disabled { cursor: not-allowed; opacity: .46; }
 .music-nav-control select { width: 112px; }
 .sound-button { min-width: 43px; padding-inline: 8px; }
 .sound-button[aria-pressed="true"] span { background: #dff7d8; color: #25703a; }
+.settings-button span { font-size: .9rem; }
 
 .brand {
   display: inline-flex;
@@ -366,7 +367,11 @@ input:focus { border-color: var(--blue); box-shadow: 0 0 0 4px rgba(40,120,208,.
 .pokemon-art:disabled { cursor: default; opacity: 1; }
 .pokemon-art:not(:disabled):focus-visible { box-shadow: inset 0 0 0 3px var(--blue); }
 .pokemon-art > img { width: 100%; height: 226px; object-fit: contain; filter: drop-shadow(0 10px 8px rgba(28,61,89,.28)); transition: transform 140ms ease; }
+.pokemon-art > .pokemon-model { width: 100%; height: 226px; --poster-color: transparent; filter: drop-shadow(0 10px 8px rgba(28,61,89,.28)); }
+.pokemon-art.model-preview-enabled::after { content: "3D"; position: absolute; z-index: 4; right: 9px; bottom: 58px; padding: 3px 6px; border: 1px solid rgba(16,44,92,.25); border-radius: 999px; background: rgba(255,255,255,.86); color: var(--blue-deep); box-shadow: 0 2px 5px rgba(16,44,92,.16); font-size: .5rem; font-weight: 950; letter-spacing: .04em; }
+.pokemon-art.preview-loading::before { content: ""; width: 27px; height: 27px; position: absolute; z-index: 5; top: 50%; left: 50%; margin: -14px 0 0 -14px; border: 4px solid rgba(255,255,255,.75); border-top-color: var(--blue); border-radius: 50%; animation: model-preview-spin 650ms linear infinite; }
 .pokemon-card:hover .pokemon-art > img { transform: translateY(-3px) scale(1.05); }
+@keyframes model-preview-spin { to { transform: rotate(360deg); } }
 .pokemon-nameplate { min-height: 32px; display: grid; place-items: center; position: absolute; z-index: 2; top: 8px; right: 9px; left: 54px; margin: 0; padding: 4px 9px; overflow: visible; border: 1px solid rgba(16,44,92,.13); border-radius: 12px; background: rgba(255,255,255,.9); color: var(--blue-deep); font-size: .88rem; font-weight: 900; line-height: 1.05; text-align: center; white-space: normal; box-shadow: 0 2px 7px rgba(16,44,92,.13); backdrop-filter: blur(3px); }
 .pokemon-card:not(:has(.card-points)) .pokemon-nameplate { left: 9px; }
 .evolution-card-rule { width: 28px; display: inline-flex; align-items: center; flex-direction: column; gap: 2px; position: absolute; z-index: 2; top: 58px; right: 16px; padding: 4px 3px; border: 1px solid rgba(16,82,154,.25); border-radius: 999px; background: rgba(226,244,255,.88); box-shadow: 0 2px 5px rgba(16,44,92,.12); pointer-events: none; backdrop-filter: blur(3px); }
@@ -546,6 +551,25 @@ img.mystery-silhouette,
 .rule-section ul { display: grid; gap: 5px; margin: 0; padding-left: 18px; }
 .rule-section li::marker { color: var(--red); }
 
+.settings-dialog { width: min(660px, calc(100% - 28px)); }
+.settings-dialog-header { background: linear-gradient(135deg, #4179bf, #24518d); }
+.settings-content { min-height: 0; display: grid; gap: 15px; overflow-y: auto; padding: 20px 22px 26px; }
+.settings-section { display: grid; gap: 11px; padding: 16px; border: 2px solid #c9deee; border-radius: 17px; background: #fff; }
+.settings-section-heading { display: grid; grid-template-columns: 38px minmax(0, 1fr); align-items: center; gap: 10px; padding-bottom: 10px; border-bottom: 2px solid #e5eff7; }
+.settings-section-heading > span { width: 36px; height: 36px; display: grid; place-items: center; border-radius: 50%; background: #e7f3ff; font-size: 1rem; }
+.settings-section-heading h3 { margin: 0; color: var(--blue-deep); font-size: 1rem; font-weight: 950; }
+.settings-section-heading p { margin: 2px 0 0; color: var(--muted); font-size: .7rem; }
+.settings-field, .settings-toggle { min-width: 0; display: flex; align-items: center; justify-content: space-between; gap: 18px; padding: 10px 11px; border: 1px solid #d8e6f1; border-radius: 12px; background: #f7fbfe; color: var(--blue-deep); font-size: .78rem; font-weight: 850; }
+.settings-field select { width: min(270px, 52%); min-width: 0; padding: 7px 9px; border: 2px solid #b7cfe3; border-radius: 9px; background: #fff; color: var(--blue-deep); font-size: .72rem; font-weight: 800; }
+.settings-toggle > span { min-width: 0; display: grid; gap: 3px; }
+.settings-toggle b { font-size: .78rem; }
+.settings-toggle small { color: var(--muted); font-size: .65rem; font-weight: 650; line-height: 1.35; }
+.settings-toggle input { width: 43px; height: 24px; flex: 0 0 auto; position: relative; margin: 0; border: 2px solid #879db0; border-radius: 999px; background: #c9d5df; appearance: none; transition: 150ms ease; }
+.settings-toggle input::after { content: ""; width: 16px; height: 16px; position: absolute; top: 2px; left: 2px; border-radius: 50%; background: #fff; box-shadow: 0 1px 3px rgba(16,44,92,.3); transition: transform 150ms ease; }
+.settings-toggle input:checked { border-color: #32804c; background: #58b96d; }
+.settings-toggle input:checked::after { transform: translateX(19px); }
+.settings-toggle input:focus-visible { outline: 3px solid rgba(41,128,198,.25); outline-offset: 2px; }
+
 .pokedex-dialog { width: min(920px, calc(100% - 28px)); }
 .pokedex-dialog-header { background: linear-gradient(135deg, #e5434f, #b92838); }
 .pokedex-content { min-height: 0; flex: 1 1 auto; overflow-y: auto; overscroll-behavior: contain; scrollbar-gutter: stable; padding: 22px 22px 30px; }
@@ -671,6 +695,7 @@ img.mystery-silhouette,
   .card-points { font-size: 1.1rem; border-width: 1px; }
   .pokemon-art { min-height: 100%; padding: 15px 0 1px; }
   .pokemon-art > img { height: clamp(84px, 12.5vh, 130px); }
+  .pokemon-art > .pokemon-model { height: clamp(84px, 12.5vh, 130px); }
   .pokemon-nameplate { min-height: 25px; top: 4px; right: 5px; left: 38px; padding: 2px 5px; border-radius: 8px; font-size: .61rem; }
   .pokemon-card:not(:has(.card-points)) .pokemon-nameplate { left: 5px; }
   .evolution-card-rule { width: 20px; top: 38px; right: 9px; gap: 0; padding: 2px; }
@@ -832,6 +857,9 @@ img.mystery-silhouette,
   .pokedex-content { padding: 14px; }
   .pokedex-summary { grid-template-columns: 1fr; gap: 12px; }
   .pokedex-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .settings-content { padding: 15px; }
+  .settings-field { align-items: stretch; flex-direction: column; gap: 7px; }
+  .settings-field select { width: 100%; }
 }
 
 @media (max-width: 390px) {

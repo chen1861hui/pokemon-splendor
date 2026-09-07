@@ -28,6 +28,9 @@
           <button id="soundButton" class="rules-button sound-button" type="button" aria-pressed="false">
             <span aria-hidden="true">🔇</span> <b>BGM off</b>
           </button>
+          <button id="settingsButton" class="rules-button settings-button" type="button" aria-haspopup="dialog" aria-controls="settingsDialog">
+            <span aria-hidden="true">⚙</span> <b data-i18n="settings">Settings</b>
+          </button>
           <button id="pokedexButton" class="rules-button pokedex-button" type="button" aria-haspopup="dialog" aria-controls="pokedexDialog">
             <span aria-hidden="true">✓</span> <b data-i18n="pokedex">Pokédex</b> <small id="pokedexProgress">0/0</small>
           </button>
@@ -201,6 +204,51 @@
     </div>
 
     <div id="gameAnimation" class="game-animation hidden" role="status" aria-live="polite"></div>
+
+    <dialog id="settingsDialog" class="rules-dialog settings-dialog" aria-labelledby="settingsTitle">
+      <div class="rules-dialog-header settings-dialog-header">
+        <div>
+          <p class="eyebrow" data-i18n="personalPreferences">Personal preferences</p>
+          <h2 id="settingsTitle" data-i18n="settings">Settings</h2>
+        </div>
+        <button id="closeSettings" class="dialog-close" type="button" aria-label="Close settings">×</button>
+      </div>
+      <div class="settings-content">
+        <section class="settings-section">
+          <div class="settings-section-heading">
+            <span aria-hidden="true">🖼</span>
+            <div><h3 data-i18n="visualSettings">Visuals</h3><p data-i18n="visualSettingsHelp">These preferences apply only on this device.</p></div>
+          </div>
+          <label class="settings-field" for="settingsBackgroundSelect">
+            <span data-i18n="gameBackground">Personal game background</span>
+            <select id="settingsBackgroundSelect" aria-label="Personal game background"></select>
+          </label>
+          <label class="settings-toggle" for="model3dEnabled">
+            <span><b data-i18n="model3d">3D Pokémon previews</b><small data-i18n="model3dHelp">Click a revealed card to load one animated 3D model at a time. Pixel sprites remain the fallback.</small></span>
+            <input id="model3dEnabled" type="checkbox" role="switch">
+          </label>
+        </section>
+
+        <section class="settings-section">
+          <div class="settings-section-heading">
+            <span aria-hidden="true">♫</span>
+            <div><h3 data-i18n="audioSettings">Audio</h3><p data-i18n="audioSettingsHelp">Control music and game sounds separately.</p></div>
+          </div>
+          <label class="settings-toggle" for="bgmEnabledInput">
+            <span><b data-i18n="bgm">Background music</b><small data-i18n="bgmHelp">Play the selected local game track.</small></span>
+            <input id="bgmEnabledInput" type="checkbox" role="switch">
+          </label>
+          <label class="settings-field" for="settingsBgmSelect">
+            <span data-i18n="musicTrack">Music track</span>
+            <select id="settingsBgmSelect" aria-label="Background music"></select>
+          </label>
+          <label class="settings-toggle" for="sfxEnabledInput">
+            <span><b data-i18n="soundEffects">Sound effects</b><small data-i18n="soundEffectsHelp">Pokémon cries and your-turn reminders.</small></span>
+            <input id="sfxEnabledInput" type="checkbox" role="switch">
+          </label>
+        </section>
+      </div>
+    </dialog>
 
     <dialog id="rulesDialog" class="rules-dialog" aria-labelledby="rulesTitle">
       <div class="rules-dialog-header">
