@@ -53,7 +53,7 @@ test("landing page starts with Pikachu and grows an interactive caught-Pokémon 
   assert.match(appSource, /const y = 82 \+ Math\.sin\(angle\) \* radius \* 12/);
   assert.doesNotMatch(appSource, /const columns = Math\.ceil/);
   assert.match(appSource, /mascot \? "landing-mascot"/);
-  assert.match(appSource, /const initialSprite = pokemonAnimatedSpriteUrl\(card\.pokedexId\)/);
+  assert.match(appSource, /const initialSprite = pokemonAnimatedArtworkUrl\(card\.pokedexId\)/);
   assert.match(appSource, /class="landing-pokemon /);
   assert.match(appSource, /class="pokedex-pokemon-preview"/);
   assert.match(appSource, /playPokemonPreview\(button\)/);
@@ -101,7 +101,7 @@ test("settings provide persistent local WAV BGM with a music-only quick toggle",
   assert.match(styles, /\.sound-button\[aria-pressed="true"\]/);
 });
 
-test("settings separate music, sound effects, and optional on-demand 3D previews", async () => {
+test("settings separate audio and switch animated artwork to 3D-rendered GIFs", async () => {
   const [appSource, html, styles] = await Promise.all([
     readFile(new URL("../public/app.js", import.meta.url), "utf8"),
     readFile(new URL("../public/index.html", import.meta.url), "utf8"),
@@ -126,13 +126,16 @@ test("settings separate music, sound effects, and optional on-demand 3D previews
   assert.match(appSource, /pokemon-splendor-sfx-volume/);
   assert.match(appSource, /activeBgmAudio\.volume = bgmVolume/);
   assert.match(appSource, /audio\.volume = sfxVolume/);
-  assert.match(appSource, /https:\/\/pokemon-3d-api\.onrender\.com\/v1\/pokemon/);
-  assert.match(appSource, /@google\/model-viewer@4\.1\.0/);
+  assert.match(appSource, /\/pokemon\/other\/showdown\/\$\{pokedexId\}\.gif/);
+  assert.match(appSource, /function pokemonAnimatedArtworkUrl|const pokemonAnimatedArtworkUrl/);
   assert.match(appSource, /function pokemonCardArtworkMarkup/);
-  assert.match(appSource, /active3dCardId === card\.id/);
+  assert.match(appSource, /function renderStaticPokemonArtwork/);
+  assert.match(appSource, /pixelFallbackAttempted/);
+  assert.doesNotMatch(appSource, /pokemon-3d-api\.onrender\.com/);
+  assert.doesNotMatch(appSource, /model-viewer/);
   assert.match(appSource, /if \(!sfxEnabled \|\| !crySource\) return/);
   assert.match(appSource, /function stopSoundEffects/);
-  assert.match(styles, /\.pokemon-art > \.pokemon-model/);
+  assert.match(styles, /src\*="\/other\/showdown\/"/);
   assert.match(styles, /\.settings-dialog/);
   assert.match(styles, /\.settings-range/);
 });
@@ -233,7 +236,7 @@ test("game UI exposes cleanup, evolution, hidden reservation, and play-again con
   assert.match(appSource, /redTrainer: "Red & Pikachu"/);
   assert.match(appSource, /data-trainer-sprite/);
   assert.match(appSource, /class="trainer-partner-art"/);
-  assert.match(appSource, /pokemonAnimatedSpriteUrl\(trainerCard\.pokedexId\)/);
+  assert.match(appSource, /pokemonAnimatedArtworkUrl\(trainerCard\.pokedexId\)/);
   assert.match(styles, /\.trainer-choice \{[^}]*border: 0;[^}]*background: transparent;/);
   assert.match(styles, /\.trainer-choice-art \{[^}]*overflow: hidden;/);
   assert.match(styles, /\.trainer-main-art \{[^}]*width: auto;[^}]*height: 100%;/);

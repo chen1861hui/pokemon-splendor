@@ -79,9 +79,9 @@
         <section id="lobbyView" class="lobby-view hidden">
           <div class="lobby-card">
             <div class="lobby-pokemon" aria-hidden="true">
-              <img data-pokemon-sprite src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/1.gif" data-fallback-src="/assets/pokemon/1.png" alt="">
-              <img data-pokemon-sprite src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/4.gif" data-fallback-src="/assets/pokemon/4.png" alt="">
-              <img data-pokemon-sprite src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/7.gif" data-fallback-src="/assets/pokemon/7.png" alt="">
+              <img data-pokemon-sprite data-static-pokemon-id="1" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/1.gif" data-fallback-src="/assets/pokemon/1.png" alt="">
+              <img data-pokemon-sprite data-static-pokemon-id="4" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/4.gif" data-fallback-src="/assets/pokemon/4.png" alt="">
+              <img data-pokemon-sprite data-static-pokemon-id="7" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/7.gif" data-fallback-src="/assets/pokemon/7.png" alt="">
             </div>
             <p class="eyebrow" data-i18n="trainerLobby">Trainer lobby</p>
             <h1 data-i18n="gatherTeam">Gather your team</h1>
@@ -216,7 +216,7 @@
             <select id="backgroundSelect" aria-label="Personal game background"></select>
           </label>
           <label class="settings-toggle" for="model3dEnabled">
-            <span><b data-i18n="model3d">3D Pokémon previews</b><small data-i18n="model3dHelp">Click a revealed card to load one animated 3D model at a time. Pixel sprites remain the fallback.</small></span>
+            <span><b data-i18n="model3d">3D-rendered Pokémon GIFs</b><small data-i18n="model3dHelp">Replace animated pixel artwork with lightweight 3D-rendered battle GIFs. Pixel sprites remain the fallback.</small></span>
             <input id="model3dEnabled" type="checkbox" role="switch">
           </label>
         </section>
@@ -261,7 +261,7 @@
 
       <div class="rules-content">
         <section class="rule-intro">
-          <img data-pokemon-sprite src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/25.gif" data-fallback-src="/assets/pokemon/25.png" alt="" aria-hidden="true">
+          <img data-pokemon-sprite data-static-pokemon-id="25" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/25.gif" data-fallback-src="/assets/pokemon/25.png" alt="" aria-hidden="true">
           <div>
             <strong data-i18n="ruleIntroTitle">Become the Pokémon Champion</strong>
             <p data-i18n="ruleIntroText">Collect Poké Balls, catch Pokémon, evolve your team, and finish with the most victory points.</p>
