@@ -17,6 +17,7 @@ const contentTypes = {
   ".jpg": "image/jpeg",
   ".js": "text/javascript; charset=utf-8",
   ".json": "application/json; charset=utf-8",
+  ".mp3": "audio/mpeg",
   ".png": "image/png",
   ".svg": "image/svg+xml",
   ".wav": "audio/wav"
@@ -26,10 +27,10 @@ async function musicCatalog() {
   try {
     const entries = await readdir(musicDirectory, { withFileTypes: true });
     return entries
-      .filter((entry) => entry.isFile() && entry.name.toLowerCase().endsWith(".wav"))
+      .filter((entry) => entry.isFile() && /\.(wav|mp3)$/i.test(entry.name))
       .map((entry) => ({
         id: `local:${entry.name}`,
-        name: entry.name.replace(/\.wav$/i, ""),
+        name: entry.name.replace(/\.(wav|mp3)$/i, ""),
         url: `/assets/musics/${encodeURIComponent(entry.name)}`
       }))
       .sort((left, right) => left.name.localeCompare(right.name, "en", { numeric: true }));

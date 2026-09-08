@@ -34,6 +34,44 @@ test("caught cards expose hover details and opponent reservations stay masked", 
   assert.match(styles, /\.collection-hover-card/);
 });
 
+test("selecting a player panel collapses the other panels while collections stack vertically", async () => {
+  const [appSource, styles] = await Promise.all([
+    readFile(new URL("../public/app.js", import.meta.url), "utf8"),
+    readFile(new URL("../public/styles.css", import.meta.url), "utf8")
+  ]);
+
+  assert.match(appSource, /selectedPlayerPanelId/);
+  assert.match(appSource, /data-focus-player-card/);
+  assert.match(appSource, /data-collapsed-player-card/);
+  assert.match(appSource, /aria-expanded/);
+  assert.match(appSource, /player-focus-mode/);
+  assert.match(styles, /\.players-grid\.player-focus-mode/);
+  assert.match(styles, /\.player-card\.collapsed/);
+  assert.match(styles, /\.player-card\.collapsed \.player-header h3/);
+  assert.match(styles, /\.player-card\.collapsed \.player-score small/);
+  assert.match(styles, /\.player-collections \{[^}]*grid-template-columns: minmax\(0, 1fr\)/);
+  assert.match(styles, /grid-template-rows: repeat\(2, minmax\(0, 1fr\)\)/);
+});
+
+test("evolution-ready Pokémon are green while eligible sources awaiting their target glow yellow", async () => {
+  const [appSource, styles] = await Promise.all([
+    readFile(new URL("../public/app.js", import.meta.url), "utf8"),
+    readFile(new URL("../public/styles.css", import.meta.url), "utf8")
+  ]);
+
+  assert.match(appSource, /function evolutionTargetForSource/);
+  assert.match(appSource, /function evolutionRequirementMet/);
+  assert.match(appSource, /evolutionReadySource/);
+  assert.match(appSource, /const evolutionReady = isSelf && Boolean\(evolutionTargetForSource/);
+  assert.match(appSource, /evolutionWaiting: isSelf && !evolutionReady/);
+  assert.match(appSource, /evolutionReady/);
+  assert.match(appSource, /evolutionWaiting/);
+  assert.match(styles, /\.pokemon-card\.evolution-ready/);
+  assert.match(styles, /\.collection-card\.evolution-ready/);
+  assert.match(styles, /\.collection-card\.evolution-waiting/);
+  assert.match(styles, /@keyframes evolution-waiting-glow/);
+});
+
 test("landing page starts with Pikachu and grows an interactive caught-Pokémon background", async () => {
   const [appSource, html, styles] = await Promise.all([
     readFile(new URL("../public/app.js", import.meta.url), "utf8"),
@@ -66,7 +104,7 @@ test("landing page starts with Pikachu and grows an interactive caught-Pokémon 
   assert.match(styles, /\.pokedex-pokemon-preview\.preview-playing img/);
 });
 
-test("settings provide persistent local WAV BGM with a music-only quick toggle", async () => {
+test("settings provide persistent local BGM with a music-only quick toggle", async () => {
   const [appSource, html, styles, serverSource] = await Promise.all([
     readFile(new URL("../public/app.js", import.meta.url), "utf8"),
     readFile(new URL("../public/index.html", import.meta.url), "utf8"),
@@ -95,8 +133,9 @@ test("settings provide persistent local WAV BGM with a music-only quick toggle",
   assert.ok(cryFunction);
   assert.doesNotMatch(cryFunction[0], /bgmEnabled/);
   assert.match(serverSource, /url\.pathname === "\/api\/music"/);
-  assert.match(serverSource, /endsWith\("\.wav"\)/);
+  assert.match(serverSource, /wav\|mp3/);
   assert.match(serverSource, /"\.wav": "audio\/wav"/);
+  assert.match(serverSource, /"\.mp3": "audio\/mpeg"/);
   assert.match(styles, /\.settings-field select/);
   assert.match(styles, /\.sound-button\[aria-pressed="true"\]/);
 });
@@ -125,6 +164,8 @@ test("settings separate audio and switch animated artwork to 3D-rendered GIFs", 
   assert.match(appSource, /pokemon-splendor-bgm-volume/);
   assert.match(appSource, /pokemon-splendor-sfx-volume/);
   assert.match(appSource, /activeBgmAudio\.volume = bgmVolume/);
+  assert.match(appSource, /bgmVolumeValue\.textContent/);
+  assert.match(appSource, /sfxVolumeValue\.textContent/);
   assert.match(appSource, /audio\.volume = sfxVolume/);
   assert.match(appSource, /\/pokemon\/other\/showdown\/\$\{pokedexId\}\.gif/);
   assert.match(appSource, /Spr_Masters_Red\.png/);
@@ -132,6 +173,8 @@ test("settings separate audio and switch animated artwork to 3D-rendered GIFs", 
   assert.match(appSource, /Spr_Masters_Misty\.png/);
   assert.match(appSource, /Spr_Masters_Giovanni\.png/);
   assert.match(appSource, /trainerArtworkUrl/);
+  assert.match(appSource, /data-final-fallback-src=/);
+  assert.match(appSource, /finalFallbackAttempted/);
   assert.match(appSource, /function pokemonAnimatedArtworkUrl|const pokemonAnimatedArtworkUrl/);
   assert.match(appSource, /function pokemonCardArtworkMarkup/);
   assert.match(appSource, /function renderStaticPokemonArtwork/);
@@ -142,8 +185,11 @@ test("settings separate audio and switch animated artwork to 3D-rendered GIFs", 
   assert.match(appSource, /function stopSoundEffects/);
   assert.match(styles, /src\*="\/other\/showdown\/"/);
   assert.match(styles, /data-art-mode="hd"/);
+  assert.match(styles, /\.trainer-choice-art \.trainer-main-art\[data-art-mode="hd"\] \{[^}]*height: calc\(100% - 14px\)/);
+  assert.match(styles, /@keyframes trainer-hd-idle[\s\S]*translateY\(-3px\) scale\(1\.01\)/);
   assert.match(styles, /\.settings-dialog/);
   assert.match(styles, /\.settings-range/);
+  assert.match(styles, /grid-template-columns: minmax\(0, 1fr\)/);
 });
 
 test("large game screens show enlarged player cards in a two-by-two layout and alert the active player", async () => {
@@ -169,9 +215,10 @@ test("large game screens show enlarged player cards in a two-by-two layout and a
 });
 
 test("lobby exposes a synchronized optional turn timer", async () => {
-  const [appSource, html] = await Promise.all([
+  const [appSource, html, styles] = await Promise.all([
     readFile(new URL("../public/app.js", import.meta.url), "utf8"),
-    readFile(new URL("../public/index.html", import.meta.url), "utf8")
+    readFile(new URL("../public/index.html", import.meta.url), "utf8"),
+    readFile(new URL("../public/styles.css", import.meta.url), "utf8")
   ]);
 
   assert.match(html, /id="timerEnabled"/);
@@ -181,6 +228,17 @@ test("lobby exposes a synchronized optional turn timer", async () => {
   assert.doesNotMatch(html, /<div class="game-status">/);
   assert.match(appSource, /updateLobbyOption\("timer"/);
   assert.match(appSource, /renderTurnTimer/);
+  assert.match(appSource, /function lowHealthTimerTrack\(\)/);
+  assert.match(appSource, /function startLowHealthTimerMusic\(turnKey\)/);
+  assert.match(appSource, /audio\.loop = true/);
+  assert.match(appSource, /if \(!sfxEnabled\) return;/);
+  assert.match(appSource, /audio\.volume = sfxVolume/);
+  assert.match(appSource, /stopTimerMusic\(\);/);
+  assert.match(appSource, /lowTime && isMyTurn && timerMusicTurnKey !== alertTurnKey/);
+  assert.match(appSource, /low-health-critical-health-pokemon\.mp3/);
+  assert.doesNotMatch(appSource, /function playLowHealthTimerAlert\(\)/);
+  assert.match(appSource, /lowTimeAlert/);
+  assert.match(styles, /\.turn-timer\.warning/);
 });
 
 test("the first lobby render enables options after room entry completes", async () => {

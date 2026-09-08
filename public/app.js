@@ -36,11 +36,11 @@ const translations = {
   en: {
     gameRules: "Game rules", pokedex: "Pokédex", caughtPokedex: "Caught Pokédex", multiGameChecklist: "Multi-game checklist", checklistHelp: "Pokémon you catch are checked automatically and saved on this browser across games.", caughtProgress: "{caught} / {total} caught", stagePokemon: "Stage Pokémon", rarePokemon: "Rare Pokémon", legendaryPokemon: "Legendary Pokémon", mythicalPokemon: "Mythical Pokémon", catalogLoading: "Loading the Pokémon checklist…", heroEyebrow: "A private trainer challenge", heroTitle: "Catch. Collect.", heroTitleAccent: "Become Champion.",
     heroDescription: "Catch Pokémon, collect Poké Balls, and race your friends to 18 victory points. No accounts or installation required.",
-    playersFeature: "2–4 players", privateRooms: "Private rooms", liveTurns: "Live turns", pokedexPartners: "Your Pokédex partners", settings: "Settings", personalPreferences: "Personal preferences", visualSettings: "Visuals", visualSettingsHelp: "These preferences apply only on this device.", model3d: "3D-rendered Pokémon GIFs", model3dHelp: "Use animated 3D battle GIFs with matching 1024px trainer artwork. Pixel sprites remain the fallback.", audioSettings: "Audio", audioSettingsHelp: "Control music and game sounds separately.", bgm: "Background music", bgmLocal: "Background music", bgmUnavailable: "No background music", bgmOn: "BGM on", bgmOff: "BGM off", bgmHelp: "Play the selected local game track.", musicTrack: "Music track", bgmVolume: "Music volume", soundEffects: "Sound effects", soundEffectsHelp: "Pokémon cries and your-turn reminders.", sfxVolume: "Sound-effect volume", createRoom: "Create room", joinRoom: "Join room", endGame: "End game", leaveRoom: "Leave room", disbandRoom: "Disband room", cancel: "Cancel",
+    playersFeature: "2–4 players", privateRooms: "Private rooms", liveTurns: "Live turns", pokedexPartners: "Your Pokédex partners", settings: "Settings", personalPreferences: "Personal preferences", visualSettings: "Visuals", visualSettingsHelp: "These preferences apply only on this device.", model3d: "3D-rendered Pokémon GIFs", model3dHelp: "Use animated 3D battle GIFs with matching 1024px trainer artwork. Pixel sprites remain the fallback.", audioSettings: "Audio", audioSettingsHelp: "Control music and game sounds separately.", bgm: "Background music", bgmLocal: "Background music", bgmUnavailable: "No background music", bgmOn: "BGM on", bgmOff: "BGM off", bgmHelp: "Play the selected local game track.", musicTrack: "Music track", bgmVolume: "Music volume", soundEffects: "Sound effects", soundEffectsHelp: "Pokémon cries, critical-health timer, and your-turn reminders.", sfxVolume: "Sound-effect volume", createRoom: "Create room", joinRoom: "Join room", endGame: "End game", leaveRoom: "Leave room", disbandRoom: "Disband room", cancel: "Cancel",
     endGameTitle: "End the current game?", endGameMessage: "Everyone will return to this room's lobby and the current board will be cleared. Trainer choices, settings, and browser Pokédex progress will stay saved.", leaveRoomTitle: "Leave this room?", leaveRoomMessage: "Your seat and current game progress will be removed. Your browser Pokédex will stay saved.", disbandRoomTitle: "Disband this room?", disbandRoomMessage: "The current room will close immediately for every Trainer. This cannot be undone, but everyone keeps their browser Pokédex.", gameEnded: "Game ended; everyone returned to the lobby", roomLeft: "You left the room", roomDisbanded: "Room disbanded", roomEnded: "This room has ended or is no longer available",
     trainerName: "Trainer name", trainerPlaceholder: "e.g. Red", roomCode: "Room code", createPrivateRoom: "Create private room", joinPrivateRoom: "Join private room",
     trainerLobby: "Trainer lobby", gatherTeam: "Gather your team", shareRoom: "Share this private room code with up to three friends.", copyInvite: "Click to copy invite link", trainerCard: "Trainer tile", chooseTrainerCard: "Choose character", onePerTrainer: "One tile per trainer", whoAmIPool: "Who am I?", redTrainer: "Red & Pikachu", brockTrainer: "Brock & Onix", mistyTrainer: "Misty & Psyduck", giovanniTrainer: "Giovanni & Persian", chosenBy: "Chosen by {name}", available: "Available", stageOne: "Stage 1", stageTwo: "Stage 2", stageThree: "Stage 3", chooseTrainerFirst: "Choose a Trainer tile to continue.", waitingTrainerCards: "Waiting for every trainer to choose a tile…",
-    startGame: "Start game", turnTimer: "Turn timer", timerOption: "Optional turn limit", enableTimer: "Enable timer", secondsPerTurn: "seconds per turn", timerHostHelp: "The host controls this setting. Enter 15–600 seconds.", timerGuestHelp: "Only the host can change the timer.", mysteryMode: "Mystery mode", silhouetteOption: "Silhouettes until caught", enableSilhouettes: "Enable silhouettes", silhouetteHelp: "Artwork and names stay hidden until that Pokémon is caught in the current game.", silhouetteGuestHelp: "Only the host can change this option.", gameBackground: "Personal game background", backgroundCurrent: "Current", backgroundKanto: "Gen I · Kanto", backgroundJohto: "Gen II · Johto", backgroundHoenn: "Gen III · Hoenn", backgroundSinnoh: "Gen IV · Sinnoh", timeRemaining: "Time remaining", pointsToWin: "points to win", ballSupply: "Poké Ball supply", chooseBalls: "Choose Poké Balls", clear: "Clear",
+    startGame: "Start game", turnTimer: "Turn timer", timerOption: "Optional turn limit", enableTimer: "Enable timer", secondsPerTurn: "seconds per turn", timerHostHelp: "The host controls this setting. Enter 15–600 seconds.", timerGuestHelp: "Only the host can change the timer.", mysteryMode: "Mystery mode", silhouetteOption: "Silhouettes until caught", enableSilhouettes: "Enable silhouettes", silhouetteHelp: "Artwork and names stay hidden until that Pokémon is caught in the current game.", silhouetteGuestHelp: "Only the host can change this option.", gameBackground: "Personal game background", backgroundCurrent: "Current", backgroundKanto: "Gen I · Kanto", backgroundJohto: "Gen II · Johto", backgroundHoenn: "Gen III · Hoenn", backgroundSinnoh: "Gen IV · Sinnoh", timeRemaining: "Time remaining", lowTimeAlert: "Low time — make your move!", pointsToWin: "points to win", ballSupply: "Poké Ball supply", chooseBalls: "Choose Poké Balls", clear: "Clear",
     takeThree: "Take 3 different", takeAvailable: "Take available colors", takePair: "Take pair", returnBalls: "Return Poké Balls", returnExact: "Choose exactly {count} ball(s) to return.", skipEvolution: "Skip evolution", chooseEvolution: "Evolve one Pokémon or skip", evolve: "Evolve", reserveDeck: "Reserve top", ballHelp: "Take three different Poké Balls (or every available color if fewer than three remain), or take a pair when four of that color remain. Return to 10 after the action.",
     wildEncounter: "Wild encounter", pokemonMarket: "Pokémon market", leagueTable: "League table", trainers: "Trainers", trainerHandbook: "Trainer handbook", howToPlay: "How to play",
     ruleIntroTitle: "Become the Pokémon Champion", ruleIntroText: "Collect Poké Balls, catch Pokémon, evolve your team, and finish with the most victory points.",
@@ -54,7 +54,7 @@ const translations = {
     ruleEvolutionTitle: "Evolve one Pokémon", ruleEvolutionText: "After ball cleanup, you may evolve one Pokémon for free when its next stage is face-up or reserved by you and your permanent bonuses meet the evolution requirement. Tuck the earlier stage face-down; its points and bonus no longer count.",
     ruleEndTitle: "Finish the game", ruleEndText: "Reaching 18 points triggers the final round so every trainer takes the same number of turns. Most points wins. Ties go to the trainer with the most tucked cards, then the most face-up Pokémon. The host may then start a fresh game; caught Pokédex progress is kept.",
     host: "Host", ready: "Ready", waitingTrainer: "Waiting for at least one more trainer…", trainersReady: "{count} trainers ready. Any trainer can start the game.", waitingHost: "Waiting for the game to start…",
-    room: "Room {code}", left: "{count} left", recruit: "Catch", reserve: "Reserve", caughtPokemon: "Caught Pokémon", reservedPokemon: "Reserved Pokémon", tuckedPokemon: "Evolved", catchPokemon: "Catch {pokemon}", previewPokemon: "Play {pokemon}'s animation and cry", unknownPokemon: "Unknown Pokémon", tier: "Stage", rare: "Rare", legendary: "Legendary", mythical: "Mythical", doubleBonus: "Double permanent {ball} discount", free: "Free", noneYet: "None yet", privateCards: "Hidden from other Trainers", cost: "Catch cost", evolution: "Evolution", evolvesTo: "Evolves to {pokemon}", evolutionRequirement: "{count} permanent {ball} bonuses", bonusProgress: "Current {current}/{required}", evolutionTarget: "Target must be face-up or reserved by you", you: "you", pointsShort: "pts",
+    room: "Room {code}", left: "{count} left", recruit: "Catch", reserve: "Reserve", caughtPokemon: "Caught Pokémon", reservedPokemon: "Reserved Pokémon", tuckedPokemon: "Evolved", expandPlayer: "Expand player panel", showAllPlayers: "Show all player panels", evolutionReady: "Evolution ready", evolutionWaiting: "Evolution requirement met — next stage not available", catchPokemon: "Catch {pokemon}", previewPokemon: "Play {pokemon}'s animation and cry", unknownPokemon: "Unknown Pokémon", tier: "Stage", rare: "Rare", legendary: "Legendary", mythical: "Mythical", doubleBonus: "Double permanent {ball} discount", free: "Free", noneYet: "None yet", privateCards: "Hidden from other Trainers", cost: "Catch cost", evolution: "Evolution", evolvesTo: "Evolves to {pokemon}", evolutionRequirement: "{count} permanent {ball} bonuses", bonusProgress: "Current {current}/{required}", evolutionTarget: "Target must be face-up or reserved by you", you: "you", pointsShort: "pts",
     recruitedReserved: "{caught} caught · {reserved} reserved", gameComplete: "Game complete", yourChampion: "You are the Champion!", trainerChampion: "{name} is Champion", restartGame: "Play again", hostDecision: "Start a fresh game with the same trainers and timer. Everyone keeps their browser Pokédex progress.", waitingDecision: "Waiting for the host to start the next game.", animationCaught: "{name} caught {pokemon}!", animationReserved: "{name} reserved a Pokémon", animationEvolved: "{name}'s Pokémon evolved!", animationVictory: "{name} is Champion!", rareEncounter: "Rare catch!", legendaryEncounter: "Legendary catch!", mythicalEncounter: "Mythical catch!",
     yourTurn: "Your turn", trainerTurn: "{name}'s turn", chooseAction: "Choose your action", finalRound: "Final round", finalScores: "Final scores", makeMove: "Make one move", watchingLive: "Watching live",
     inviteCopied: "Invite link copied", roomCodeToast: "Room code: {code}", permanentDiscount: "Permanent {ball} discount", roomCreated: "Room created",
@@ -64,11 +64,11 @@ const translations = {
   zh: {
     gameRules: "游戏规则", pokedex: "图鉴", caughtPokedex: "捕捉图鉴", multiGameChecklist: "多局游戏清单", checklistHelp: "你亲自捕捉的宝可梦会自动勾选，并保存在此浏览器中供多局游戏核对。", caughtProgress: "已捕捉 {caught} / {total}", stagePokemon: "阶段宝可梦", rarePokemon: "稀有宝可梦", legendaryPokemon: "传说宝可梦", mythicalPokemon: "幻之宝可梦", catalogLoading: "正在载入宝可梦清单…", heroEyebrow: "私人训练家挑战", heroTitle: "捕捉·收集", heroTitleAccent: "成为冠军！",
     heroDescription: "捕捉宝可梦、收集精灵球，与好友竞赛，率先触发18分终局。无需账号或安装。",
-    playersFeature: "2–4名玩家", privateRooms: "私人房间", liveTurns: "实时回合", pokedexPartners: "你的图鉴伙伴", settings: "设置", personalPreferences: "个人偏好", visualSettings: "画面", visualSettingsHelp: "这些偏好只应用于此设备。", model3d: "3D渲染宝可梦GIF", model3dHelp: "使用3D渲染战斗GIF与统一的1024像素训练家图像；无法载入时会自动使用像素精灵图。", audioSettings: "声音", audioSettingsHelp: "可分别控制音乐与游戏音效。", bgm: "背景音乐", bgmLocal: "背景音乐", bgmUnavailable: "没有背景音乐", bgmOn: "背景音乐已开", bgmOff: "背景音乐已关", bgmHelp: "播放所选的本地游戏音乐。", musicTrack: "音乐曲目", bgmVolume: "音乐音量", soundEffects: "游戏音效", soundEffectsHelp: "宝可梦叫声与轮到你的提示音。", sfxVolume: "音效音量", createRoom: "创建房间", joinRoom: "加入房间", endGame: "结束本局", leaveRoom: "离开房间", disbandRoom: "解散房间", cancel: "取消",
+    playersFeature: "2–4名玩家", privateRooms: "私人房间", liveTurns: "实时回合", pokedexPartners: "你的图鉴伙伴", settings: "设置", personalPreferences: "个人偏好", visualSettings: "画面", visualSettingsHelp: "这些偏好只应用于此设备。", model3d: "3D渲染宝可梦GIF", model3dHelp: "使用3D渲染战斗GIF与统一的1024像素训练家图像；无法载入时会自动使用像素精灵图。", audioSettings: "声音", audioSettingsHelp: "可分别控制音乐与游戏音效。", bgm: "背景音乐", bgmLocal: "背景音乐", bgmUnavailable: "没有背景音乐", bgmOn: "背景音乐已开", bgmOff: "背景音乐已关", bgmHelp: "播放所选的本地游戏音乐。", musicTrack: "音乐曲目", bgmVolume: "音乐音量", soundEffects: "游戏音效", soundEffectsHelp: "宝可梦叫声、残血倒计时与轮到你的提示音。", sfxVolume: "音效音量", createRoom: "创建房间", joinRoom: "加入房间", endGame: "结束本局", leaveRoom: "离开房间", disbandRoom: "解散房间", cancel: "取消",
     endGameTitle: "确定结束当前游戏？", endGameMessage: "所有训练家会回到当前房间的大厅，当前牌面会被清除；角色选择、房间设置与浏览器捕捉图鉴都会保留。", leaveRoomTitle: "确定离开房间？", leaveRoomMessage: "你的席位与本局进度将被移除，但浏览器中的捕捉图鉴会保留。", disbandRoomTitle: "确定解散房间？", disbandRoomMessage: "房间会立即对所有训练家关闭，且无法撤销；每人的浏览器捕捉图鉴仍会保留。", gameEnded: "本局已结束，所有训练家已返回大厅", roomLeft: "你已离开房间", roomDisbanded: "房间已解散", roomEnded: "房间已结束或无法继续使用",
     trainerName: "训练家名称", trainerPlaceholder: "例如：小智", roomCode: "房间代码", createPrivateRoom: "创建私人房间", joinPrivateRoom: "加入私人房间",
     trainerLobby: "训练家大厅", gatherTeam: "集结你的队伍", shareRoom: "将私人房间代码分享给最多三位好友。", copyInvite: "点击复制邀请链接", trainerCard: "训练家板块", chooseTrainerCard: "选择角色", onePerTrainer: "每位训练家一个", whoAmIPool: "我是谁？", redTrainer: "赤红与皮卡丘", brockTrainer: "小刚与大岩蛇", mistyTrainer: "小霞与可达鸭", giovanniTrainer: "坂木与猫老大", chosenBy: "{name}已选择", available: "可选择", stageOne: "阶段 1", stageTwo: "阶段 2", stageThree: "阶段 3", chooseTrainerFirst: "请先选择一个训练家板块。", waitingTrainerCards: "等待所有训练家选择板块…",
-    startGame: "开始游戏", turnTimer: "回合计时器", timerOption: "可选回合时限", enableTimer: "启用计时器", secondsPerTurn: "秒／回合", timerHostHelp: "由房主控制，请输入15–600秒。", timerGuestHelp: "只有房主可以更改计时器。", mysteryMode: "神秘模式", silhouetteOption: "捕捉前显示剪影", enableSilhouettes: "启用剪影", silhouetteHelp: "宝可梦在本局被捕捉前，其图片与名称都会保持隐藏。", silhouetteGuestHelp: "只有房主可以更改此选项。", gameBackground: "个人游戏背景", backgroundCurrent: "当前背景", backgroundKanto: "第一世代·关都", backgroundJohto: "第二世代·城都", backgroundHoenn: "第三世代·丰缘", backgroundSinnoh: "第四世代·神奥", timeRemaining: "剩余时间", pointsToWin: "分触发终局", ballSupply: "精灵球供应区", chooseBalls: "选择精灵球", clear: "清除",
+    startGame: "开始游戏", turnTimer: "回合计时器", timerOption: "可选回合时限", enableTimer: "启用计时器", secondsPerTurn: "秒／回合", timerHostHelp: "由房主控制，请输入15–600秒。", timerGuestHelp: "只有房主可以更改计时器。", mysteryMode: "神秘模式", silhouetteOption: "捕捉前显示剪影", enableSilhouettes: "启用剪影", silhouetteHelp: "宝可梦在本局被捕捉前，其图片与名称都会保持隐藏。", silhouetteGuestHelp: "只有房主可以更改此选项。", gameBackground: "个人游戏背景", backgroundCurrent: "当前背景", backgroundKanto: "第一世代·关都", backgroundJohto: "第二世代·城都", backgroundHoenn: "第三世代·丰缘", backgroundSinnoh: "第四世代·神奥", timeRemaining: "剩余时间", lowTimeAlert: "时间不足，请尽快行动！", pointsToWin: "分触发终局", ballSupply: "精灵球供应区", chooseBalls: "选择精灵球", clear: "清除",
     takeThree: "拿3种不同球", takeAvailable: "拿取现有颜色", takePair: "拿2个同色球", returnBalls: "归还精灵球", returnExact: "请选择正好{count}个球归还。", skipEvolution: "跳过进化", chooseEvolution: "进化一只宝可梦或跳过", evolve: "进化", reserveDeck: "保留牌堆顶", ballHelp: "拿取三种不同的普通球（若不足三种则拿取全部现有颜色），或在同色球至少剩4个时拿取2个。行动后须弃至10个。",
     wildEncounter: "野外遭遇", pokemonMarket: "宝可梦展示区", leagueTable: "联盟排名", trainers: "训练家", trainerHandbook: "训练家手册", howToPlay: "游戏玩法",
     ruleIntroTitle: "成为宝可梦冠军", ruleIntroText: "收集精灵球、捕捉宝可梦、进化队伍，并获得最高胜利点数。",
@@ -82,7 +82,7 @@ const translations = {
     ruleEvolutionTitle: "进化一只宝可梦", ruleEvolutionText: "归还超额精灵球后，若下一阶段宝可梦在展示区或由你保留，且永久奖励满足进化条件，则可免费进化一只宝可梦。将旧卡面朝下压在训练家板下；其分数与奖励不再计算。",
     ruleEndTitle: "游戏结束", ruleEndText: "任一训练家达到18分后触发最后一轮，让所有人拥有相同回合数。得分最高者获胜；平局时依次比较压在训练家板下的卡牌数、面朝上的宝可梦数量。计分后房主可开始新一局，已捕捉图鉴进度会保留。",
     host: "房主", ready: "已准备", waitingTrainer: "等待至少一位训练家加入…", trainersReady: "已有{count}位训练家准备，任何训练家都可以开始游戏。", waitingHost: "等待游戏开始…",
-    room: "房间 {code}", left: "剩余 {count}", recruit: "捕捉", reserve: "保留", caughtPokemon: "已捕捉宝可梦", reservedPokemon: "已保留宝可梦", tuckedPokemon: "已进化", catchPokemon: "捕捉{pokemon}", previewPokemon: "播放{pokemon}的动画与叫声", unknownPokemon: "未知宝可梦", tier: "阶段", rare: "稀有", legendary: "传说", mythical: "幻之", doubleBonus: "永久减少两点{ball}费用", free: "免费", noneYet: "暂无", privateCards: "对其他训练家隐藏", cost: "捕捉费用", evolution: "进化", evolvesTo: "进化为{pokemon}", evolutionRequirement: "需要{count}个永久{ball}奖励", bonusProgress: "当前 {current}/{required}", evolutionTarget: "目标卡须在展示区或由你保留", you: "你", pointsShort: "分",
+    room: "房间 {code}", left: "剩余 {count}", recruit: "捕捉", reserve: "保留", caughtPokemon: "已捕捉宝可梦", reservedPokemon: "已保留宝可梦", tuckedPokemon: "已进化", expandPlayer: "展开玩家面板", showAllPlayers: "显示所有玩家面板", evolutionReady: "可进化", evolutionWaiting: "进化条件已满足，下一阶段尚未出现", catchPokemon: "捕捉{pokemon}", previewPokemon: "播放{pokemon}的动画与叫声", unknownPokemon: "未知宝可梦", tier: "阶段", rare: "稀有", legendary: "传说", mythical: "幻之", doubleBonus: "永久减少两点{ball}费用", free: "免费", noneYet: "暂无", privateCards: "对其他训练家隐藏", cost: "捕捉费用", evolution: "进化", evolvesTo: "进化为{pokemon}", evolutionRequirement: "需要{count}个永久{ball}奖励", bonusProgress: "当前 {current}/{required}", evolutionTarget: "目标卡须在展示区或由你保留", you: "你", pointsShort: "分",
     recruitedReserved: "已捕捉 {caught} · 已保留 {reserved}", gameComplete: "游戏结束", yourChampion: "你成为了冠军！", trainerChampion: "{name}成为了冠军", restartGame: "再玩一局", hostDecision: "使用相同训练家与计时设置开始新一局；每人的浏览器捕捉图鉴进度会保留。", waitingDecision: "等待房主开始下一局。", animationCaught: "{name}捕捉了{pokemon}！", animationReserved: "{name}保留了一只宝可梦", animationEvolved: "{name}的宝可梦进化了！", animationVictory: "{name}成为冠军！", rareEncounter: "稀有捕捉！", legendaryEncounter: "传说捕捉！", mythicalEncounter: "幻之捕捉！",
     yourTurn: "你的回合", trainerTurn: "{name}的回合", chooseAction: "选择你的行动", finalRound: "最后一轮", finalScores: "最终得分", makeMove: "执行一个行动", watchingLive: "实时观战",
     inviteCopied: "邀请链接已复制", roomCodeToast: "房间代码：{code}", permanentDiscount: "永久减少{ball}费用", roomCreated: "房间已创建",
@@ -132,12 +132,15 @@ let model3dEnabled = localStorage.getItem("pokemon-splendor-3d-enabled") === "tr
 let catalog = [];
 let caughtPokemon = loadCaughtPokemon();
 let collectionTooltip = null;
+let selectedPlayerPanelId = null;
 let pendingTimerSeconds = null;
 let serverClockOffset = 0;
 let activePokemonAudio = null;
 let activeBgmAudio = null;
 let activeBgmAudioId = null;
 let activeTurnReminderAudio = null;
+let activeTimerMusicAudio = null;
+let timerMusicTurnKey = null;
 let gameAnimationQueue = [];
 let gameAnimationRunning = false;
 let pendingRevealCardIds = new Set();
@@ -399,7 +402,19 @@ function installImageFallbacks(root = document) {
         return;
       }
       const fallbackUrl = new URL(image.dataset.fallbackSrc, location.href).href;
-      if (image.src !== fallbackUrl) image.src = fallbackUrl;
+      if (image.dataset.fallbackAttempted !== "true" && image.src !== fallbackUrl) {
+        image.dataset.fallbackAttempted = "true";
+        image.src = fallbackUrl;
+        return;
+      }
+      const finalFallbackUrl = image.dataset.finalFallbackSrc
+        ? new URL(image.dataset.finalFallbackSrc, location.href).href
+        : null;
+      if (finalFallbackUrl && image.dataset.finalFallbackAttempted !== "true" && image.src !== finalFallbackUrl) {
+        image.dataset.finalFallbackAttempted = "true";
+        image.dataset.finalFallbackUsed = "true";
+        image.src = finalFallbackUrl;
+      }
     });
   });
 }
@@ -764,9 +779,19 @@ function renderSettingsControls() {
 
 function renderAudioLevels() {
   elements.bgmVolumeInput.value = String(Math.round(bgmVolume * 100));
-  elements.bgmVolumeValue.value = `${Math.round(bgmVolume * 100)}%`;
+  elements.bgmVolumeValue.textContent = `${Math.round(bgmVolume * 100)}%`;
   elements.sfxVolumeInput.value = String(Math.round(sfxVolume * 100));
-  elements.sfxVolumeValue.value = `${Math.round(sfxVolume * 100)}%`;
+  elements.sfxVolumeValue.textContent = `${Math.round(sfxVolume * 100)}%`;
+}
+
+function lowHealthTimerTrack() {
+  return localBgmTracks.find(({ name }) => name.toLowerCase().includes("low-health-critical-health-pokemon"))
+    ?? localBgmTracks.find(({ name }) => /low health|critical health/.test(name.toLowerCase()))
+    ?? {
+      id: "timer:low-health-critical-health-pokemon",
+      name: "Low Health / Critical Health Pokémon",
+      url: "/assets/musics/low-health-critical-health-pokemon.mp3"
+    };
 }
 
 async function startBgm() {
@@ -792,6 +817,35 @@ function stopBgm({ reset = false } = {}) {
       activeBgmAudioId = null;
     }
   }
+}
+
+function stopTimerMusic() {
+  if (activeTimerMusicAudio) {
+    activeTimerMusicAudio.pause();
+    activeTimerMusicAudio.currentTime = 0;
+    activeTimerMusicAudio = null;
+  }
+  timerMusicTurnKey = null;
+}
+
+function startLowHealthTimerMusic(turnKey) {
+  if (!sfxEnabled) return false;
+  const timerTrack = lowHealthTimerTrack();
+  if (!timerTrack) return false;
+  if (activeTimerMusicAudio && timerMusicTurnKey === turnKey) return true;
+  stopTimerMusic();
+  const audio = new Audio(timerTrack.url);
+  activeTimerMusicAudio = audio;
+  timerMusicTurnKey = turnKey;
+  audio.loop = true;
+  audio.volume = sfxVolume;
+  audio.play().catch(() => {
+    if (activeTimerMusicAudio === audio) {
+      activeTimerMusicAudio = null;
+      timerMusicTurnKey = null;
+    }
+  });
+  return true;
 }
 
 function restartBgm() {
@@ -824,17 +878,20 @@ function setSfxVolume(percent) {
   localStorage.setItem("pokemon-splendor-sfx-volume", String(sfxVolume));
   if (activePokemonAudio) activePokemonAudio.volume = sfxVolume;
   if (activeTurnReminderAudio) activeTurnReminderAudio.volume = sfxVolume;
+  if (activeTimerMusicAudio) activeTimerMusicAudio.volume = sfxVolume;
   renderAudioLevels();
 }
 
 function stopSoundEffects() {
-  for (const audio of [activePokemonAudio, activeTurnReminderAudio]) {
+  for (const audio of [activePokemonAudio, activeTurnReminderAudio, activeTimerMusicAudio]) {
     if (!audio) continue;
     audio.pause();
     audio.currentTime = 0;
   }
   activePokemonAudio = null;
   activeTurnReminderAudio = null;
+  activeTimerMusicAudio = null;
+  timerMusicTurnKey = null;
 }
 
 function pokemonCardArtworkMarkup(card, mystery) {
@@ -909,7 +966,7 @@ function renderLobby() {
     return `
       <button class="trainer-choice ${trainerCard.styleId ?? trainerCard.id} ${selected ? "selected" : ""}" data-trainer-card="${trainerCard.id}" type="button" ${busy || unavailable ? "disabled" : ""}>
         <span class="trainer-choice-art">
-          <img class="trainer-main-art" data-trainer-sprite data-art-mode="${model3dEnabled ? "hd" : "pixel"}" src="${trainerArtworkUrl(trainerCard)}" data-fallback-src="${trainerCard.image}" alt="${escapeHtml(t(trainerCard.labelKey))}">
+          <img class="trainer-main-art" data-trainer-sprite data-art-mode="${model3dEnabled ? "hd" : "pixel"}" src="${trainerArtworkUrl(trainerCard)}" data-fallback-src="${trainerCard.image}" data-final-fallback-src="${model3dEnabled ? trainerCard.fallbackImage : ""}" alt="${escapeHtml(t(trainerCard.labelKey))}">
           <img class="trainer-partner-art" data-pokemon-sprite src="${pokemonAnimatedArtworkUrl(trainerCard.pokedexId)}" data-fallback-src="/assets/pokemon/${trainerCard.pokedexId}.png" alt="" aria-hidden="true">
         </span>
         <strong>${t(trainerCard.labelKey)}</strong>
@@ -962,10 +1019,23 @@ function playerTokenTotal(player) {
   return allTokenTypes.reduce((total, type) => total + (player?.tokens[type] ?? 0), 0);
 }
 
+function evolutionRequirementMet(player, source) {
+  return Boolean(source?.evolution && Object.entries(source.evolution.requiredBonuses)
+    .every(([type, required]) => player?.bonuses[type] >= required));
+}
+
 function evolutionSourceForTarget(player, target) {
   return player?.cards.find((source) => source.evolution?.evolvesTo === target.name
-    && Object.entries(source.evolution.requiredBonuses)
-      .every(([type, required]) => player.bonuses[type] >= required));
+    && evolutionRequirementMet(player, source));
+}
+
+function evolutionTargetForSource(player, source) {
+  if (!source?.evolution) return null;
+  return [...(game?.market?.flat() ?? []), ...(player?.reserved ?? [])].find((target) =>
+    !isPokemonMystery(target)
+    && target.name === source.evolution.evolvesTo
+    && evolutionSourceForTarget(player, target)?.id === source.id
+  ) ?? null;
 }
 
 function isPokemonRevealed(card) {
@@ -1122,7 +1192,8 @@ function ballCardShellMarkup(type) {
 function cardMarkup(card, isMyTurn, player) {
   const affordable = canAfford(player, card);
   const isActionPhase = isMyTurn && game.turnPhase === "action";
-  const evolutionSource = isMyTurn && game.turnPhase === "evolve" ? evolutionSourceForTarget(player, card) : null;
+  const evolutionReadySource = isPokemonMystery(card) ? null : evolutionSourceForTarget(player, card);
+  const evolutionSource = isMyTurn && game.turnPhase === "evolve" ? evolutionReadySource : null;
   const mayReserve = card.kind === "stage" && (player?.reserved.length ?? 3) < 3;
   const bonusTitle = card.bonusAmount === 2
     ? t("doubleBonus", { ball: ballLabel(card.bonus) })
@@ -1130,7 +1201,7 @@ function cardMarkup(card, isMyTurn, player) {
   const mystery = isPokemonMystery(card);
   const displayName = pokemonDisplayName(card);
   return `
-    <article class="pokemon-card bonus-${card.bonus} ${card.bonusAmount === 2 ? "double-bonus" : ""} ${card.kind !== "stage" ? `special-card ${card.kind}` : ""} ${affordable ? "affordable" : ""} ${pendingRevealCardIds.has(card.id) ? "market-card-pending-reveal" : ""}" data-card-id="${card.id}" aria-label="${escapeHtml(`${displayName} · ${bonusTitle}`)}" style="--card-color:${colors[card.bonus]}">
+    <article class="pokemon-card bonus-${card.bonus} ${card.bonusAmount === 2 ? "double-bonus" : ""} ${card.kind !== "stage" ? `special-card ${card.kind}` : ""} ${affordable ? "affordable" : ""} ${evolutionReadySource ? "evolution-ready" : ""} ${pendingRevealCardIds.has(card.id) ? "market-card-pending-reveal" : ""}" data-card-id="${card.id}" aria-label="${escapeHtml(`${displayName} · ${bonusTitle}${evolutionReadySource ? ` · ${t("evolutionReady")}` : ""}`)}" style="--card-color:${colors[card.bonus]}">
       ${ballCardShellMarkup(card.bonus)}
       <div class="card-top">${card.points > 0 ? `<strong class="card-points">${card.points}</strong>` : ""}</div>
       <button class="pokemon-art" data-pokemon-preview="${card.pokedexId}" data-cry-src="${pokemonCryUrl(card.pokedexId)}" type="button" aria-label="${mystery ? escapeHtml(t("unknownPokemon")) : escapeHtml(t("previewPokemon", { pokemon: displayName }))}" ${mystery ? "disabled" : ""}>
@@ -1198,10 +1269,11 @@ function resourceMarkup(player, source) {
   `).join("") || `<span class="helper-text">${t("noneYet")}</span>`;
 }
 
-function collectionCardMarkup(card, { reserved = false, action = null, enabled = false, sourceCardId = null } = {}) {
+function collectionCardMarkup(card, { reserved = false, action = null, enabled = false, sourceCardId = null, evolutionReady = false, evolutionWaiting = false } = {}) {
   const mystery = reserved && isPokemonMystery(card);
   const name = mystery ? t("unknownPokemon") : pokemonName(card);
-  const title = `${name} · ${card.points} ${t("pointsShort")}`;
+  const evolutionStatus = evolutionReady ? t("evolutionReady") : evolutionWaiting ? t("evolutionWaiting") : "";
+  const title = `${name} · ${card.points} ${t("pointsShort")}${evolutionStatus ? ` · ${evolutionStatus}` : ""}`;
   const content = `
     ${card.points > 0 ? `<span class="collection-points">${card.points}</span>` : ""}
     <img class="${mystery ? "mystery-silhouette" : ""}" data-pokemon-sprite src="${pokemonAnimatedArtworkUrl(card.pokedexId)}" data-fallback-src="/assets/pokemon/${card.pokedexId}.png" alt="" loading="lazy">
@@ -1210,7 +1282,7 @@ function collectionCardMarkup(card, { reserved = false, action = null, enabled =
   if (action) {
     return `<button class="collection-card reserved" data-reserved-id="${card.id}" data-collection-action="${action}" ${sourceCardId ? `data-source-id="${sourceCardId}"` : ""} data-details-id="${card.id}" type="button" title="${escapeHtml(title)}" aria-label="${escapeHtml(action === "evolve" ? t("evolve") : t("catchPokemon", { pokemon: name }))}" aria-disabled="${enabled ? "false" : "true"}">${content}</button>`;
   }
-  return `<article class="collection-card ${reserved ? "reserved" : "caught"}" data-details-id="${card.id}" tabindex="0" title="${escapeHtml(title)}">${content}</article>`;
+  return `<article class="collection-card ${reserved ? "reserved" : "caught"} ${evolutionReady ? "evolution-ready" : evolutionWaiting ? "evolution-waiting" : ""}" data-details-id="${card.id}" tabindex="0" title="${escapeHtml(title)}">${content}</article>`;
 }
 
 function collectionDetailsMarkup(card, owner) {
@@ -1280,11 +1352,22 @@ function showCollectionTooltip(card, owner, anchor) {
 
 function renderPlayers(isMyTurn) {
   hideCollectionTooltip();
+  if (selectedPlayerPanelId && !game.players.some((player) => player.id === selectedPlayerPanelId)) {
+    selectedPlayerPanelId = null;
+  }
+  elements.players.classList.toggle("player-focus-mode", Boolean(selectedPlayerPanelId));
   elements.players.innerHTML = game.players.map((player, index) => {
     const isSelf = player.id === session.playerId;
     const isActive = index === game.turnIndex && game.status === "playing";
+    const panelExpanded = !selectedPlayerPanelId || selectedPlayerPanelId === player.id;
     const reservedCount = player.reservedCount ?? player.reserved.length;
-    const caughtCards = player.cards.map((card) => collectionCardMarkup(card)).join("");
+    const caughtCards = player.cards.map((card) => {
+      const evolutionReady = isSelf && Boolean(evolutionTargetForSource(player, card));
+      return collectionCardMarkup(card, {
+        evolutionReady,
+        evolutionWaiting: isSelf && !evolutionReady && evolutionRequirementMet(player, card)
+      });
+    }).join("");
     const reservedCards = isSelf ? player.reserved.map((card) => {
       const evolutionSource = isMyTurn && game.turnPhase === "evolve" ? evolutionSourceForTarget(player, card) : null;
       return collectionCardMarkup(card, {
@@ -1298,11 +1381,12 @@ function renderPlayers(isMyTurn) {
       ? reservedCards || `<small>${t("noneYet")}</small>`
       : reservedCount > 0 ? `<small class="private-cards">${t("privateCards")}</small>` : `<small>${t("noneYet")}</small>`;
     return `
-      <article class="player-card ${isActive ? "active" : ""}">
+      <article class="player-card ${isActive ? "active" : ""} ${panelExpanded ? "expanded" : "collapsed"}"${panelExpanded ? "" : ` data-collapsed-player-card="${player.id}" tabindex="0" role="button" aria-label="${escapeHtml(`${t("expandPlayer")}: ${player.name}`)}"`}>
         <div class="player-header">
           ${trainerAvatarMarkup(player)}
           <h3>${escapeHtml(player.name)}${isSelf ? ` (${t("you")})` : ""}</h3>
           <span class="player-score">${player.points} <small>${t("pointsShort")}</small></span>
+          <button class="player-card-focus-toggle" data-focus-player-card="${player.id}" type="button" aria-expanded="${String(panelExpanded)}" title="${t(panelExpanded && selectedPlayerPanelId ? "showAllPlayers" : "expandPlayer")}" aria-label="${t(panelExpanded && selectedPlayerPanelId ? "showAllPlayers" : "expandPlayer")}">${panelExpanded && selectedPlayerPanelId ? "⊞" : "⤢"}</button>
         </div>
         <div class="resource-line" title="Energy tokens">${resourceMarkup(player, "tokens")}</div>
         <div class="resource-line" title="Permanent discounts">${resourceMarkup(player, "bonuses")}</div>
@@ -1330,6 +1414,25 @@ function renderPlayers(isMyTurn) {
       });
     });
   });
+  elements.players.querySelectorAll("[data-focus-player-card]").forEach((button) => {
+    button.addEventListener("click", () => {
+      const { focusPlayerCard: playerId } = button.dataset;
+      selectedPlayerPanelId = selectedPlayerPanelId === playerId ? null : playerId;
+      renderPlayers(isMyTurn);
+    });
+  });
+  elements.players.querySelectorAll("[data-collapsed-player-card]").forEach((card) => {
+    const focusPlayer = () => {
+      selectedPlayerPanelId = card.dataset.collapsedPlayerCard;
+      renderPlayers(isMyTurn);
+    };
+    card.addEventListener("click", focusPlayer);
+    card.addEventListener("keydown", (event) => {
+      if (event.key !== "Enter" && event.key !== " ") return;
+      event.preventDefault();
+      focusPlayer();
+    });
+  });
   elements.players.querySelectorAll("[data-details-id]").forEach((element) => {
     const owner = game.players.find((player) => [...player.cards, ...player.reserved].some((card) => card.id === element.dataset.detailsId));
     const card = [...(owner?.cards ?? []), ...(owner?.reserved ?? [])].find((candidate) => candidate.id === element.dataset.detailsId);
@@ -1352,14 +1455,28 @@ function formatTimer(seconds) {
 function renderTurnTimer() {
   const timerActive = game?.status === "playing" && game.turnDurationSeconds > 0 && Number.isFinite(game.turnStartedAt);
   elements.turnTimer.classList.toggle("hidden", !timerActive);
-  if (!timerActive) return;
+  if (!timerActive) {
+    if (timerMusicTurnKey || activeTimerMusicAudio) stopTimerMusic();
+    return;
+  }
 
   const deadline = game.turnStartedAt + game.turnDurationSeconds * 1000;
   const secondsRemaining = Math.max(0, Math.ceil((deadline - (Date.now() + serverClockOffset)) / 1000));
-  elements.turnTimer.textContent = `⏱ ${formatTimer(secondsRemaining)}`;
-  elements.turnTimer.title = t("timeRemaining");
-  elements.turnTimer.setAttribute("aria-label", `${t("timeRemaining")}: ${secondsRemaining}`);
-  elements.turnTimer.classList.toggle("warning", secondsRemaining <= 10);
+  const lowTime = secondsRemaining <= 10;
+  const activePlayerId = game.players[game.turnIndex]?.id;
+  const alertTurnKey = `${game.turnStartedAt}:${activePlayerId}`;
+  const isMyTurn = activePlayerId === session?.playerId;
+  elements.turnTimer.textContent = `${lowTime ? "⚠" : "⏱"} ${formatTimer(secondsRemaining)}`;
+  elements.turnTimer.title = lowTime ? t("lowTimeAlert") : t("timeRemaining");
+  elements.turnTimer.setAttribute("aria-label", lowTime
+    ? `${t("lowTimeAlert")} ${secondsRemaining}`
+    : `${t("timeRemaining")}: ${secondsRemaining}`);
+  elements.turnTimer.classList.toggle("warning", lowTime);
+  if (lowTime && isMyTurn && timerMusicTurnKey !== alertTurnKey) {
+    startLowHealthTimerMusic(alertTurnKey);
+  } else if ((!lowTime || !isMyTurn) && timerMusicTurnKey) {
+    stopTimerMusic();
+  }
 }
 
 function renderGame() {
@@ -1713,8 +1830,12 @@ document.addEventListener("pointerdown", () => {
   if (bgmEnabled) startBgm();
 }, { once: true });
 document.addEventListener("visibilitychange", () => {
-  if (document.hidden) stopBgm();
-  else if (bgmEnabled) startBgm();
+  if (document.hidden) {
+    stopBgm();
+    stopTimerMusic();
+  } else if (bgmEnabled) {
+    startBgm();
+  }
 });
 
 async function initialize() {
